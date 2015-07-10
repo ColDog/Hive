@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many  :supply_lists
   has_many  :organization_members
+  has_one   :admin
 
   has_secure_password
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

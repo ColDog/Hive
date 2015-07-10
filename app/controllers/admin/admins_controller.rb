@@ -11,14 +11,14 @@ class Admin::AdminsController < ApplicationController
       redirect_to admin_admins_path
     else
       flash[:danger] = 'admin create failed.'
-      render 'new'
+      redirect_to :back
     end
   end
 
   def destroy
     Admin.find(params[:id]).destroy
-    flash[:success] = 'admin deleted'.
-    redirect_to root_path
+    flash[:success] = 'admin deleted'
+    redirect_to :back
   end
 
   private

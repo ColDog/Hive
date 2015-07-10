@@ -1,16 +1,10 @@
-= render 'admin/shared/index',  data: @admins,
-                                header: %w"Name Email Actions",
-                                methods: [:name, :email],
-                                links: [ ['edit', :edit_admin_admin_path], ['delete', :admin_admin_path, method: :delete] ],
-                                new: ['New Administrator', :new_admin_admin_path],
-                                main: ['Administrators', :admin_admins_path],
-                                title: 'Administrators'
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/shared/sidebar', active: 'Administrators'
+  %div.col-md-10
+    %h1 Administrators
 
-
--# data = variable
--# header = array table headers
--# methods = array of table methods
--# links = array of table links
--# new = array with ['link', new_something_path]
--# main = array with ['link', somethings_path]
--# title = title
+    = render 'admin/shared/table',  data: @admins,
+                                    header: %w"Name Email Actions",
+                                    methods: [[:user, :name], [:user, :email]],
+                                    links: [['delete', :admin_admins_path, method: :delete]]
