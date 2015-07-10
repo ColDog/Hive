@@ -1,0 +1,22 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/shared/sidebar', active: title
+  %div.col-md-10
+    %h1
+      = title
+    %ul.nav.nav-tabs
+      %li.active{ role: 'presentation' }
+        = link_to main[0], send(main[1])
+      %li{ role: 'presentation' }
+        = link_to new[0], send(new[1])
+
+    = render 'admin/shared/table', data: data, header: header, methods: methods, links: links
+
+
+-# data = variable
+-# header = array table headers
+-# methods = array of table methods
+-# links = array of table links
+-# new = array with ['link', new_something_path]
+-# main = array with ['link', somethings_path]
+-# title = title

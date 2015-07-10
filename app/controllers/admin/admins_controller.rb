@@ -16,7 +16,7 @@ class Admin::AdminsController < ApplicationController
     @admin = Admin.new(admin_params)
     if @admin.save
       flash[:success] = 'admin created!'
-      redirect_to admin_admin_path(@admin)
+      redirect_to admin_admins_path
     else
       flash[:danger] = 'admin create failed.'
       render 'new'

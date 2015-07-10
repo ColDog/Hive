@@ -11,6 +11,8 @@
     = link_to 'Supplies', admin_supplies_path
   %li{ class: active == 'users' ? 'active' : '' }
     = link_to 'Users', admin_users_path
+  %li{ class: active == 'Administrators' ? 'active' : '' }
+    = link_to 'Administrators', admin_admins_path
 %hr
 %ul.nav.nav-sidebar.nav-pills.nav-stacked
   %li

@@ -1,0 +1,16 @@
+= render 'admin/shared/index',  data: @admins,
+                                header: %w"Name Email Actions",
+                                methods: [:name, :email],
+                                links: [ ['edit', :edit_admin_admin_path], ['delete', :admin_admin_path, method: :delete] ],
+                                new: ['New Administrator', :new_admin_admin_path],
+                                main: ['Administrators', :admin_admins_path],
+                                title: 'Administrators'
+
+
+-# data = variable
+-# header = array table headers
+-# methods = array of table methods
+-# links = array of table links
+-# new = array with ['link', new_something_path]
+-# main = array with ['link', somethings_path]
+-# title = title
