@@ -1,0 +1,18 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/sidebar', active: 'users'
+  %div.col-md-10
+    %h1 Users
+    %ul.nav.nav-tabs
+      %li{ role: 'presentation' }
+        = link_to 'Users', admin_users_path
+      %li.active{ role: 'presentation' }
+        = link_to 'Edit Users', '#'
+
+    = render 'admin/users/form', supply: @user, url: admin_supply_path(@user), method: :put
+
+    %h3 Associated
+    %ul
+      - @user.supply_lists.each do |list|
+        %li
+          = list.supply.name

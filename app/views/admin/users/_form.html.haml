@@ -1,0 +1,14 @@
+%br
+= form_for supply, url: url, method: method do |f|
+  = f.text_field :name, placeholder: 'name', class: 'form-control'
+  = f.email_field :email, placeholder: 'email', class: 'form-control'
+  = f.check_box :account_contact
+  = f.label 'Account Contact'
+  = f.check_box :admin_contact
+  = f.label 'Admin Contact'
+  = f.check_box :can_edit_organization
+  = f.label 'Can Edit Organization'
+  = f.password_field :password, placeholder: 'password', class: 'form-control'
+  = f.password_field :password_confirmation, placeholder: 'password', class: 'form-control'
+  %br
+  = f.submit 'Create', class: 'btn btn-primary'

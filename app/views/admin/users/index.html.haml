@@ -1,0 +1,15 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/sidebar', active: 'users'
+  %div.col-md-10
+    %h1 Users
+    %ul.nav.nav-tabs
+      %li.active{ role: 'presentation' }
+        = link_to 'Users', admin_users_path
+      %li{ role: 'presentation' }
+        = link_to 'New User', new_admin_user_path
+
+    = render 'admin/table', data: @users,
+                            header: %w"Name Email Actions",
+                            methods: [:name, :email],
+                            links: [ ['show', :edit_admin_user_path], ['delete', :admin_user_path, method: :delete] ]

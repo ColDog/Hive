@@ -16,7 +16,7 @@ class Admin::SuppliesController < ApplicationController
     @supply = Supply.new(supply_params)
     if @supply.save
       flash[:success] = 'supply created!'
-      redirect_to admin_supply_path(@supply)
+      redirect_to admin_supplies_path
     else
       flash[:danger] = 'supply create failed.'
       render 'new'

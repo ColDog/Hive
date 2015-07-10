@@ -10,6 +10,6 @@
         = link_to 'New Supply', new_admin_supply_path
 
     = render 'admin/table', data: @supplies,
-                            header: %w"Name Type Maximum Notes",
-                            methods: [:name, :type, :maximum, :notes],
+                            header: %w"Name Type Maximum Notes Actions",
+                            methods: [:name, :category, :maximum, :notes],
                             links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete] ]
