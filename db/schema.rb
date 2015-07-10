@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150710051558) do
 
   create_table "supplies", force: :cascade do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "category"
     t.string   "maximum"
     t.text     "notes"
     t.datetime "created_at", null: false

@@ -2,16 +2,16 @@
   %thead
     %tr
       - header.each do |header|
-        %td
+        %th
           = header
-    - data.each do |data|
-      %tr
-        - methods.each do |method|
-          %td
-            - if method.class == Array
-              = data.send(method[0]).send(method[1])
-            - else
-              = data.send(method)
+  - data.each do |data|
+    %tr
+      - methods.each do |method|
         %td
-          - links.each do |link|
-            = link_to link[0], send(link[1], data), link[2]
+          - if method.class == Array
+            = data.send(method[0]).send(method[1])
+          - else
+            = data.send(method)
+      %td
+        - links.each do |link|
+          = link_to link[0], send(link[1], data), link[2]

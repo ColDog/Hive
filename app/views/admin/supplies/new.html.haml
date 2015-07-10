@@ -1,0 +1,12 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/sidebar', active: 'supplies'
+  %div.col-md-10
+    %h1 Supplies
+    %ul.nav.nav-tabs
+      %li{ role: 'presentation' }
+        = link_to 'Supplies', admin_supplies_path
+      %li.active{ role: 'presentation' }
+        = link_to 'New Supply', new_admin_supply_path
+
+    = render 'admin/supplies/form', supply: @supply, url: admin_supplies_path, method: :post
