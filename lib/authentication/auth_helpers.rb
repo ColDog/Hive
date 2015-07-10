@@ -18,6 +18,16 @@ module AuthHelpers
     @current_admin ||= Admin.find_by(id: session[:admin_id])
   end
 
+  # checks if current user
+  def current_user?
+    !current_user.nil?
+  end
+
+  # checks if current admin
+  def current_admin?
+    !current_admin.nil?
+  end
+
   # logs out the current user
   def log_out_user
     session.delete(:user_id)
