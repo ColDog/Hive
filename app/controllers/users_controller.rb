@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -47,6 +48,13 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit!
+    end
+
+    def correct_user
+      unless params[:id] == current_user.id
+        flash[:danger] = 'You do not have the permissions'
+        redirect_to root_path
+      end
     end
 
 end
