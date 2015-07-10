@@ -16,7 +16,7 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params)
     if @organization.save
       flash[:success] = 'Organization created!'
-      redirect_to user_path(@organization)
+      redirect_to admin_organizations_path
     else
       flash[:danger] = 'Organization create failed.'
       render 'new'

@@ -1,10 +1,7 @@
-class Admin::SupplyListController < ApplicationController
+class Admin::SupplyListsController < ApplicationController
 
   def create
-    supply_list = SupplyList.new(
-      user_id: params[:supply_list][:user_id],
-      supply_id: params[:supply_list][:supply_id]
-    )
+    supply_list = SupplyList.new(supply_params)
     if supply_list.save
       flash[:success] = 'Successfully added user to supply.'
       redirect_to :back
@@ -19,5 +16,10 @@ class Admin::SupplyListController < ApplicationController
     flash[:success] = 'Successfully removed user from supply.'
     redirect_to :back
   end
+
+  private
+    def supply_params
+      params.require(:supply_list).permit(:user_id, :supply_id, :name, :notes)
+    end
 
 end

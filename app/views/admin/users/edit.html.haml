@@ -11,14 +11,24 @@
 
     = render 'admin/users/form', supply: @user, url: admin_supply_path(@user), method: :put
 
-    %div.col-md-6
+    %div.col-md-5
       %h3 Associated
       %ul
         - @user.supply_lists.each do |list|
           %li
+            Name:
             = list.supply.name
-    %div.col-md-6
+            | Item Name:
+            = list.name
+            | Notes:
+            = list.notes
+    %div.col-md-7
       %h3 Add a Supply
-      = form_for :supply_list, url: admin_supplies_path, method: :post do |f|
+      = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
         = f.hidden_field :user_id, value: @user.id
-        = f.select options_from_collection_for_select(SupplyList.all, 'id', 'supply'), class: 'form-control'
+        = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'short-form form-control'}
+        = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+        = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+        %br
+        %br
+        = f.submit 'Add', class: 'btn btn-primary'

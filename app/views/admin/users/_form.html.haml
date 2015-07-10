@@ -8,6 +8,9 @@
   = f.label 'Admin Contact'
   = f.check_box :can_edit_organization
   = f.label 'Can Edit Organization'
+  %br
+  = f.label 'Is a part of organization:'
+  = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'form-control'}
   = f.password_field :password, placeholder: 'password', class: 'form-control'
   = f.password_field :password_confirmation, placeholder: 'password', class: 'form-control'
   %br
