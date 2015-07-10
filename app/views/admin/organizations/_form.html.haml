@@ -1,0 +1,4 @@
+= form_for organization, url: url, method: method do |f|
+  = f.text_field :name, placeholder: 'organization name', class: 'form-control'
+  = f.text_field :tags, placeholder: 'tags', class: 'form-control'
+  = f.text_area :description, placeholder: 'description', class: 'form-control'

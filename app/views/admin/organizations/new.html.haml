@@ -1,0 +1,12 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/sidebar', active: 'organizations'
+  %div.col-md-10
+    %h1 Organizations
+    %ul.nav.nav-tabs
+      %li{ role: 'presentation' }
+        = link_to 'Organizations', admin_organizations_path
+      %li.active{ role: 'presentation' }
+        = link_to 'New Organization', new_admin_organization_path
+
+      = render 'admin/organizations/form', organization: @organization, url: admin_organizations_path, method: :post
