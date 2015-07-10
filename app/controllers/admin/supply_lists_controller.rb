@@ -1,4 +1,5 @@
 class Admin::SupplyListsController < ApplicationController
+  before_action :authenticate_admin
 
   def create
     supply_list = SupplyList.new(supply_params)

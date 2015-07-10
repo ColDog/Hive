@@ -1,4 +1,5 @@
 class Admin::OrganizationMembersController < ApplicationController
+  before_action :authenticate_admin
 
   def create
     member = OrganizationMember.new(member_params)
