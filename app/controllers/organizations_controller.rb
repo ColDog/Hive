@@ -14,7 +14,7 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.new(organization_params)
+    @organization = current_user.organizations.build(organization_params)
     if @organization.save
       flash[:success] = 'Organization created!'
       redirect_to user_path(@organization)
