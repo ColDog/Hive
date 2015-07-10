@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :supplies
     resources :admins
     resources :sessions
-    get '/admin' => 'dashboard#index', as: 'admin_root_path'
+    get '/' => 'dashboard#index', as: 'dashboard_path'
   end
   root to: 'home#index'
 end
