@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     end
 
     def correct_user
-      unless params[:id] == current_user.id
+      unless params[:id].to_i == current_user.id
         flash[:danger] = 'You do not have the permissions'
         redirect_to root_path
       end

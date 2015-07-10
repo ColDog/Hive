@@ -6,7 +6,7 @@
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
-    %a.navbar-brand{href: "#"} HIVE
+    %a.navbar-brand{href: '/'} HIVE
   / Collect the nav links, forms, and other content for toggling
   .collapse.navbar-collapse.navbar-ex1-collapse
     %form.navbar-form.navbar-left{role: "search"}
@@ -15,16 +15,24 @@
       %button.btn.btn-default{type: "submit"} Submit
     %ul.nav.navbar-nav.navbar-right
       %li
-        %a{href: "#"} Users
+        = link_to 'Users', users_path
       %li
-        %a{href: "#"} Organizations
+        = link_to 'Organizations', organizations_path
       - if current_user?
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-            current_user.name
+            = current_user.name
             %b.caret
           %ul.dropdown-menu
             %li
               = link_to 'Account', edit_user_path(current_user)
             %li
               = link_to 'Log Out', session_path(current_user), method: :delete
+            - if current_user.admin
+              %li
+                = link_to 'Admin', '/admin'
+      - else
+        %li
+          = link_to 'Log In', new_session_path
+        %li
+          = link_to 'Sign Up', new_user_path

@@ -1,6 +1,12 @@
 %h1 Edit User
-= form_for @user do |f|
-  = f.text_field :name, placeholder: 'name', class: 'form-control'
-  = f.email_field :email, placeholder: 'email', class: 'form-control'
-  = f.password_field :password, placeholder: 'password', class: 'form-control'
-  = f.password_field :password_confirmation, placeholder: 'confirm password', class: 'form-control'
+%div.form
+  = form_for @user do |f|
+    = f.text_field :name, placeholder: 'name', class: 'form-control'
+    = f.email_field :email, placeholder: 'email', class: 'form-control'
+    = f.password_field :password, placeholder: 'password', class: 'form-control'
+    = f.password_field :password_confirmation, placeholder: 'confirm password', class: 'form-control'
+
+%div.form
+  %h2 Manage My Organizations
+  - @user.organizations.each do |org|
+    = link_to org.name, edit_organization_path(org)

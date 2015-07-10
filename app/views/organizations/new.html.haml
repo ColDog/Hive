@@ -2,4 +2,5 @@
 %div.form
   = form_for @organization do |f|
     = f.text_field :name, placeholder: 'name', class: 'form-control'
-    = f.text_area :description, placeholder: 'name', class: 'form-control'
+    = f.text_area :description, placeholder: 'description', class: 'form-control'
+    = f.submit 'Create', class: 'btn btn-primary'

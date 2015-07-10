@@ -14,10 +14,11 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = current_user.organizations.build(organization_params)
+    @organization = Organization.new(organization_params)
     if @organization.save
+      OrganizationMember.create!(organization_id: @organization.id, user_id: current_user.id, user_can_edit: true)
       flash[:success] = 'Organization created!'
-      redirect_to user_path(@organization)
+      redirect_to organizations_path
     else
       flash[:danger] = 'Organization create failed.'
       render 'new'

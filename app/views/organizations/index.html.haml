@@ -1,4 +1,9 @@
-- @organizations.each do |org|
-  = org.name
-  = org.description
-  %br
+%div.content
+  %h1 All Organizations
+  = link_to 'Create Organization', new_organization_path, class: 'btn btn-default'
+  - @organizations.each do |org|
+    %h3
+      = org.name
+    %p
+      = org.description
+    %hr

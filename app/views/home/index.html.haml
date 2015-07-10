@@ -1,0 +1,55 @@
+%div.content
+  %h1 Home Page
+
+  %p Welcome to the demonstration for HIVE.
+
+  %p
+    This website is intended as a prototype demonstration for the Riipen project created by HIVE for a user management web interface.
+    I like to do by showing. So here is a working prototype, a project I would build upon to based on your more detailed specifications.
+    I hope this shows both my technical ability and vision are what you are looking for.
+
+  %h4 Strategy
+  %p
+    There are four different data models:
+  %p
+    The first is the organization, it contains basic information about
+    the organization as well a list of employees. Anyone can create their own organization
+    (go to the organizations page) and this person is allowed to add users to their organization, and choose whether
+    they can edit the organization or not.
+  %p
+    The second is the user model, as has been discussed it can be a part of an organization. Users can create
+    their own accounts and edit their own information. They cannot add themselves to any organization, however,
+    this can only be done by the specified editors of the organization in question or the general admins.
+  %p
+    Users can have supplies. I don't really like the word 'supplies' but it's what I'm going with for now, these
+    are things like desks, key fobs or whatever you choose. You can choose how many are allowed to be allocated,
+    their names and attach specific notes to the supply attached to the user. For example, I create a supply and
+    name it desks, I can set the maximum number of desks to be 100 and then I can give the desks to each user a
+    name. We can work together on customizing these to your specific needs, but I think this is a good overall
+    strategy which allows flexibility in the long run since you are not locked into a fixed set of types or
+    categories.
+  %p
+    Finally there is an admin model, these are users, entered into the user database, with specific permissions
+    that allow them to edit anything and everything in a backend user interface. The website requires that whenever
+    you go to the '/admin' section of the domain, you must be an admin user. You can add admin users easily by
+    clicking a user and selecting 'make user an administrator.'
+
+  %h4 Getting started
+  %p
+    Get started by clicking around and creating an account, create an organization and see what that looks like.
+    Most of the work, however, has been done on the back end. So log in as an admin (email: admin@admin.com,
+    password: password) and click on the name 'administrator' in the top left corner, and then select
+    'admin' from the drop down. Now you will be able to see the process of creating, editing and updating the users.
+
+  %h4 Timeline
+  %p
+    The timeline of the project really depends on how many more features are needed to build. I would need to
+    have a discussion with you about what you think of this, and how many more things you would like in it.
+    That being said, this prototype took me about 3-4 hours to build, and if you liked it as is, would not take
+    longer than another 10-12 hours to finish off.
+
+  %h4 Contact
+  %p
+    Let me know what you think!
+    = link_to 'www.colinw.info', 'http://www.colinw.info'
+    = link_to 'cjwalker@sfu.ca', 'mailto:cjwalker@sfu.ca'

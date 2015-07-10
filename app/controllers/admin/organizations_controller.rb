@@ -42,7 +42,7 @@ class Admin::OrganizationsController < ApplicationController
   def destroy
     Organization.find(params[:id]).destroy
     flash[:success] = 'Organization deleted.'
-    redirect_to root_path
+    redirect_to admin_organizations_path
   end
 
   private

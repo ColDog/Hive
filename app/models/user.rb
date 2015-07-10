@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many  :supply_lists
   has_many  :organization_members
+  has_many  :organizations, through: :organization_members
   has_one   :admin
 
   has_secure_password
