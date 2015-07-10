@@ -8,7 +8,7 @@ class Admin::SessionsController < ApplicationController
     if admin && admin.authenticate(params[:session][:password])
       flash[:success] = 'Successfully Logged In'
       log_in_admin admin
-      redirect_to '/'
+      redirect_to root_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
       redirect_to new_admin_session_path
@@ -16,8 +16,8 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
-    log_out_admin if current_admin
-    redirect_to '/'
+    log_out_admin
+    redirect_to root_path
   end
 
 end
