@@ -222,7 +222,7 @@ DEPENDENCIES
   jquery-rails
   minitest
   minitest-reporters
-  pg
+  pg (~> 0.18.2)
   puma
   rails (= 4.2.3)
   rails_12factor
