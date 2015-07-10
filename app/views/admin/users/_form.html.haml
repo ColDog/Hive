@@ -6,10 +6,8 @@
     = f.text_field :name, placeholder: 'name', class: 'form-control'
     = f.email_field :email, placeholder: 'email', class: 'form-control'
     %br
-    = f.label 'Is a part of organization:'
-    = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), { include_blank: true}, {class: 'form-control'}
     = f.password_field :password, placeholder: 'password', class: 'form-control'
-    = f.password_field :password_confirmation, placeholder: 'password', class: 'form-control'
+    = f.password_field :password_confirmation, placeholder: 'password confirmation', class: 'form-control'
     %br
     = f.submit 'Create', class: 'btn btn-primary'
 %div.col-md-8
@@ -32,7 +30,7 @@
         | Notes:
         = list.notes
   %h3 Organizations
-  = form_for :organization_members, url: admin_organization_members_path, method: :post do |f|
+  = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
     = f.hidden_field :user_id, value: @user.id
     = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'short-form form-control'}
     %br
@@ -47,12 +45,14 @@
     %br
     %br
     = f.submit 'Add', class: 'btn btn-primary'
-  %ul
+  %table.table
     - @user.organization_members.each do |list|
-      %li
-        Name:
-        = list.organization.name
-        | Admin Contact:
-        = list.admin_contact
-        | Account Contact:
-        = list.account_contact
+      %tr
+        %td
+          = list.organization.name
+        %td
+          Admin Contact?
+          = list.admin_contact
+        %td
+          Accounting Contact?
+          = list.account_contact

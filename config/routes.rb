@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :admins
     resources :sessions
     resources :supply_lists
+    resources :organization_members
     get '/' => 'dashboard#index', as: 'dashboard_path'
   end
   root to: 'home#index'
