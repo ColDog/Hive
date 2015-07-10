@@ -17,12 +17,12 @@ ActiveRecord::Schema.define(version: 20150710190117) do
   enable_extension "plpgsql"
 
   create_table "admins", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "admins", ["user_id"], name: "index_admins_on_user_id", using: :btree
 
   create_table "organization_members", force: :cascade do |t|
     t.integer  "user_id"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150710190117) do
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
+  add_foreign_key "admins", "users"
   add_foreign_key "organization_members", "organizations"
   add_foreign_key "organization_members", "users"
   add_foreign_key "supply_lists", "supplies"
