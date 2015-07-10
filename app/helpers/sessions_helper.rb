@@ -19,7 +19,7 @@ module SessionsHelper
     end
   end
   def authenticate_admin
-    unless current_user.admin
+    unless current_user? && current_user.admin
       flash[:danger] = 'Please Log In'
       redirect_to new_session_path
     end

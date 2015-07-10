@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :sessions
   resources :organizations
   resources :users
+  resources :organization_members
   namespace :admin do
     resources :organizations
     resources :users

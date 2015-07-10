@@ -42,7 +42,7 @@ class Admin::SuppliesController < ApplicationController
   def destroy
     Supply.find(params[:id]).destroy
     flash[:success] = 'supply deleted.'
-    redirect_to root_path
+    redirect_to admin_supplies_path
   end
 
   private

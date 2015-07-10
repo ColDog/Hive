@@ -3,3 +3,43 @@
   = form_for @organization do |f|
     = f.text_field :name, placeholder: 'name', class: 'form-control'
     = f.text_area :description, placeholder: 'name', class: 'form-control'
+
+
+  %br
+  %h3 Organization Members
+  = form_for :organization_member, url: organization_members_path, method: :post do |f|
+    = f.select :user_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'short-form form-control'}
+    = f.hidden_field :organization_id, value: @organization.id
+    %br
+    %br
+    = f.check_box :account_contact
+    = f.label 'Account Contact'
+    %br
+    = f.check_box :admin_contact
+    = f.label 'Admin Contact'
+    %br
+    = f.check_box :user_can_edit
+    = f.label 'Can Edit Organization'
+    %br
+    = f.submit 'Add', class: 'btn btn-primary'
+
+  %br
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Email
+        %th Can Edit?
+        %th Accounting Contact
+    - @organization.organization_members.each do |list|
+      %tr
+        %td
+          = list.user.name
+        %td
+          = list.user.email
+        %td
+          = list.user_can_edit
+        %td
+          = list.account_contact
+        %td
+          = list.admin_contact
