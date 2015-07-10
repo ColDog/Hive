@@ -1,17 +1,58 @@
 %br
-= form_for supply, url: url, method: method do |f|
-  = f.text_field :name, placeholder: 'name', class: 'form-control'
-  = f.email_field :email, placeholder: 'email', class: 'form-control'
-  = f.check_box :account_contact
-  = f.label 'Account Contact'
-  = f.check_box :admin_contact
-  = f.label 'Admin Contact'
-  = f.check_box :can_edit_organization
-  = f.label 'Can Edit Organization'
-  %br
-  = f.label 'Is a part of organization:'
-  = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'form-control'}
-  = f.password_field :password, placeholder: 'password', class: 'form-control'
-  = f.password_field :password_confirmation, placeholder: 'password', class: 'form-control'
-  %br
-  = f.submit 'Create', class: 'btn btn-primary'
+%div.col-md-4
+  %div.form
+  %h3 User
+  = form_for variable, url: url, method: method do |f|
+    = f.text_field :name, placeholder: 'name', class: 'form-control'
+    = f.email_field :email, placeholder: 'email', class: 'form-control'
+    %br
+    = f.label 'Is a part of organization:'
+    = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), { include_blank: true}, {class: 'form-control'}
+    = f.password_field :password, placeholder: 'password', class: 'form-control'
+    = f.password_field :password_confirmation, placeholder: 'password', class: 'form-control'
+    %br
+    = f.submit 'Create', class: 'btn btn-primary'
+%div.col-md-8
+  %h3 Supplies
+  = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
+    = f.hidden_field :user_id, value: @user.id
+    = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'short-form form-control'}
+    = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+    = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+    %br
+    %br
+    = f.submit 'Add', class: 'btn btn-primary'
+  %ul
+    - @user.supply_lists.each do |list|
+      %li
+        Name:
+        = list.supply.name
+        | Item Name:
+        = list.name
+        | Notes:
+        = list.notes
+  %h3 Organizations
+  = form_for :organization_members, url: admin_organization_members_path, method: :post do |f|
+    = f.hidden_field :user_id, value: @user.id
+    = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'short-form form-control'}
+    %br
+    = f.check_box :account_contact
+    = f.label 'Account Contact'
+    %br
+    = f.check_box :admin_contact
+    = f.label 'Admin Contact'
+    %br
+    = f.check_box :user_can_edit
+    = f.label 'Can Edit Organization'
+    %br
+    %br
+    = f.submit 'Add', class: 'btn btn-primary'
+  %ul
+    - @user.organization_members.each do |list|
+      %li
+        Name:
+        = list.organization.name
+        | Admin Contact:
+        = list.admin_contact
+        | Account Contact:
+        = list.account_contact

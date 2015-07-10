@@ -1,12 +1,15 @@
-%div.container-fluid
-  %div.col-md-2.sidebar
-    = render 'admin/sidebar', active: 'supplies'
-  %div.col-md-10
-    %h1 Supplies
-    %ul.nav.nav-tabs
-      %li{ role: 'presentation' }
-        = link_to 'Supplies', admin_supplies_path
-      %li.active{ role: 'presentation' }
-        = link_to 'Edit Supplies', '#'
+= render 'admin/shared/edit',  title: 'Supplies',
+                              main: ['Supplies', :admin_supplies_path],
+                              edit: 'Edit Supplies',
+                              form_location: 'admin/supplies/form',
+                              form_variable: @supply,
+                              form_url: :admin_supply_path,
+                              form_method: :put
 
-    = render 'admin/supplies/form', supply: @supply, url: admin_supply_path(@supply), method: :put
+-# title = title
+-# main = [mainlink, main_link_path]
+-# edit = edit title
+-# form_location = render path
+-# form_variable = form variable
+-# form_url = form_path
+-# form_method = ie: :post

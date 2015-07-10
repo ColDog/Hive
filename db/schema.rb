@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710051558) do
+ActiveRecord::Schema.define(version: 20150710190117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20150710051558) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "organization_members", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.boolean  "user_can_edit"
+    t.boolean  "admin_contact"
+    t.boolean  "account_contact"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "organization_members", ["organization_id"], name: "index_organization_members_on_organization_id", using: :btree
+  add_index "organization_members", ["user_id"], name: "index_organization_members_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -58,21 +71,17 @@ ActiveRecord::Schema.define(version: 20150710051558) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.integer  "organization_id"
-    t.boolean  "admin_contact"
-    t.boolean  "account_contact"
-    t.boolean  "can_edit_organization"
-    t.text     "tags",                               array: true
+    t.text     "tags",                         array: true
     t.text     "about"
     t.string   "avatar"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
 
+  add_foreign_key "organization_members", "organizations"
+  add_foreign_key "organization_members", "users"
   add_foreign_key "supply_lists", "supplies"
   add_foreign_key "supply_lists", "users"
-  add_foreign_key "users", "organizations"
 end
