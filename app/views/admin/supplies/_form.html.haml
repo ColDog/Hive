@@ -4,12 +4,5 @@
   = f.text_field :category, placeholder: 'category', class: 'form-control'
   = f.number_field :maximum, placeholder: 'maximum quantity available', class: 'form-control'
   = f.text_area :notes, placeholder: 'notes', class: 'form-control'
-  = f.nested_fields_for :supply_lists, class: 'inline-form' do |ff|
-    %hr
-    = ff.text_field :name, placeholder: 'name', class: 'short-form form-control'
-    = ff.text_field :notes, placeholder: 'notes', class: 'short-form form-control'
-    = ff.select :user_id, options_from_collection_for_select(User.all, 'id', 'name'), class: 'form-control'
-    =raw ff.remove_nested_fields_link '&times;'
-  = f.add_nested_fields_link :supply_lists
   %br
   = f.submit 'Create', class: 'btn btn-primary'
