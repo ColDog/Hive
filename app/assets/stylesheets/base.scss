@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
-.sidebar { background-color: #dadada; width: 100%; margin: 0; height: 93vh; position: static; padding-top: 2em; }
+.sidebar { background-color: #dadada; margin: 0; height: 100%; padding-top: 2em; }
+.inside-sidebar { position: fixed }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
 .navbar { margin: 0 !important; }
 .short-form { display: inline-block; max-width: 180px; float: left }
@@ -7,5 +8,6 @@
 .sign_in { width: 250px; margin: auto; margin-top: 6em; }
 .content { padding: 15px; max-width: 800px; margin: auto; }
 h1 { text-align: center; }
+html, body, .container-fluid, .row { height: 100%; }
 
 @import "bootstrap";

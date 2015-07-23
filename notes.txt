@@ -1,9 +1,7 @@
 To Do
 TODO: Filters and searching
-TODO: User mail out
-TODO: All email download/online sender?
 TODO: Picture upload
 TODO: PDF upload
 TODO: Pagination
 TODO: Sidebar scrolling
-TODO: Security, pemit!, encrypted signup digest
+TODO: Security, pemit!
