@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'Successfully Logged In'
       log_in user
       if user.admin
-        redirect_to admin_admin_path
+        redirect_to '/admin'
       else
         redirect_to organizations_path
       end

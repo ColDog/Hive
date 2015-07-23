@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :supply_lists
     resources :organization_members
     resources :notes
-    get '/' => 'dashboard#index', as: 'dashboard_path'
+    get '/' => 'dashboard#index'
   end
   root to: 'home#index'
 end

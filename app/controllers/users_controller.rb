@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def signup
     @user = User.find_by(id: params[:id])
-    if params[:hash] == @user.hash
+    if params[:hash] == @user.get_signup_digest
       flash[:success] = 'Create a password below'
     else
       redirect_to root_path
