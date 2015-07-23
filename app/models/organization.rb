@@ -19,4 +19,6 @@ class Organization < ActiveRecord::Base
     out.to_json
   end
 
+  scope :search, -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR description ILIKE ? OR tags @> ARRAY[?] OR city ILIKE ? OR province ILIKE ? OR postal ILIKE ?', q, q, q, q, q, q) }
+
 end

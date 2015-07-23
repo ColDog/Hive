@@ -3,6 +3,7 @@ class Admin::SuppliesController < ApplicationController
 
   def index
     @supplies = Supply.all
+    @supplies = @supplies.search(params[:search]) if params[:search]
   end
 
   def show

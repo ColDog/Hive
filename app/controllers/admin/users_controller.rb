@@ -3,6 +3,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.all
+    @users = @users.search(params[:search]) if params[:search]
   end
 
   def show

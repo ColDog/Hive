@@ -3,6 +3,7 @@ class Admin::OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.all
+    @organizations = @organizations.search(params[:search]) if params[:search]
   end
 
   def show

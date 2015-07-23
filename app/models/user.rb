@@ -27,4 +27,6 @@ class User < ActiveRecord::Base
     UserMailer.new_user(self, encrypted_data).deliver_now
   end
 
+  scope :search, -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
+
 end
