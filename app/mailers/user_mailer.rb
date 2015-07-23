@@ -5,8 +5,9 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.new_user.subject
   #
-  def new_user(user)
+  def new_user(user, digest)
     @user = user
+    @digest = digest
     mail to: @user.email, subject: 'New Account Created at Hive'
   end
 end

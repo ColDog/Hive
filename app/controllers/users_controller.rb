@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def signup
     @user = User.find_by(id: params[:id])
-    if @user && params[:hash] == @user.signup_digest
+    if @user && @user.verify_signup_digest?(params[:hash])
       log_in @user
       redirect_to edit_user_path
     else

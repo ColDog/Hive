@@ -17,11 +17,10 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'User created!'
-      @user.create_signup_digest
-      UserMailer.new_user(@user).deliver_now
+      @user.send_signup_digest
       redirect_to edit_admin_user_path(@user)
     else
-      flash[:danger] = 'User create failed.'
+      flash[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"
       render 'new'
     end
   end
