@@ -16,11 +16,13 @@ class Organization < ActiveRecord::Base
     Organization.pluck(:tags).each do |ary|
       ary.each { |t| tags << t }
     end
-    out = []
-    tags.uniq.each do |tag|
-      out << { id: tag, text: tag }
+    if tags
+      out = []
+      tags.uniq.each do |tag|
+        out << { id: tag, text: tag }
+      end
+      out.to_json
     end
-    out.to_json
   end
 
 end
