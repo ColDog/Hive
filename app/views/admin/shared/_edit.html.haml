@@ -8,7 +8,7 @@
       %li{ role: 'presentation' }
         = link_to main[0], send(main[1])
       %li.active{ role: 'presentation' }
-        = link_to 'Edit Users', '#'
+        = link_to edit, '#'
 
     %br
     = render form_location, variable: form_variable, url: send(form_url, form_variable), method: form_method

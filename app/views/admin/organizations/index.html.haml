@@ -1,6 +1,6 @@
 = render 'admin/shared/index',  data: @organizations,
                                 header: %w"Name Employees Description Tags Actions",
-                                methods: [:name, [:users,:count], :description, :tags],
+                                methods: [:name, [:users,:count], :description, :pretty_tags],
                                 links: [ ['edit', :edit_admin_organization_path], ['delete', :admin_organization_path, method: :delete] ],
                                 new: ['New Organization', :new_admin_organization_path],
                                 main: ['Organizations', :admin_organizations_path],

@@ -1,8 +1,17 @@
 %br
-= form_for variable, url: url, method: method do |f|
-  = f.text_field :name, placeholder: 'name', class: 'form-control'
-  = f.text_field :category, placeholder: 'category', class: 'form-control'
-  = f.number_field :maximum, placeholder: 'maximum quantity available', class: 'form-control'
-  = f.text_area :notes, placeholder: 'notes', class: 'form-control'
-  %br
-  = f.submit 'Create', class: 'btn btn-primary'
+%div.form
+  = form_for variable, url: url, method: method do |f|
+    %div.form-group
+      %label Name
+      = f.text_field :name, placeholder: 'name', class: 'form-control'
+    %div.form-group
+      %label Category
+      = f.text_field :category, placeholder: 'category', class: 'form-control'
+    %div.form-group
+      %label Maximum Number
+      = f.number_field :maximum, placeholder: 'maximum quantity available', class: 'form-control'
+    %div.form-group
+      %label Description
+      = f.text_area :notes, placeholder: 'notes', class: 'form-control'
+    %br
+    = f.submit 'Create', class: 'btn btn-primary'

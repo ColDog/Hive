@@ -15,6 +15,7 @@ gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'bcrypt'
 gem 'nested_form_fields'
+gem 'select2-rails'
 
 group :development, :test do
   gem 'byebug'

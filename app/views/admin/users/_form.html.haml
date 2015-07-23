@@ -13,54 +13,65 @@
 - if params[:action] == 'edit'
   %div.col-md-8
     %h3 Supplies
-    = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
-      = f.hidden_field :user_id, value: variable.id
-      = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'short-form form-control'}
-      = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-      = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-      = f.submit 'Add', class: 'btn btn-primary'
-    %table.table
-      - @user.supply_lists.each do |list|
-        %tr
-          %td
-            = list.supply.name
-          %td
-            Name:
-            = list.name
-          %td
-            Notes:
-            = list.notes
-
-    %hr
-    %h3 Organizations
-    = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-      = f.hidden_field :user_id, value: variable.id
-      = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'short-form form-control'}
-      = f.check_box :account_contact
-      = f.label 'Account Contact'
-      = f.check_box :admin_contact
-      = f.label 'Admin Contact'
-      = f.check_box :user_can_edit
-      = f.label 'Can Edit Organization'
-      = f.submit 'Add', class: 'btn btn-primary'
-    %table.table
-      - variable.organization_members.each do |list|
-        %tr
-          %td
-            = list.organization.name
-          %td
-            Admin Contact?
-            = list.admin_contact
-          %td
-            Accounting Contact?
-            = list.account_contact
-    %hr
-    %h3 Administrator?
-    - if variable.admin
-      %span User is an administrator
-      = link_to 'Remove user as an adminstrator',  admin_admin_path(variable), method: :delete,class: 'btn btn-default btn-sm'
-    - else
-      %span This user is not currently an administrator
-      = form_for :admin, url: admin_admins_path, method: :post do |f|
+    %div.well
+      = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
         = f.hidden_field :user_id, value: variable.id
-        = f.submit 'Make user an administrator', class: 'btn btn-default btn-sm'
+        = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'select2 short-form form-control',multiple: 'multiple'}
+        = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+        = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+        = f.submit 'Add', class: 'btn btn-primary'
+      %table.table
+        %thead
+          %tr
+            %th Supply Name
+            %th Name
+            %th Notes
+        - @user.supply_lists.each do |list|
+          %tr
+            %td
+              = list.supply.name
+            %td
+              = list.name
+            %td
+              = list.notes
+
+    %h3 Organizations
+    %div.well
+      = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
+        = f.hidden_field :user_id, value: variable.id
+        = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'select2 short-form form-control',multiple: 'multiple'}
+        = f.submit 'Add', class: 'btn btn-primary'
+        = f.check_box :account_contact
+        = f.label 'Accountant?'
+        = f.check_box :admin_contact
+        = f.label 'Administrator?'
+        = f.check_box :user_can_edit
+        = f.label 'Can Edit?'
+      %table.table
+        %thead
+          %tr
+            %th Organization Name
+            %th Admin Contact
+            %th Accountant
+            %th Can Edit
+        - variable.organization_members.each do |list|
+          %tr
+            %td
+              = list.organization.name
+            %td
+              = list.admin_contact
+            %td
+              = list.account_contact
+            %td
+              = list.user_can_edit
+
+    %h3 Administrator?
+    %div.well
+      - if variable.admin
+        %span User is an administrator
+        = link_to 'Remove user as an adminstrator',  admin_admin_path(variable), method: :delete,class: 'btn btn-default btn-sm'
+      - else
+        %span This user is not currently an administrator
+        = form_for :admin, url: admin_admins_path, method: :post do |f|
+          = f.hidden_field :user_id, value: variable.id
+          = f.submit 'Make user an administrator', class: 'btn btn-default btn-sm'

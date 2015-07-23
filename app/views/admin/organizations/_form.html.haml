@@ -1,7 +1,40 @@
 %br
-= form_for variable, url: url, method: method do |f|
-  = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-  = f.text_field :tags, placeholder: 'tags', class: 'form-control'
-  = f.text_area :description, placeholder: 'description', class: 'form-control'
-  %br
-  = f.submit 'Create', class: 'btn btn-primary'
+%div.row
+  %div.col-md-4
+    %h3 Organization
+    = form_for variable, url: url, method: method do |f|
+      = f.text_field :name, placeholder: 'organization name', class: 'form-control'
+      = f.text_field :tags, id: 'tagging', class: 'form-control'
+      = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 10
+      %br
+      = f.submit 'Submit', class: 'btn btn-primary'
+
+  - if params[:action] == 'edit'
+    %div.col-md-8
+      %h3 Users
+      %div.well
+        = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
+          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'select2 short-form form-control', multiple: 'multiple'}
+          = f.hidden_field :organization_id, value: params[:id]
+          = f.submit 'Add User', class: 'btn btn-primary'
+          = f.check_box :account_contact
+          = f.label 'Accountant?'
+          = f.check_box :admin_contact
+          = f.label 'Administrator?'
+          = f.check_box :user_can_edit
+          = f.label 'Can Edit?'
+        %hr
+        %table.table
+          %thead
+            %tr
+              %th User Name
+              %th User Email
+              %th Actions
+          - variable.organization_members.includes(:user).each do |member|
+            %tr
+              %td
+                = member.user.name
+              %td
+                = member.user.email
+              %td
+                = link_to 'remove', admin_organization_member_path(member), method: :delete

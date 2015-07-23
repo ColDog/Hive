@@ -17,7 +17,7 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params)
     if @organization.save
       flash[:success] = 'Organization created!'
-      redirect_to admin_organizations_path
+      redirect_to edit_admin_organization_path(@organization)
     else
       flash[:danger] = 'Organization create failed.'
       render 'new'
@@ -32,7 +32,7 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     if @organization.update(organization_params)
       flash[:success] = 'Organization edited!'
-      redirect_to user_path(@organization)
+      redirect_to admin_organizations_path
     else
       flash[:danger] = 'Organization update failed.'
       render 'edit'

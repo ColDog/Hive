@@ -5,11 +5,28 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+	<script>
+		$(document).ready(function() {
+			$(".select2").select2({
+				placeholder: "select",
+				allowClear: true
+			});
+		});
+	</script>
 </head>
 <body>
 <%= render 'layouts/navbar' %>
 
 <%= yield %>
 
+<script>
+	$("#tagging").select2({
+		tags: true,
+		tokenSeparators: [",", " "],
+		placeholder: "type a tag",
+		allowClear: true,
+		data: <%=raw Organization.select_tags  %>
+	})
+</script>
 </body>
 </html>
