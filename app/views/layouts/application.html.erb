@@ -8,6 +8,11 @@
 </head>
 <body>
 <%= render 'layouts/navbar' %>
+<% flash.each do |message_type, message| %>
+	<div class="message" onclick="$('.message').fadeOut(300, function() { $(this).remove(); });" style="transition: all 0.2s">
+		<div class="center-block text-center alert alert-<%= message_type %>" ><%= message %></div>
+	</div>
+<% end %>
 
 <%= yield %>
 
