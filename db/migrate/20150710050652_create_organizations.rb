@@ -4,7 +4,15 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string  :name
       t.string  :description
       t.string  :avatar
-      t.text    :tags, array: true
+      t.string  :service_agreement
+      t.boolean :current
+      t.date    :inactive_on
+
+      t.string  :address
+      t.string  :city
+      t.string  :province
+
+      t.text    :tags, array: true, default: []
 
       t.timestamps null: false
     end
