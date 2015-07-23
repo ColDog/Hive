@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   def create_signup_digest
-    self.signup_digest = SecureRandom.urlsafe_base64
+    update(signup_digest: SecureRandom.urlsafe_base64)
   end
 
 end
