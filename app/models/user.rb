@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
             format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def hash
+    @password ||= BCrypt::Password.new(hash)
+  end
+
+  def hash=(new_password)
+    @password = BCrypt::Password.create(new_password)
+    self.hash = @password
+  end
+
   # sends a token through the bcrypt system to see if a user is authenticated
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")

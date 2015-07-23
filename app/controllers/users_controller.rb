@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
 
+  def signup
+    @user = User.find_by(id: params[:id])
+    if params[:hash] == @user.hash
+      flash[:success] = 'Create a password below'
+    else
+      redirect_to root_path
+    end
+  end
+
   def edit
     @user = User.find(params[:id])
   end
