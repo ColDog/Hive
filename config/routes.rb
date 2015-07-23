@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :organizations
   resources :users
   resources :organization_members
-  get '/signup/:hash/:id' => 'users#signup'
+  get '/signup/:hash/:id' => 'users#signup', as: 'signup'
   namespace :admin do
     resources :organizations
     resources :users

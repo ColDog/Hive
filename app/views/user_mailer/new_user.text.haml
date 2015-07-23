@@ -1,3 +1,11 @@
-UserMailer#new_user
+Hello #{@user.name}
 
-= @greeting + ", find me in app/views/user_mailer/new_user.text.haml"
+You have been added to HiVE!
+
+Please follow the link below to set up your account!
+
+= link_to 'Set up my account', signup_path(@user.signup_digest, @user.id)
+
+Sincerely,
+
+The Hive Team.
