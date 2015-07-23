@@ -1,6 +1,6 @@
 = render 'admin/shared/index',  data: @users,
                                 header: %w"Name Email Actions",
-                                methods: [:name, :email],
+                                methods: [['Link', :name, :edit_admin_user_path], :email],
                                 links: [ ['edit', :edit_admin_user_path], ['delete', :admin_user_path, method: :delete] ],
                                 new: ['New User', :new_admin_user_path],
                                 main: ['Users', :admin_users_path],

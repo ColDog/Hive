@@ -8,8 +8,10 @@
     %tr
       - methods.each do |method|
         %td
-          - if method.class == Array
-            = data.send(method[0]).send(method[1])
+          - if method[0] == 'Double'
+            = data.send(method[1]).send(method[2])
+          - elsif method[0] == 'Link'
+            = link_to data.send(method[1]), send(method[2], data), method[3]
           - else
             = data.send(method)
       %td
