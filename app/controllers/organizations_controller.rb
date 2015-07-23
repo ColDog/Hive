@@ -1,28 +1,8 @@
 class OrganizationsController < ApplicationController
-  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:edit, :update, :destroy]
 
   def index
     @organizations = Organization.all
-  end
-
-  def show
-    @organization = Organization.find(params[:id])
-  end
-
-  def new
-    @organization = Organization.new
-  end
-
-  def create
-    @organization = Organization.new(organization_params)
-    if @organization.save
-      OrganizationMember.create!(organization_id: @organization.id, user_id: current_user.id, user_can_edit: true)
-      flash[:success] = 'Organization created!'
-      redirect_to organizations_path
-    else
-      flash[:danger] = 'Organization create failed.'
-      render 'new'
-    end
   end
 
   def edit
@@ -66,11 +46,6 @@ class OrganizationsController < ApplicationController
   private
     def organization_params
       params.require(:organization).permit!
-    end
-
-    def editable?(organization)
-      member = organization.organization_members.find_by(user_id: current_user.id)
-      member && member.user_can_edit
     end
 
 end
