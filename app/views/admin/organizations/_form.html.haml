@@ -14,15 +14,13 @@
       %h3 Users
       %div.well
         = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'select2 short-form form-control', multiple: 'multiple'}
+          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'select2 short-form form-control'}
           = f.hidden_field :organization_id, value: params[:id]
           = f.submit 'Add User', class: 'btn btn-primary'
           = f.check_box :account_contact
           = f.label 'Accountant?'
           = f.check_box :admin_contact
           = f.label 'Administrator?'
-          = f.check_box :user_can_edit
-          = f.label 'Can Edit?'
         %hr
         %table.table
           %thead

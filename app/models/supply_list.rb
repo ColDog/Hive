@@ -5,12 +5,14 @@ class SupplyList < ActiveRecord::Base
   validates :user_id,   presence: true
   validates :supply_id, presence: true
 
-  validate  :name_is_unique
+  validates_uniqueness_of :name, scope: :supply_id
+
+  validate :maximum_level
 
   private
-    def name_is_unique
-      unless SupplyList.where(supply_id: self.supply_id).where(name: self.name).exists?
-        errors.add(:name, 'is not unique.')
+    def maximum_level
+      unless SupplyList.where(supply_id: self.supply_id).count >= self.supply.maximum
+        errors.add(:base, 'You are at the maximum number of supplies')
       end
     end
 

@@ -16,7 +16,7 @@
     %div.well
       = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
         = f.hidden_field :user_id, value: variable.id
-        = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'select2 short-form form-control',multiple: 'multiple'}
+        = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'select2 short-form form-control'}
         = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
         = f.submit 'Add', class: 'btn btn-primary'
@@ -45,8 +45,6 @@
         = f.label 'Accountant?'
         = f.check_box :admin_contact
         = f.label 'Administrator?'
-        = f.check_box :user_can_edit
-        = f.label 'Can Edit?'
       %table.table
         %thead
           %tr
@@ -62,8 +60,6 @@
               = list.admin_contact
             %td
               = list.account_contact
-            %td
-              = list.user_can_edit
 
     %h3 Administrator?
     %div.well

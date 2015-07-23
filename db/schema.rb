@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20150710190117) do
   create_table "organization_members", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
-    t.boolean  "user_can_edit"
     t.boolean  "admin_contact"
     t.boolean  "account_contact"
     t.datetime "created_at",      null: false
@@ -41,14 +40,19 @@ ActiveRecord::Schema.define(version: 20150710190117) do
     t.string   "name"
     t.string   "description"
     t.string   "avatar"
-    t.text     "tags",                     array: true
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "service_agreement"
+    t.boolean  "current"
+    t.date     "inactive_on"
+    t.string   "address"
+    t.string   "city"
+    t.string   "province"
+    t.text     "tags",              default: [],              array: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "supplies", force: :cascade do |t|
     t.string   "name"
-    t.string   "category"
     t.string   "maximum"
     t.text     "notes"
     t.datetime "created_at", null: false
@@ -70,12 +74,15 @@ ActiveRecord::Schema.define(version: 20150710190117) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
+    t.string   "phone"
+    t.string   "account_type"
+    t.date     "inactive_on"
+    t.boolean  "current"
     t.string   "password_digest"
-    t.text     "tags",                         array: true
-    t.text     "about"
-    t.string   "avatar"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.text     "tags",            default: [],              array: true
+    t.text     "notes"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
