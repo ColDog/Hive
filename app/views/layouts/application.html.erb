@@ -18,20 +18,8 @@
 
 <script>
 	$(document).ready(function() {
-		$(".select2").select2({
-			placeholder: "select",
-			allowClear: true
-		});
+		$(".select2").select2()
 	});
-</script>
-<script>
-	$("#tagging").select2({
-		tags: true,
-		tokenSeparators: [",", " "],
-		placeholder: "type a tag",
-		allowClear: true,
-		data: <%=raw Organization.select_tags  %>
-	})
 </script>
 </body>
 </html>

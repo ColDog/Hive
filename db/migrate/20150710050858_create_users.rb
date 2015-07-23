@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       t.date     :inactive_on
       t.boolean  :current
       t.string   :password_digest
-      t.text     :tags,          array: true, default: []
       t.text     :notes
 
       t.timestamps null: false

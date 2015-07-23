@@ -3,8 +3,20 @@
   %div.form
   %h3 User
   = form_for variable, url: url, method: method do |f|
-    = f.text_field :name, placeholder: 'name', class: 'form-control'
-    = f.email_field :email, placeholder: 'email', class: 'form-control'
+    = f.label 'Name'
+    = f.text_field :name, class: 'form-control'
+    = f.label 'Email'
+    = f.email_field :email, class: 'form-control'
+    = f.label 'Phone'
+    = f.phone_field :phone, class: 'form-control'
+    = f.label 'Account Type'
+    = f.phone_field :account_type, class: 'form-control'
+    %br
+    = f.label 'Currently Active: '
+    = f.check_box :current, checked: 'checked', id: 'current'
+    %div#currentShow{ style: 'display:none' }
+      = f.label 'Inactive on:'
+      = f.date_select :inactive_on
     %br
     = f.password_field :password, placeholder: 'password', class: 'form-control'
     = f.password_field :password_confirmation, placeholder: 'password confirmation', class: 'form-control'
@@ -20,24 +32,24 @@
         = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
         = f.submit 'Add', class: 'btn btn-primary'
-      %table.table
-        %thead
-          %tr
-            %th Supply Name
-            %th Name
-            %th Notes
-            %th Remove
-        - @user.supply_lists.each do |list|
-          %tr
-            %td
-              = list.supply.name
-            %td
-              = list.name
-            %td
-              = list.notes
-            %td
-              = link_to 'remove', admin_supply_list_path(list), method: :delete
-
+    %table.table
+      %thead
+        %tr
+          %th Supply Name
+          %th Name
+          %th Notes
+          %th Remove
+      - @user.supply_lists.each do |list|
+        %tr
+          %td
+            = list.supply.name
+          %td
+            = list.name
+          %td
+            = list.notes
+          %td
+            = link_to 'remove', admin_supply_list_path(list), method: :delete
+    %hr
     %h3 Organizations
     %div.well
       = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
@@ -48,22 +60,24 @@
         = f.label 'Accountant?'
         = f.check_box :admin_contact
         = f.label 'Administrator?'
-      %table.table
-        %thead
-          %tr
-            %th Organization Name
-            %th Admin Contact
-            %th Accountant
-            %th Remove
-        - variable.organization_members.each do |list|
-          %tr
-            %td
-              = list.organization.name
-            %td
-              = list.admin_contact
-            %td
-              = link_to 'remove', admin_organization_member_path(list), method: :delete
-
+    %table.table
+      %thead
+        %tr
+          %th Organization Name
+          %th Admin Contact
+          %th Accountant
+          %th Remove
+      - variable.organization_members.each do |list|
+        %tr
+          %td
+            = list.organization.name
+          %td
+            = list.admin_contact
+          %td
+            = list.account_contact
+          %td
+            = link_to 'remove', admin_organization_member_path(list), method: :delete
+    %hr
     %h3 Administrator?
     %div.well
       - if variable.admin
@@ -74,3 +88,11 @@
         = form_for :admin, url: admin_admins_path, method: :post do |f|
           = f.hidden_field :user_id, value: variable.id
           = f.submit 'Make this user an administrator', class: 'btn btn-default btn-sm'
+:javascript
+  $('#current').click(function() {
+    if( $(this).is(':checked')) {
+      $("#currentShow").hide();
+    } else {
+      $("#currentShow").show();
+    }
+  });

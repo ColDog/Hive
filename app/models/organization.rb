@@ -12,17 +12,11 @@ class Organization < ActiveRecord::Base
   end
 
   def self.select_tags
-    tags = []
-    Organization.pluck(:tags).each do |ary|
-      ary.each { |t| tags << t }
+    out = []
+    Organization.pluck(:tags).flatten.uniq.each do |tag|
+      out << { id: tag, text: tag }
     end
-    if tags
-      out = []
-      tags.uniq.each do |tag|
-        out << { id: tag, text: tag }
-      end
-      out
-    end
+    out.to_json
   end
 
 end
