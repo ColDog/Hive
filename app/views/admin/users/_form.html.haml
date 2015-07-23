@@ -26,6 +26,7 @@
             %th Supply Name
             %th Name
             %th Notes
+            %th Remove
         - @user.supply_lists.each do |list|
           %tr
             %td
@@ -34,12 +35,14 @@
               = list.name
             %td
               = list.notes
+            %td
+              = link_to 'remove', admin_supply_list_path(list), method: :delete
 
     %h3 Organizations
     %div.well
       = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
         = f.hidden_field :user_id, value: variable.id
-        = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'select2 short-form form-control',multiple: 'multiple'}
+        = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'select2 short-form form-control'}
         = f.submit 'Add', class: 'btn btn-primary'
         = f.check_box :account_contact
         = f.label 'Accountant?'
@@ -51,7 +54,7 @@
             %th Organization Name
             %th Admin Contact
             %th Accountant
-            %th Can Edit
+            %th Remove
         - variable.organization_members.each do |list|
           %tr
             %td
@@ -59,7 +62,7 @@
             %td
               = list.admin_contact
             %td
-              = list.account_contact
+              = link_to 'remove', admin_organization_member_path(list), method: :delete
 
     %h3 Administrator?
     %div.well

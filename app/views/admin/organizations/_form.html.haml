@@ -4,8 +4,31 @@
     %h3 Organization
     = form_for variable, url: url, method: method do |f|
       = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-      = f.text_field :tags, id: 'tagging', class: 'form-control'
-      = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 10
+      = f.select :tags, Organization.select_tags, {}, {class: 'select2 form-control',multiple: 'multiple'}
+      %br
+      %br
+      %div.form-group
+        = f.label 'Signed Service Agreement: '
+        = f.check_box :signed_service_agreement, id: 'service'
+        %div#serviceShow{ style: 'display:none' }
+          = f.file_field :service_agreement
+        %br
+        = f.label 'Currently Active: '
+        = f.check_box :current, checked: 'checked', id: 'current'
+        %div#currentShow{ style: 'display:none' }
+          = f.label 'Inactive on:'
+          = f.date_select :inactive_on
+      %div.form-group
+        = f.label 'Address'
+        = f.text_field :address, placeholder: 'address', class: 'form-control'
+        = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:150px'
+        = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:65px'
+        = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:100px'
+        %br
+        %br
+      %div.form-group
+        = f.label 'Description'
+        = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 10
       %br
       = f.submit 'Submit', class: 'btn btn-primary'
 
@@ -36,3 +59,19 @@
                 = member.user.email
               %td
                 = link_to 'remove', admin_organization_member_path(member), method: :delete
+
+:javascript
+  $('#current').click(function() {
+    if( $(this).is(':checked')) {
+      $("#currentShow").hide();
+    } else {
+      $("#currentShow").show();
+    }
+  });
+  $('#service').click(function() {
+    if( $(this).is(':checked')) {
+      $("#serviceShow").show();
+    } else {
+      $("#serviceShow").hide();
+    }
+  });

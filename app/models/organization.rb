@@ -21,7 +21,7 @@ class Organization < ActiveRecord::Base
       tags.uniq.each do |tag|
         out << { id: tag, text: tag }
       end
-      out.to_json
+      out
     end
   end
 

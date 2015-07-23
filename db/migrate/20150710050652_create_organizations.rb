@@ -5,12 +5,14 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string  :description
       t.string  :avatar
       t.string  :service_agreement
+      t.boolean :signed_service_agreement
       t.boolean :current, default: true
       t.date    :inactive_on
 
       t.string  :address
       t.string  :city
       t.string  :province
+      t.string  :postal
 
       t.text    :tags, array: true, default: []
 

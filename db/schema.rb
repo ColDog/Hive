@@ -41,19 +41,21 @@ ActiveRecord::Schema.define(version: 20150710190117) do
     t.string   "description"
     t.string   "avatar"
     t.string   "service_agreement"
-    t.boolean  "current"
+    t.boolean  "signed_service_agreement"
+    t.boolean  "current",                  default: true
     t.date     "inactive_on"
     t.string   "address"
     t.string   "city"
     t.string   "province"
-    t.text     "tags",              default: [],              array: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "postal"
+    t.text     "tags",                     default: [],                array: true
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "supplies", force: :cascade do |t|
     t.string   "name"
-    t.string   "maximum"
+    t.integer  "maximum"
     t.text     "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
