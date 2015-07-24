@@ -20,7 +20,7 @@ class OrganizationsController < ApplicationController
     if editable?(@organization)
       if @organization.update(organization_params)
         flash[:success] = 'Organization edited!'
-        redirect_to user_path(@organization)
+        redirect_to organizations_path
       else
         flash[:danger] = 'Organization update failed.'
         render 'edit'

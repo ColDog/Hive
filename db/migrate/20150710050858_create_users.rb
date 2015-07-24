@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :phone
       t.string   :account_type
       t.date     :inactive_on
-      t.boolean  :current
+      t.boolean  :current,        default: true
       t.string   :password_digest
       t.text     :notes
 

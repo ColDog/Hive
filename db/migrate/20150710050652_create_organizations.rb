@@ -5,7 +5,7 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string  :description
       t.string  :avatar
       t.string  :service_agreement
-      t.boolean :signed_service_agreement
+      t.boolean :signed_service_agreement, default: false
       t.boolean :current, default: true
       t.date    :inactive_on
 

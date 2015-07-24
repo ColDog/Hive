@@ -1,11 +1,14 @@
-%div.content
-  %h1 All Organizations
-  - @organizations.each do |org|
-    %h3
-      = org.name
-    %p
-      = org.description
-    %br
-      - if editable?(org)
-        = link_to 'edit organization', edit_organization_path(org)
-    %hr
+%h1 All Organizations
+%div.container-fluid
+  %div.content
+    - @organizations.each do |org|
+      %div.row
+        %div.col-sm-4
+          %div.avatar
+            = image_tag org.avatar, class: 'img-responsive'
+        %div.col-sm-8
+          %h3
+            = org.name
+          %p
+            = org.description
+            = link_to 'edit organization', edit_organization_path(org) if editable?(org)

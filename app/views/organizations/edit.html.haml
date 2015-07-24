@@ -1,5 +1,8 @@
 %h1 Edit Organization
 %div.form
+  - if @organization.avatar.present?
+    %div.avatar
+      = image_tag @organization.avatar, class: 'img-responsive'
   = form_for @organization do |f|
     %div.form-group
       %label Avatar
@@ -13,3 +16,4 @@
     %div.form-group
       %label Description
       = f.text_area :description, placeholder: 'name', class: 'form-control'
+    = f.submit 'Submit', class: 'btn btn-primary'
