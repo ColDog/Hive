@@ -3,7 +3,9 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = User.all
-    @users = @users.search(params[:search]) if params[:search]
+    filter_params(params).each do |search, result|
+      @users = @users.public_send(search, result) if result.present?
+    end
   end
 
   def show
@@ -50,6 +52,10 @@ class Admin::UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit!
+    end
+
+    def filter_params(params)
+      params.slice(:search, :current)
     end
 
 end

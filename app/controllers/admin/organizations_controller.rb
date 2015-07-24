@@ -3,7 +3,9 @@ class Admin::OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.all
-    @organizations = @organizations.search(params[:search]) if params[:search]
+    filter_params(params).each do |search, result|
+      @organizations = @organizations.public_send(search, result) if result.present?
+    end
   end
 
   def show
@@ -49,6 +51,10 @@ class Admin::OrganizationsController < ApplicationController
   private
     def organization_params
       params.require(:organization).permit!
+    end
+
+    def filter_params(params)
+      params.slice(:search, :current)
     end
 
 end

@@ -12,9 +12,10 @@
         = link_to new[0], send(new[1])
     %br
     %div.search
-      = form_tag '#', method: :get, enforce_utf8: false do
-        = text_field_tag :search, params[:search], class: 'form-control short-form'
-        = submit_tag 'Search', name: nil, class: 'btn btn-default short-form'
+      - if search_location
+        = render search_location
+      - else
+        = render 'admin/shared/search'
 
     = render 'admin/shared/table', data: data, header: header, methods: methods, links: links
 
