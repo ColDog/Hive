@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(20)
     filter_params(params).each do |search, result|
       @users = @users.public_send(search, result) if result.present?
     end

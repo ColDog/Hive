@@ -18,6 +18,8 @@ gem 'nested_form_fields'
 gem 'select2-rails'
 gem 'fog'
 gem 'carrierwave'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 group :development, :test do
   gem 'byebug'

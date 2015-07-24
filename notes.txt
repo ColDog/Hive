@@ -1,5 +1,3 @@
 To Do
-TODO: Picture upload
-TODO: PDF upload
 TODO: Pagination
 TODO: Security, pemit!
