@@ -13,6 +13,10 @@
         %br
         - if variable.signed_service_agreement
           = link_to 'view service agreement', variable.service_agreement.url, target: '_blank'
+          %br
+          %label
+            Remove
+            = f.check_box :remove_service_agreement, id: 'remove'
         %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
           = f.file_field :service_agreement
         %br
