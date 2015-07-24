@@ -7,6 +7,6 @@ if Rails.env.production?
       aws_secret_access_key: ENV['S3_SECRET_KEY'],
       region:                'us-west-1'
     }
-    config.fog_directory =   'hive'
+    config.fog_directory =   'hive-colin'
   end
 end
