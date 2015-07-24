@@ -29,8 +29,10 @@ class Organization < ActiveRecord::Base
 
   private
     def if_agreement_then_signed
-      if !service_agreement.nil? && signed_service_agreement == false
-        errors.add(:service_agreement, 'Agreement is uploaded but signed says false')
+      if service_agreement.present? && signed_service_agreement == false
+        errors.add(:service_agreement, ' is uploaded but it is checked false')
+      elsif service_agreement.present? == false && signed_service_agreement == true
+        errors.add(:service_agreement, ' is not uploaded but it is checked true')
       end
     end
 

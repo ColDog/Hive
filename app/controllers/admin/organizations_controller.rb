@@ -22,7 +22,7 @@ class Admin::OrganizationsController < ApplicationController
       flash[:success] = 'Organization created!'
       redirect_to edit_admin_organization_path(@organization)
     else
-      flash[:danger] = 'Organization create failed.'
+      flash[:danger] = "Organization create failed. #{@organization.errors.full_messages.to_sentence}"
       render 'new'
     end
   end
@@ -37,8 +37,8 @@ class Admin::OrganizationsController < ApplicationController
       flash[:success] = 'Organization edited!'
       redirect_to admin_organizations_path
     else
-      flash[:danger] = 'Organization update failed.'
-      render 'edit'
+      flash[:danger] = "Organization update failed. #{@organization.errors.full_messages.to_sentence}"
+      redirect_to edit_admin_organization_path(@organization)
     end
   end
 

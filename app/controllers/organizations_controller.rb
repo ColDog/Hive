@@ -22,7 +22,7 @@ class OrganizationsController < ApplicationController
         flash[:success] = 'Organization edited!'
         redirect_to organizations_path
       else
-        flash[:danger] = 'Organization update failed.'
+        flash[:danger] = "Organization update failed. #{@organization.errors.full_messages.to_sentence}"
         render 'edit'
       end
     else
