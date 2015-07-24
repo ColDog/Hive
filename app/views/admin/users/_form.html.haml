@@ -24,13 +24,16 @@
     = f.submit 'Submit', class: 'btn btn-primary'
 - if params[:action] == 'edit'
   %div.col-md-8
-    %h3 Supplies
+    %h4 Supplies
     %div.well
       = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
         = f.hidden_field :user_id, value: variable.id
         = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'select2 short-form form-control'}
         = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+        %label
+          Shared
+          = f.check_box :shared
         = f.submit 'Add', class: 'btn btn-primary'
     %table.table
       %thead
@@ -38,7 +41,7 @@
           %th Supply Name
           %th Name
           %th Notes
-          %th Remove
+          %th Action
       - @user.supply_lists.each do |list|
         %tr
           %td
@@ -49,8 +52,9 @@
             = list.notes
           %td
             = link_to 'remove', admin_supply_list_path(list), method: :delete
+
     %hr
-    %h3 Organizations
+    %h4 Organizations
     %div.well
       = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
         = f.hidden_field :user_id, value: variable.id
@@ -78,7 +82,7 @@
           %td
             = link_to 'remove', admin_organization_member_path(list), method: :delete
     %hr
-    %h3 Administrator?
+    %h4 Administrator?
     %div.well
       - if variable.admin
         %span User is an administrator
