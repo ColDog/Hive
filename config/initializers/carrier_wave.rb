@@ -10,3 +10,6 @@ if Rails.env.production?
     config.fog_directory =   'hive'
   end
 end
+
+# AWSAccessKeyId=AKIAI6WC6M7GG5ERWAOA
+# AWSSecretKey=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
