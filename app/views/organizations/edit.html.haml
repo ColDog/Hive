@@ -2,6 +2,9 @@
 %div.form
   = form_for @organization do |f|
     %div.form-group
+      %label Avatar
+      = f.file_field :avatar
+    %div.form-group
       %label Name
       = f.text_field :name, placeholder: 'name', class: 'form-control'
     %div.form-group

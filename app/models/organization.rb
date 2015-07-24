@@ -3,6 +3,10 @@ class Organization < ActiveRecord::Base
   has_many :supply_lists, through: :users
   has_many :users, through: :organization_members
 
+  mount_uploader :service_agreement, ServiceAgreementUploader
+  mount_uploader :avatar,            AvatarUploader
+
+
   def tags=(val)
     write_attribute(:tags, val.split(',') )
   end

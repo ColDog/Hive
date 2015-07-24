@@ -1,7 +1,5 @@
 To Do
-TODO: Filters and searching
 TODO: Picture upload
 TODO: PDF upload
 TODO: Pagination
-TODO: Sidebar scrolling
 TODO: Security, pemit!
