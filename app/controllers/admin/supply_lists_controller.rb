@@ -7,7 +7,7 @@ class Admin::SupplyListsController < ApplicationController
       flash[:success] = 'Successfully added user to supply.'
       redirect_to :back
     else
-      flash[:danger] = "Failed to add. #{supply_list.errors.full_messages}"
+      flash[:danger] = "Failed to add. #{supply_list.errors.full_messages.to_sentence}"
       redirect_to :back
     end
   end

@@ -2,10 +2,10 @@
 %div.row
   %div.col-md-4
     %h3 Organization
+
     = form_for variable, url: url, method: method do |f|
       = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-      = f.text_field :tags, value: variable.tags.join(','), class: 'select2 form-control', id: 'tagging'
-      %br
+      = f.text_field :tagging, value: variable.tags.join(','),  class: 'form-control'
       %br
       %div.form-group
         = f.label 'Signed Service Agreement: '
@@ -73,18 +73,19 @@
               %td
                 = link_to 'remove', admin_organization_member_path(member), method: :delete
 
+
 :javascript
   $('#current').click(function() {
-    if( $(this).is(':checked')) {
-      $("#currentShow").hide();
-    } else {
-      $("#currentShow").show();
-    }
+      if( $(this).is(':checked')) {
+          $("#currentShow").hide();
+      } else {
+          $("#currentShow").show();
+      }
   });
   $('#service').click(function() {
-    if( $(this).is(':checked')) {
-      $("#serviceShow").show();
-    } else {
-      $("#serviceShow").hide();
-    }
+      if( $(this).is(':checked')) {
+          $("#serviceShow").show();
+      } else {
+          $("#serviceShow").hide();
+      }
   });

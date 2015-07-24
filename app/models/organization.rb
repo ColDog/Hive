@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  attr_accessor :tagging
   has_many :organization_members
   has_many :supply_lists, through: :users
   has_many :users, through: :organization_members
@@ -8,20 +9,12 @@ class Organization < ActiveRecord::Base
 
   validate :if_agreement_then_signed
 
-  def tags=(val)
-    write_attribute(:tags, val.split(',') )
+  def tagging=(val)
+    write_attribute(:tags, val.split(','))
   end
 
   def pretty_tags
-    str = '' ; tags.map { |t| str += "#{t} "  } ; str
-  end
-
-  def self.select_tags
-    out = []
-    Organization.pluck(:tags).flatten.uniq.each do |tag|
-      out << { id: tag, text: tag }
-    end
-    out.to_json
+    str = '' ; tags.each { |t| str += "#{t} "} ; str
   end
 
   scope :search, -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR description ILIKE ? OR tags @> ARRAY[?] OR city ILIKE ? OR province ILIKE ? OR postal ILIKE ?', q, q, q, q, q, q) }

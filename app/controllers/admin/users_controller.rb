@@ -14,6 +14,7 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    @password = SecureRandom.hex(10)
   end
 
   def create
