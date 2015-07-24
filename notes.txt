@@ -1,3 +1,2 @@
 To Do
-TODO: Pagination
 TODO: Security, pemit!
