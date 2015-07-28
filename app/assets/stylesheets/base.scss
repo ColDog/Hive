@@ -10,6 +10,8 @@
 .avatar { width: 250px; height: 250px; overflow: auto; }
 .float-right { float: right }
 .message { position: fixed; right: 25px; bottom: 15px; text-align: center; margin: auto !important; width: 300px; z-index: 999; }
+.alert-alert { @extend .alert-danger; }
+.alert-notice { @extend .alert-success; }
 h1 { text-align: center; }
 html, body, .container-fluid, { height: 100%; }
 

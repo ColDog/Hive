@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     UserMailer.new_user(self, digest).deliver_now
   end
 
-  scope :search, -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
+  scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 
 end

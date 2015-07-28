@@ -12,7 +12,7 @@
     %ul.nav.navbar-nav.navbar-right
       %li
         = link_to 'Organizations', organizations_path
-      - if current_user?
+      - if user_signed_in?
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
             = current_user.name
@@ -27,4 +27,4 @@
                 = link_to 'Admin', '/admin'
       - else
         %li
-          = link_to 'Log In', new_session_path
+          = link_to 'Log In', new_user_session_path

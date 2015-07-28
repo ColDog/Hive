@@ -7,7 +7,15 @@ one:
   account_type: string
   inactive_on: 
   current: true
-  password_digest: 
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  signup_digest:
 
 two:
-  name: MyString
+  name: Another User
+  email: someemail@email.ca
+  phone: 7787091989
+  account_type: string
+  inactive_on:
+  current: true
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  signup_digest:

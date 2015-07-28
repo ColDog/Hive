@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     resources :users
     resources :supplies
     resources :admins
-    resources :sessions
     resources :supply_lists
     resources :organization_members
     resources :notes
