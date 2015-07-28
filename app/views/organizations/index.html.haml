@@ -1,14 +1,16 @@
 %h1 All Organizations
 %div.container-fluid
-  %div.content
-    - @organizations.each do |org|
-      %div.row
-        %div.col-sm-4
-          %div.avatar
+  - @organizations.each do |org|
+    %div.col-sm-4
+      %div.organization
+        %div.avatar
+          - if org.avatar.file
             = image_tag org.avatar, class: 'img-responsive'
-        %div.col-sm-8
-          %h3
-            = org.name
-          %p
-            = org.description
-            = link_to 'edit organization', edit_organization_path(org) if editable?(org)
+          - else
+            = image_tag '/default/avatar.jpg', class: 'img-responsive'
+        %h3
+          = org.name
+        %div.org-text
+          = raw prepare_text(org.description)
+      %div{ style: 'position:absolute;right:20px;top:7px;background-color:white;padding:4px;' }
+        = link_to 'edit', edit_organization_path(org) if editable?(org)

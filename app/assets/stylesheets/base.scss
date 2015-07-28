@@ -7,16 +7,20 @@
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
 .navbar { margin: 0 !important; z-index: 999; }
 .short-form { display: inline-block; max-width: 160px; float: left }
-.form { max-width: 400px; margin: auto; }
+.form { max-width: 400px; margin: auto; background-color: white; padding: 20px; }
 .sign_in { width: 250px; margin: auto; margin-top: 6em; }
 .content { padding: 15px; max-width: 800px; margin: auto; }
-.avatar { width: 250px; height: 250px; overflow: auto; }
 .float-right { float: right }
 .message { position: fixed; right: 25px; bottom: 15px; text-align: center; margin: auto !important; width: 300px; z-index: 999; }
 .alert-alert { @extend .alert-danger; }
 .alert-notice { @extend .alert-success; }
 .select2-container { height: 180px !important; }
+
 hr { margin-top: 3em !important; margin-bottom: 3em !important; }
 h1 { text-align: center; }
 @import "bootstrap";
 body { background-color: whitesmoke }
+
+.avatar { height: 200px; overflow: hidden; }
+.organization { height: 500px; overflow: hidden; background-color: white; padding: 20px; position: relative; margin-top: 2em; }
+.org-text { height: 200px !important; overflow: scroll; }

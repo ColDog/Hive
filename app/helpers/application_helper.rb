@@ -23,4 +23,14 @@ module ApplicationHelper
     end
   end
 
+  def prepare_text(text)
+    final = ''
+    text.each_line do |line|
+      final += '<p>'
+      final += line
+      final += '</p>'
+    end
+    final
+  end
+
 end

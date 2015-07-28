@@ -15,5 +15,5 @@
       = f.text_field :tags, value: @organization.tags.join(','), class: 'select2 form-control', id: 'tagging'
     %div.form-group
       %label Description
-      = f.text_area :description, placeholder: 'name', class: 'form-control'
+      = f.text_area :description, class: 'form-control', rows: 10
     = f.submit 'Submit', class: 'btn btn-primary'
