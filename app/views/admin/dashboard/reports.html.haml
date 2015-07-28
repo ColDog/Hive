@@ -1,0 +1,20 @@
+%div.container-fluid
+  %div.col-md-2.sidebar
+    = render 'admin/shared/sidebar', active: 'dashboard'
+  %div.col-md-10
+    %h1 Reports
+
+    %table.table
+      %thead
+        %tr
+          %th Supplies
+          %th Current
+          %th Maximum
+      - Supply.all.reverse_order.each do |supply|
+        %tr
+          %td
+            = supply.name
+          %td
+            = supply.supply_lists.count
+          %td
+            = supply.maximum
