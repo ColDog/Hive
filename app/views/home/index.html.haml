@@ -1,8 +1,8 @@
 %h1 Welcome to the HiVE internal site
 
-%div{ style: 'width:300px;margin:auto' }
+%div{ style: 'width:500px;margin:auto' }
   = link_to 'Browse Organizations', organizations_path, class: 'btn btn-default center-block'
-  = link_to 'Sign In', new_session_path, class: 'btn btn-default center-block'
+  = link_to 'Sign In', new_user_session_path, class: 'btn btn-default center-block'
 
   %h4 Remember
   %ul
@@ -13,7 +13,8 @@
   %ul
     %li Testing
     %li Security Measures
-    %li Users inherit supplies through an organization
+    %li Users inherit supplies through an organization.
+    %li Google analytics
     %li Account switching: set you up as the manager for the hosting, file browsing, email sender and analytics.
 
   %h4 Feature options:

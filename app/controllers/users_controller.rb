@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   def signup
     @user = User.find_by(id: params[:id])
     if @user && @user.verify_signup_digest?(params[:hash])
-      log_in @user
+      sign_in @user
+      flash[:success] = 'Successfully signed up. Please create a new password below.'
       redirect_to edit_user_path
     else
       redirect_to root_path
