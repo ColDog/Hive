@@ -4,11 +4,14 @@
     %h3 Organization
 
     = form_for variable, url: url, method: method do |f|
-      = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-      = f.text_field :tagging, value: variable.tags.join(','),  class: 'form-control'
-      %br
       %div.form-group
-        = f.label 'Signed Service Agreement: '
+        %label Name
+        = f.text_field :name, placeholder: 'organization name', class: 'form-control'
+      %div.form-group
+        %label Tags
+        = f.text_field :tagging, value: variable.tags.join(','),  class: 'form-control'
+      %div.form-group
+        %label Signed Service Agreement:
         = f.check_box :signed_service_agreement, id: 'service'
         %br
         - if variable.signed_service_agreement
@@ -23,34 +26,25 @@
         = f.label 'Currently Active: '
         = f.check_box :current, checked: 'checked', id: 'current'
         %div#currentShow{ style: 'display:none' }
-          = f.label 'Inactive on:'
+          %label Inactive on
           = f.date_select :inactive_on, include_blank: true
       %div.form-group
-        = f.label 'Address'
+        %label Address
         = f.text_field :address, placeholder: 'address', class: 'form-control'
-        = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:150px'
-        = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:65px'
-        = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:100px'
+        %div{ style: 'width:100%' }
+          = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:50%'
+          = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:25%'
+          = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:25%'
         %br
         %br
       %div.form-group
-        = f.label 'Description'
-        = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 10
-      %br
+        %label Description
+        = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 4
       = f.submit 'Submit', class: 'btn btn-primary'
 
   - if params[:action] == 'edit'
     %div.col-md-8
       %h4 Users
-      %div.well
-        = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'select2 short-form form-control'}
-          = f.hidden_field :organization_id, value: params[:id]
-          = f.submit 'Add User', class: 'btn btn-primary'
-          = f.check_box :account_contact
-          = f.label 'Accountant?'
-          = f.check_box :admin_contact
-          = f.label 'Administrator?'
       %table.table
         %thead
           %tr
@@ -71,16 +65,21 @@
               = member.account_contact
             %td
               = link_to 'remove', admin_organization_member_path(member), method: :delete
-
+      %div
+        = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
+          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'short-form form-control'}
+          = f.hidden_field :organization_id, value: params[:id]
+          &nbsp;&nbsp;
+          = f.check_box :account_contact
+          = f.label 'Accountant?'
+          &nbsp;&nbsp;
+          = f.check_box :admin_contact
+          = f.label 'Administrator?'
+          &nbsp;
+          = f.submit 'Add User', class: 'btn btn-primary'
       %hr
+
       %h4 Organization Wide Supplies
-      %div.well
-        = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
-          = f.hidden_field :organization_id, value: variable.id
-          = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'select2 short-form form-control'}
-          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-          = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-          = f.submit 'Add', class: 'btn btn-primary'
       %table.table
         %thead
           %tr
@@ -98,6 +97,13 @@
               = list.notes
             %td
               = link_to 'remove', admin_supply_list_path(list), method: :delete
+      %div
+        = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
+          = f.hidden_field :organization_id, value: variable.id
+          = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'form-control short-form'}
+          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+          = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+          = f.submit 'Add', class: 'btn btn-primary'
 
 
 :javascript

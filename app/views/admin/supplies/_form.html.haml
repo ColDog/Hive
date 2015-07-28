@@ -12,22 +12,15 @@
         %label Description
         = f.text_area :notes, placeholder: 'notes', class: 'form-control'
       %br
-      = f.submit 'Create', class: 'btn btn-primary'
+      = f.submit 'Submit', class: 'btn btn-primary'
   - if params[:action] == 'edit'
     %div.col-md-9
-      %div.well
-        = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
-          = f.hidden_field :supply_id, value: variable.id
-          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'select2 short-form form-control'}
-          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-          = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-          = f.submit 'Add', class: 'btn btn-primary'
-
       %table.table
         %thead
           %tr
             %th Name
-            %th User
+            %th Owner Type
+            %th Owner Name
             %th Notes
             %th Remove
         - variable.supply_lists.each do |list|
@@ -35,8 +28,24 @@
             %td
               = list.name
             %td
-              = link_to list.user.name, edit_admin_user_path(list.user)
+              = list.type
+            %td
+              = list.owner.name
             %td
               = list.notes
             %td
               = link_to 'remove', admin_supply_list_path(list), method: :delete
+      %div
+        = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
+          = f.hidden_field :supply_id, value: variable.id
+          = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'short-form form-control'}
+          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+          = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+          = f.submit 'Add User', class: 'btn btn-primary', style: 'width:180px'
+        %br
+        = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
+          = f.hidden_field :supply_id, value: variable.id
+          = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: 'short-form form-control'}
+          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+          = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+          = f.submit 'Add Organization', class: 'btn btn-primary', style: 'width:180px'

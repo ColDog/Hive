@@ -4,18 +4,19 @@
   %div.col-md-10
     %h1 Reports
 
-    %h4 Supplies
-    %table.table
-      %thead
-        %tr
-          %th Supplies
-          %th Current
-          %th Maximum
-      - Supply.all.reverse_order.each do |supply|
-        %tr
-          %td
-            = supply.name
-          %td
-            = supply.supply_lists.count
-          %td
-            = supply.maximum
+    %div.content
+      %h4 Supplies
+      %table.table
+        %thead
+          %tr
+            %th Supplies
+            %th Current
+            %th Maximum
+        - Supply.all.reverse_order.each do |supply|
+          %tr
+            %td
+              = supply.name
+            %td
+              = supply.supply_lists.count
+            %td
+              = supply.maximum

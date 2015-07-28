@@ -19,6 +19,14 @@ class SupplyList < ActiveRecord::Base
     end
   end
 
+  def type
+    if user?
+      'User'
+    elsif organization?
+      'Organization'
+    end
+  end
+
   def user?
     user_id.present?
   end
