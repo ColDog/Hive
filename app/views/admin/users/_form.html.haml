@@ -49,6 +49,24 @@
             = list.notes
           %td
             = link_to 'remove', admin_supply_list_path(list), method: :delete
+    %h4 Organization Wide Supplies
+    %table.table
+      %thead
+        %tr
+          %th Supply Name
+          %th Name
+          %th Notes
+          %th Organization
+      - @user.organization_supplies.each do |list|
+        %tr
+          %td
+            = list.supply.name
+          %td
+            = list.name
+          %td
+            = list.notes
+          %td
+            = list.organization
 
     %hr
     %h4 Organizations

@@ -1,6 +1,7 @@
 class SupplyList < ActiveRecord::Base
   belongs_to :user
   belongs_to :supply
+  belongs_to :organization
 
   validates :supply_id, presence: true
   validates :name,      presence: true
@@ -19,11 +20,11 @@ class SupplyList < ActiveRecord::Base
   end
 
   def user?
-    self.user_id.present?
+    user_id.present?
   end
 
   def organization?
-    self.organization_id.present?
+    organization_id.present?
   end
 
   private
@@ -34,7 +35,7 @@ class SupplyList < ActiveRecord::Base
     end
 
     def user_xor_organization
-      if user? or organization? and !(user? && organization?)
+      unless user? or organization? and !(user? && organization?)
         errors.add(:base, 'User or an organization must be present.')
       end
     end

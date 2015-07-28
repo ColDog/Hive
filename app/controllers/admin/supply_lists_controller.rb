@@ -20,7 +20,7 @@ class Admin::SupplyListsController < ApplicationController
 
   private
     def supply_params
-      params.require(:supply_list).permit(:user_id, :supply_id, :name, :notes)
+      params.require(:supply_list).permit(:user_id, :supply_id, :organization_id, :name, :notes)
     end
 
 end

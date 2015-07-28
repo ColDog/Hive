@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     resources :supply_lists
     resources :organization_members
     resources :notes
-    get '/'       => 'dashboard#index'
-    get 'reports' => 'dashboard#reports'
+    get '/'       => 'dashboard#index',   as: 'dashboard'
+    get 'reports' => 'dashboard#reports', as: 'dashboard_reports'
   end
 
   root to: 'home#index'
