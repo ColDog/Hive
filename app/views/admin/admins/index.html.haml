@@ -10,4 +10,4 @@
     = render 'admin/shared/table',  data: @admins,
                                     header: %w"Name Email Actions",
                                     methods: [['Double', :user, :name], ['Double', :user, :email]],
-                                    links: [['delete', :admin_admins_path, method: :delete]]
+                                    links: [['delete', :admin_admin_path, method: :delete]]

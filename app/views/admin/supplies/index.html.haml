@@ -1,7 +1,7 @@
 = render 'admin/shared/index',  data: @supplies,
                                 header: %w"Name Maximum Current Notes Actions",
                                 methods: [['Link', :name, :edit_admin_supply_path], :maximum, ['Double', :supply_lists, :count], :notes],
-                                links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete] ],
+                                links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' }] ],
                                 new: ['New Supply', :new_admin_supply_path],
                                 main: ['Supplies', :admin_supplies_path],
                                 title: 'Supplies',

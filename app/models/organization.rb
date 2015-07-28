@@ -1,7 +1,7 @@
 class Organization < ActiveRecord::Base
   attr_accessor :tagging
-  has_many :organization_members
-  has_many :supply_lists
+  has_many :organization_members, dependent: :destroy
+  has_many :supply_lists,         dependent: :destroy
   has_many :users, through: :organization_members
 
   mount_uploader :service_agreement, ServiceAgreementUploader
