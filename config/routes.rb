@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :organization_members
     resources :notes
     get '/' => 'dashboard#index'
+    get 'reports' => 'dashboard#reports'
   end
 
   root to: 'home#index'
