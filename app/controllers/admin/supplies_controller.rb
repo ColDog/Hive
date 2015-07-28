@@ -33,7 +33,7 @@ class Admin::SuppliesController < ApplicationController
     @supply = Supply.find(params[:id])
     if @supply.update(supply_params)
       flash[:success] = 'supply edited!'
-      redirect_to admin_supply_path(@supply)
+      redirect_to admin_supplies_path
     else
       flash[:danger] = 'supply update failed.'
       render 'edit'

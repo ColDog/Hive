@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
   has_many  :organizations, through: :organization_members
   has_one   :admin
 
+  def desk
+    desk = []
+    SupplyList.where(user_id: self.id).each do |list|
+      desk << list.supply
+    end
+  end
+
   def organization_supplies
     ids = self.organizations.pluck(:id)
     SupplyList.where(organization_id: ids)

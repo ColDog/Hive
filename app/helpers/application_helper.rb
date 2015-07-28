@@ -15,4 +15,12 @@ module ApplicationHelper
     end
   end
 
+  def per_page(per_page)
+    if per_page
+      per_page.to_i
+    else
+      10
+    end
+  end
+
 end
