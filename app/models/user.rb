@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  has_many  :supply_lists
-  has_many  :organization_members
+  has_many  :supply_lists, dependent: :destroy
+  has_many  :organization_members, dependent: :destroy
   has_many  :organizations, through: :organization_members
   has_one   :admin
 
