@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'home/index'
 
-  devise_for :users
   resources :organizations
+  devise_for :users
   resources :users
   resources :organization_members
   get '/signup/:hash/:id' => 'users#signup', as: 'signup'
@@ -18,5 +17,6 @@ Rails.application.routes.draw do
     resources :notes
     get '/' => 'dashboard#index'
   end
+
   root to: 'home#index'
 end

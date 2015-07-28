@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724054109) do
+ActiveRecord::Schema.define(version: 20150728152848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20150724054109) do
   create_table "organization_members", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
-    t.boolean  "admin_contact"
-    t.boolean  "account_contact"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.boolean  "admin_contact",   default: false
+    t.boolean  "account_contact", default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "organization_members", ["organization_id"], name: "index_organization_members_on_organization_id", using: :btree
@@ -48,16 +48,16 @@ ActiveRecord::Schema.define(version: 20150724054109) do
     t.string   "description"
     t.string   "avatar"
     t.string   "service_agreement"
-    t.boolean  "signed_service_agreement"
+    t.boolean  "signed_service_agreement", default: false
     t.boolean  "current",                  default: true
     t.date     "inactive_on"
     t.string   "address"
     t.string   "city"
     t.string   "province"
     t.string   "postal"
-    t.text     "tags",                     default: [],                array: true
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.text     "tags",                     default: [],                 array: true
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "supplies", force: :cascade do |t|
@@ -83,20 +83,28 @@ ActiveRecord::Schema.define(version: 20150724054109) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "email"
     t.string   "phone"
     t.string   "account_type"
     t.date     "inactive_on"
-    t.boolean  "current"
-    t.string   "password_digest"
-    t.text     "tags",            default: [],              array: true
+    t.boolean  "current",                default: true
     t.text     "notes"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "signup_digest"
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,    null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "admins", "users"
   add_foreign_key "organization_members", "organizations"
