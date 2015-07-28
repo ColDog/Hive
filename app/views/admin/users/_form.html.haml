@@ -32,6 +32,7 @@
         = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
         = f.submit 'Add', class: 'btn btn-primary'
+    %h4 User supplies
     %table.table
       %thead
         %tr
@@ -66,7 +67,7 @@
           %td
             = list.notes
           %td
-            = list.organization
+            = list.organization.name
 
     %hr
     %h4 Organizations
