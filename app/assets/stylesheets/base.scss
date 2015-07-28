@@ -1,8 +1,8 @@
 @import "bootstrap-sprockets";
-.sidebar { height: 100%; background-color: whitesmoke; padding-bottom: 200px; }
+.sidebar { height: 92vh; background-color: whitesmoke; padding-bottom: 200px; }
 .inside-sidebar { position: fixed }
-.shad-box { }
-.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888;  }
+.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888; height: 92vh;  }
+.list { height: 70vh; overflow: scroll; }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
 .navbar { margin: 0 !important; z-index: 999; }
 .short-form { display: inline-block; max-width: 160px; float: left }
@@ -17,5 +17,4 @@
 .select2-container { height: 180px !important; }
 hr { margin-top: 3em !important; margin-bottom: 3em !important; }
 h1 { text-align: center; }
-html, body, .container-fluid, { height: 100%; }
 @import "bootstrap";
