@@ -3,6 +3,9 @@
     = render 'admin/shared/sidebar', active: 'Administrators'
   %div.col-md-10.shad-left
     %h1 Administrators
+    = form_for :admin, url: admin_admins_path, method: :post do |f|
+      = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'short-form form-control' }
+      = f.submit 'Add User', class: 'btn btn-primary'
 
     = render 'admin/shared/table',  data: @admins,
                                     header: %w"Name Email Actions",

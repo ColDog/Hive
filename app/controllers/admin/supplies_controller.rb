@@ -2,7 +2,7 @@ class Admin::SuppliesController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @supplies = Supply.page(params[:page]).per(20)
+    @supplies = Supply.page(params[:page]).per(8)
     @supplies = @supplies.search(params[:search]) if params[:search]
   end
 

@@ -68,14 +68,3 @@
     = f.label 'Administrator?'
     &nbsp;&nbsp;
     = f.submit 'Add', class: 'btn btn-primary'
-%hr
-%h4 Administrator?
-%div
-  - if variable.admin
-    %span User is an administrator
-    = link_to 'Remove this user from administrators',  admin_admin_path(variable.admin), method: :delete,class: 'btn btn-default btn-sm'
-  - else
-    = form_for :admin, url: admin_admins_path, method: :post do |f|
-      %span This user is not currently an administrator
-      = f.hidden_field :user_id, value: variable.id
-      = f.submit 'Make this user an administrator', class: 'btn btn-default btn-sm'
