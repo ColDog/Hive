@@ -14,6 +14,7 @@ gem 'sdoc',           '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'bcrypt'
+gem 'devise'
 gem 'nested_form_fields'
 gem 'select2-rails'
 gem 'fog'

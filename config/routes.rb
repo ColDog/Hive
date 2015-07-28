@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   get 'home/index'
 
-  resources :sessions
+  devise_for :users
   resources :organizations
   resources :users
   resources :organization_members
   get '/signup/:hash/:id' => 'users#signup', as: 'signup'
+
   namespace :admin do
     resources :organizations
     resources :users
