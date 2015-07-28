@@ -5,11 +5,21 @@ class SupplyList < ActiveRecord::Base
 
   validates :supply_id, presence: true
   validates :name,      presence: true
-  validates_uniqueness_of :name, scope: :supply_id
-  validates_uniqueness_of :supply_id, scope: :user_id
+  validates_uniqueness_of :name,      scope: :supply_id
+  validates_uniqueness_of :supply_id, scope: [:organization_id, :user_id],
+                          allow_nil: true, allow_blank: true,
+                          message: 'is already selected for this user or organization.'
 
   validate :user_xor_organization
   validate :maximum_level
+
+  def user?
+    user_id.present?
+  end
+
+  def organization?
+    organization_id.present?
+  end
 
   def owner
     if user?
@@ -25,14 +35,6 @@ class SupplyList < ActiveRecord::Base
     elsif organization?
       'Organization'
     end
-  end
-
-  def user?
-    user_id.present?
-  end
-
-  def organization?
-    organization_id.present?
   end
 
   private

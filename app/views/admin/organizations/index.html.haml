@@ -1,7 +1,7 @@
 = render 'admin/shared/index',  data: @organizations,
                                 header: %w"Name Active Employees Description Tags Actions",
                                 methods: [['Link', :name, :edit_admin_organization_path], :current,
-                                         ['Double', :users,:count], 'truncate(description,length:100)', :pretty_tags],
+                                         ['Double', :users,:count], :description_short, :pretty_tags],
                                 links: [ ['edit', :edit_admin_organization_path], ['delete', :admin_organization_path, method: :delete] ],
                                 new: ['New Organization', :new_admin_organization_path],
                                 main: ['Organizations', :admin_organizations_path],

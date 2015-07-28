@@ -13,6 +13,10 @@ class Organization < ActiveRecord::Base
     write_attribute(:tags, val.split(','))
   end
 
+  def description_short
+    str = self.description.slice(0,40) ; str += '...' ; str
+  end
+
   def pretty_tags
     str = '' ; tags.each { |t| str += "#{t} "} ; str
   end
