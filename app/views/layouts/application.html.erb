@@ -10,6 +10,7 @@
 <%= render 'layouts/navbar' %>
 <% flash.each do |message_type, message| %>
 	<div class="message" onclick="$('.message').fadeOut(300, function() { $(this).remove(); });" style="transition: all 0.2s">
+		<span style="position: absolute; right: 10px; top: 5px; cursor: pointer;">&times;</span>
 		<div class="center-block text-center alert alert-<%= message_type %>" ><%= message %></div>
 	</div>
 <% end %>
