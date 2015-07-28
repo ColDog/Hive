@@ -28,7 +28,11 @@ module SessionsHelper
   end
 
   def editable?(organization)
-    current_user.admin || organization.organization_members.find_by(user_id: current_user.id).present?
+    if current_user?
+      current_user.admin || organization.organization_members.find_by(user_id: current_user.id).present?
+    else
+      false
+    end
   end
 
 end
