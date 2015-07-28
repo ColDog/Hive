@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  organization_id: 
-  admin_contact: false
-  account_contact: false
+  name: Colin Walker
+  email: cjwalker@sfu.ca
+  phone: 7787091959
+  account_type: string
+  inactive_on: 
+  current: true
+  password_digest: 
 
 two:
   name: MyString
-  organization_id: 
-  admin_contact: false
-  account_contact: false

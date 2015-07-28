@@ -1,2 +1,54 @@
 To Do
 TODO: Security, pemit!
+
+DATABASE
+  Admins
+  	user_id
+
+	Notes
+		title
+		content
+
+	Organization Members
+		user_id
+		organization_id
+		admin_contact
+		account_contact
+
+	Organizations
+		name
+		description
+		avatar
+		service_agreement
+		signed_service_agreement
+		current
+		inactive_on
+		address
+		city
+		province
+		postal
+		tags
+
+	Supplies
+		name
+		maximum
+		notes
+
+	Supply Lists
+		user_id
+		supply_id
+		name
+		notes
+		shared
+
+	Users
+		name
+		email
+		phone
+		account_type
+		inactive_on
+		current
+		password_digest
+		tags
+		notes
+		signup_digest
