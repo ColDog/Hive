@@ -1,8 +1,10 @@
 @import "bootstrap-sprockets";
-.sidebar { background-color: #dadada; margin: 0; height: 100%; padding-top: 2em; }
+.sidebar { height: 100%; background-color: whitesmoke; padding-bottom: 200px; }
 .inside-sidebar { position: fixed }
+.shad-box { }
+.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888;  }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
-.navbar { margin: 0 !important; }
+.navbar { margin: 0 !important; z-index: 999; }
 .short-form { display: inline-block; max-width: 160px; float: left }
 .form { max-width: 400px; margin: auto; }
 .sign_in { width: 250px; margin: auto; margin-top: 6em; }
