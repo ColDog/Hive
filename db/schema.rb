@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728152848) do
+ActiveRecord::Schema.define(version: 20150728172751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,11 +73,13 @@ ActiveRecord::Schema.define(version: 20150728152848) do
     t.integer  "supply_id"
     t.string   "name"
     t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.boolean  "shared"
+    t.integer  "organization_id"
   end
 
+  add_index "supply_lists", ["organization_id"], name: "index_supply_lists_on_organization_id", using: :btree
   add_index "supply_lists", ["supply_id"], name: "index_supply_lists_on_supply_id", using: :btree
   add_index "supply_lists", ["user_id"], name: "index_supply_lists_on_user_id", using: :btree
 
@@ -109,6 +111,7 @@ ActiveRecord::Schema.define(version: 20150728152848) do
   add_foreign_key "admins", "users"
   add_foreign_key "organization_members", "organizations"
   add_foreign_key "organization_members", "users"
+  add_foreign_key "supply_lists", "organizations"
   add_foreign_key "supply_lists", "supplies"
   add_foreign_key "supply_lists", "users"
 end
