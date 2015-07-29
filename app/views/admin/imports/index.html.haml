@@ -1,0 +1,53 @@
+%div.container-fluid
+  %div.col-md-2.sidebar.hidden-sm.hidden-xs
+    = render 'admin/shared/sidebar', active: 'imports'
+  %div.col-md-10.shad-left
+    %h1 Imports
+    %div.form{ style: 'max-width:600px;margin-top:30px;' }
+      %p File must be organized specifically to be successfully uploaded. It should look like the examples below.
+      %p You should be able to easily save the google doc as a 'csv' and get something similar to this. Make sure the first line contains the proper headings seen in the examples.
+
+    %div.row
+      %div.col-md-6
+        %h3 Import Users
+        %div
+          %pre
+            %code
+              ~ 'name,email,phone,account_type,current'
+              %br
+              ~ "User Name,cjwalker@sfu.ca,778 709 1959,account type,true"
+
+          = form_tag admin_import_users_path, multipart: true do
+            = file_field_tag :file
+            %br
+            = submit_tag 'Import File', class: 'btn btn-primary'
+
+      %div.col-md-6
+        %h3 Import Organization Data
+        %div
+          %pre
+            %code
+              ~ 'name,description,signed_service_agreement,current,inactive_on,address,city,province,postal'
+              %br
+              ~ 'name,describe,true,true,2015-05-11,1234 Street,Van,BC,V5N 111'
+
+        = form_tag admin_import_organizations_path, multipart: true do
+          = file_field_tag :file
+          %br
+          = submit_tag 'Import File', class: 'btn btn-primary'
+
+    - if @errors.present? or @successes.present?
+      %div.form{ style: 'max-width:600px;margin-top:30px;' }
+        %h3 Results
+        %div
+          %h5 Errors
+          %ul
+            - @errors.each do |k,v|
+              %li
+                = k
+                = v
+          %h5 Successes
+          %ul
+            - @successes.each do |k|
+              %li
+                = k

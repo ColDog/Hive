@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'home_contents/index'
-  end
-
   resources :organizations
   devise_for :users
   resources :users
@@ -21,6 +17,10 @@ Rails.application.routes.draw do
     resources :home_contents
     get '/'       => 'dashboard#index',   as: 'dashboard'
     get 'reports' => 'dashboard#reports', as: 'dashboard_reports'
+
+    get  '/imports'       => 'imports#index', as: 'imports'
+    post '/imports/users' => 'imports#users', as: 'import_users'
+    post '/imports/organizations' => 'imports#organizations', as: 'import_organizations'
   end
 
   root to: 'home#index'

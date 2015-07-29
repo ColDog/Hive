@@ -42,6 +42,32 @@ class User < ActiveRecord::Base
     UserMailer.new_user(self, digest).deliver_now
   end
 
+  def self.import(csv)
+    errors = {  }
+    successes = []
+    count = 0
+    CSV.foreach(csv.path, headers: true) do |row|
+      pass = SecureRandom.hex(10)
+      hsh = row.to_hash.slice(
+                'name', 'email', 'phone', 'account_type', 'inactive_on', 'current',
+                'password', 'password_confirmation'
+              ).merge(password: pass, password_confirmation: pass)
+      begin
+        User.create! hsh
+        successes << hsh['email']
+      rescue Exception => e
+        if hsh['email']
+          errors[ hsh['email'] ] = e.message
+        else
+          errors[ count ] = e.message
+        end
+      end
+      count += 1
+    end
+    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
+    return fin
+  end
+
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 
