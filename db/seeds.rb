@@ -1,147 +1,36 @@
-# User.create(name: 'administrator', email: 'admin@admin.com', password: 'password',
-#             password_confirmation: 'password')
-# Admin.create(user_id: 1)
-
-
-names = [
-  'Agatha Follansbee',
-  'Salena Bakewell',
-  'Hank Rustad',
-  'Malissa Acquaviva',
-  'Kris Stall',
-  'Asley Tobia',
-  'Johnathan Vesey',
-  'Crissy Ines',
-  'Evette Sage',
-  'Brenna Wingard',
-  'Dorine Vien',
-  'Shira Garofalo',
-  'Lelah Orozco',
-  'Katia Countryman',
-  'Rosalee Bellanger',
-  'Kristina Nowland',
-  'Bess Corchado',
-  'Lisandra Bedsole',
-  'Kaitlyn Riding',
-  'Darcie Paschke',
-  'Evonne Laswell',
-  'Helene Worthington',
-  'Tova Grist',
-  'Nada Fenley',
-  'Trent Hassell',
-  'Dwain Ryles',
-  'Rebbeca Bezio',
-  'Amado Motes',
-  'Tynisha Nees',
-  'Yevette Pro',
-  'Nu Stokely',
-  'Jestine Barringer',
-  'Earline Dicicco',
-  'Hugh Ristau',
-  'Verla Tokarski',
-  'Shera Gordillo',
-  'Deandre Mcmillan',
-  'Mohamed Hollier',
-  'Raphael Pichette',
-  'Arielle Kilbourne',
-  'Pearlie Decamp',
-  'Roxanne Stoute',
-  'Hung Dollinger',
-  'Clarinda Mahnke',
-  'Eryn Demaio',
-  'Evelyn Debonis',
-  'Timika Pharris',
-  'Jin Leffler',
-  'Viviana Lefever',
-  'Kimiko Hofman',
-  'Rosalia Mckamie',
-  'Jetta Kinnard',
-  'Stanford Falcone',
-  'Denese Whitlock',
-  'Lourdes Fertig',
-  'Layne Boothe',
-  'Malorie Conlan',
-  'Larae Bush',
-  'Merrie Sabol',
-  'Rosaura Eames',
-  'Jan Collison',
-  'Felice Linden',
-  'Chassidy Souther',
-  'Dave Scheuermann',
-  'Bee Ruge',
-  'Ernesto Waldner',
-  'Juliane Bono',
-  'Salvatore Soderlund',
-  'Hubert Hyder',
-  'Delphine Blackshear',
-  'Valda Arzate',
-  'Denver Weiser',
-  'Isaiah Litchford',
-  'Crysta Jin',
-  'Jinny Pankow',
-  'Lakeshia Fahie',
-  'Willia Steinhoff',
-  'Loriann Vena',
-  'Kristeen Katzman',
-  'Vannessa Southwi',
-  'Gianna Welke',
-  'Ileana Musgrave',
-  'Rosalee Sides',
-  'Tajuana Dammann',
-  'Delena Crossett',
-  'Pansy Rine',
-  'Deb Mcvay',
-  'Modesto Newcomb',
-  'Carlyn Miller',
-  'Tiara Effinger',
-  'Mindy Wicklund',
-  'Len Birney',
-  'Shanell Knotts',
-  'Donnetta Thresher',
-  'Eugenio Harbor',
-  'Marianela Kina',
-  'Penney Esquilin',
-  'Brian Malbon',
-  'Carolina Lykins',
-  'Vennie Bonnette',
-  'Johnna Hetrick',
-  'Benny Gregorio',
-  'Wilhelmina Markwell',
-  'Ina Frates',
-  'Ethelene Shasteen',
-  'Jeannetta Cottrill',
-  'Kareem Mcnamara',
-  'Leslie Wisecarver',
-  'Luciano Attaway',
-  'Beaulah Gersten',
-  'Joel Barnhill',
-  'Gillian Thode',
-  'Ada Tolman',
-  'Hien Pantano',
-  'Pa Sugar',
-  'Patti Vause',
-  'Latrisha Knauss',
-  'Arnetta Younts',
-  'Alex Geier',
-  'Samantha Stlouis',
-  'Elisa Bracco',
-  'Darnell Rippel',
-  'Mollie Muise',
-  'Clinton Oden',
-  'Sherrie Hodgson',
-  'Luella Finkelstein',
-  'Sharleen Skiles',
-  'Tenesha Shur',
-  'Freda Bartling',
-  'Jacklyn Dobbins '
-]
+User.create(name: 'administrator', email: 'admin@admin.com', password: 'password', password_confirmation: 'password')
+Admin.create(user_id: 1)
 
 200.times do
-  name = names.sample
-  user = User.new(
-    name: name, email: "#{name.split(' ')[0]}@site.com",
-    password: 'password', password_confirmation: 'password',
-    phone: rand(100000000..900000000)
+  User.create(
+    name:                   Faker::Name.name,
+    email:                  Faker::Internet.email,
+    phone:                  Faker::PhoneNumber.phone_number,
+    password:               'password',
+    password_confirmation:  'password'
   )
-  user.save if user.valid?
+  Organization.create(
+    name:         Faker::Company.name,
+    description:  Faker::Lorem.paragraph(2),
+    current:      true,
+    address:      Faker::Address.street_address,
+    city:         Faker::Address.city,
+    province:     Faker::Address.state_abbr,
+    postal:       Faker::Address.zip
+  )
+end
+
+Supply.create(name: 'Desk', maximum: 100)
+Supply.create(name: 'Keys', maximum: 50)
+Supply.create(name: 'Lockers', maximum: 50)
+
+100.times do
+  list_user = SupplyList.new(supply_id: rand(1..3),user_id: rand(1..200), name: rand(100..900))
+  list_user.save if list_user.valid?
+
+  list_org = SupplyList.new(supply_id: rand(1..3), organization_id: rand(1..200), name: rand(100..900))
+  list_org.save if list_org.valid?
+
+  org_member = OrganizationMember.new(organization_id: rand(1..200), user_id: rand(1..200))
+  org_member.save if org_member.valid?
 end

@@ -21,6 +21,7 @@ gem 'fog'
 gem 'carrierwave'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug'

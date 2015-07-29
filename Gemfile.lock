@@ -83,6 +83,8 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.5.2)
+    faker (1.4.3)
+      i18n (~> 0.5)
     ffi (1.9.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -360,6 +362,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   devise
+  faker
   fog
   guard
   guard-minitest
