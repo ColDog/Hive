@@ -1,10 +1,12 @@
 %div.inside-sidebar
   %ul.nav.nav-sidebar.nav-pills.nav-stacked
     %li{ class: active == 'dashboard' ? 'active' : '' }
-      = link_to 'Dashboard', '/admin'
+      = link_to 'Dashboard', admin_dashboard_path
     %li{ class: active == 'reports' ? 'active' : '' }
       = link_to 'Reports', admin_dashboard_reports_path
-  %hr
+    %li{ class: active == 'home' ? 'active' : '' }
+      = link_to 'Home Page', admin_home_contents_path
+  %br
   %ul.nav.nav-sidebar.nav-pills.nav-stacked
     %li{ class: active == 'Organizations' ? 'active' : '' }
       = link_to 'Organizations', admin_organizations_path
@@ -12,7 +14,7 @@
       = link_to 'Supplies', admin_supplies_path
     %li{ class: active == 'Users' ? 'active' : '' }
       = link_to 'Users', admin_users_path
-  %hr
+  %br
   %ul.nav.nav-sidebar.nav-pills.nav-stacked
     %li{ class: active == 'Administrators' ? 'active' : '' }
       = link_to 'Administrators', admin_admins_path
