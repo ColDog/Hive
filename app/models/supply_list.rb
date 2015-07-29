@@ -37,6 +37,17 @@ class SupplyList < ActiveRecord::Base
     end
   end
 
+  scope :search, -> (s) do
+    if s.present?
+      q = "%#{s}%"
+      includes(:user, :supply, :organization)
+        .references(:user, :supply, :organization)
+        .where('supplies.name ILIKE ? OR users.name ILIKE ? OR organizations.name ILIKE ?', q, q, q)
+    else
+      all
+    end
+  end
+
   private
     def maximum_level
       if SupplyList.where(supply_id: self.supply_id).count >= self.supply.maximum

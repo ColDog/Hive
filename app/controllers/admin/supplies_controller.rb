@@ -27,6 +27,7 @@ class Admin::SuppliesController < ApplicationController
 
   def edit
     @supply = Supply.find(params[:id])
+    @supply_lists = @supply.supply_lists.search params[:search]
   end
 
   def update

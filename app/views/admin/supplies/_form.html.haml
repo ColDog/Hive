@@ -15,7 +15,11 @@
       = f.submit 'Submit', class: 'btn btn-primary'
   - if params[:action] == 'edit'
     %div.col-md-9
-      %div.list{ style: 'height:60vh' }
+      %div.row
+        = form_tag '#', method: :get, enforce_utf8: false do
+          = text_field_tag :search, params[:search], class: 'form-control short-form'
+          = submit_tag 'Search', name: nil, class: 'btn btn-default short-form'
+      %div.list{ style: 'height:59vh' }
         %table.table
           %thead
             %tr
@@ -24,7 +28,7 @@
               %th Owner Name
               %th Notes
               %th Remove
-          - variable.supply_lists.each do |list|
+          - @supply_lists.each do |list|
             %tr
               %td
                 = list.name
@@ -36,6 +40,7 @@
                 = list.notes
               %td
                 = link_to 'remove', admin_supply_list_path(list), method: :delete
+      %br
       %div
         = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
           = f.hidden_field :supply_id, value: variable.id
