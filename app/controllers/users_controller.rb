@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!,  only: [:edit, :update]
+  before_action :correct_user,        only: [:edit, :update]
 
   def signup
     @user = User.find_by(id: params[:id])
     if @user && @user.verify_signup_digest?(params[:hash])
-      sign_in @user
-      flash[:success] = 'Successfully signed up. Please create a new password below.'
-      redirect_to edit_user_path
+      sign_out_all_scopes
+      sign_in :user, @user
+      flash[:success] = 'Successfully signed up. Please create a new password.'
+      redirect_to edit_user_path(@user)
     else
+      flash[:danger] = 'We are experiencing an error, please contact support.'
       redirect_to root_path
     end
   end
@@ -19,8 +22,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = 'User edited!'
-      redirect_to user_path(@user)
+      flash[:success] = 'Account updated.'
+      redirect_to root_path
     else
       flash[:danger] = 'User update failed.'
       render 'edit'
