@@ -30,8 +30,9 @@
             = org.name
           %div.org-text
             = raw prepare_text(org.description)
-        %div{ style: 'position:absolute;right:20px;top:7px;background-color:white;padding:4px;' }
-          = link_to 'edit', edit_organization_path(org) if editable?(org, org.organization_members)
+        - if editable?(org, org.organization_members)
+          %div{ style: 'position:absolute;right:20px;top:7px;background-color:white;padding:4px;' }
+            = link_to 'edit', edit_organization_path(org)
   %div.text-center{ style: 'background-color:white;padding:20px;margin:30px 0 30px 0;'}
     = paginate @organizations, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'
     %br
