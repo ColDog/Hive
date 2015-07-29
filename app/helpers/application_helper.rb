@@ -9,10 +9,14 @@ module ApplicationHelper
 
   def editable?(organization, members = nil)
     if user_signed_in?
-      if members
-        members.any? { |i| i.user_id == current_user.id }
+      if current_user.admin
+        true
       else
-        current_user.admin || organization.organization_members.find_by(user_id: current_user.id).present?
+        if members
+          members.any? { |i| i.user_id == current_user.id }
+        else
+          organization.organization_members.find_by(user_id: current_user.id).present?
+        end
       end
     else
       false
