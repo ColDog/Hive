@@ -4,7 +4,7 @@ class Admin::SupplyListsController < ApplicationController
   def create
     supply_list = SupplyList.new(supply_params)
     if supply_list.save
-      flash[:success] = 'Successfully added supply.'
+      flash[:success] = "Successfully added #{supply_list.owner.name} to #{supply_list.supply.name}."
       redirect_to :back
     else
       flash[:danger] = "Failed to add. #{supply_list.errors.full_messages.to_sentence}"
@@ -13,8 +13,9 @@ class Admin::SupplyListsController < ApplicationController
   end
 
   def destroy
-    SupplyList.find(params[:id]).destroy
-    flash[:success] = 'Successfully removed user from supply.'
+    supply_list = SupplyList.find(params[:id])
+    flash[:success] = "Successfully removed #{supply_list.owner.name} from #{supply_list.supply.name}."
+    supply_list.destroy
     redirect_to :back
   end
 

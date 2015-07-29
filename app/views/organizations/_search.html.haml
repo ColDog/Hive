@@ -1,0 +1,18 @@
+%div.row{ style: 'background-color:white;padding:20px;box-shadow: 0 0 4px -2px rgba(0,0,0,0.75);'}
+  %div.col-sm-4
+    = form_tag '#', method: :get, enforce_utf8: false do
+      = hidden_field_tag :per_page, params[:per_page]
+      = text_field_tag :search, params[:search], class: 'form-control short-form'
+      = submit_tag 'Search', name: nil, class: 'btn btn-default short-form'
+  %div.col-sm-4
+    = paginate @organizations, theme: 'twitter-bootstrap-3'
+  %div.col-sm-4
+    %div
+      = page_entries_info @organizations
+      %br
+      %span Results:
+      = link_to '5', params.merge(per_page: 5)
+      = link_to '20', params.merge(per_page: 20)
+      = link_to '50', params.merge(per_page: 50)
+      = link_to '100', params.merge(per_page: 100)
+      = link_to '200', params.merge(per_page: 200)

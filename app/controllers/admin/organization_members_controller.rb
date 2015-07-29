@@ -4,10 +4,10 @@ class Admin::OrganizationMembersController < ApplicationController
   def create
     member = OrganizationMember.new(member_params)
     if member.save
-      flash[:success] = 'Successfully added user to organization.'
+      flash[:success] = "Successfully added #{member.user.name} to #{member.organization.name}."
       redirect_to :back
     else
-      flash[:danger] = 'Failed to add.'
+      flash[:danger] = "Failed to add. #{member.errors.full_messages.to_sentence}"
       redirect_to :back
     end
   end

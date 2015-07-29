@@ -2,7 +2,10 @@ require 'test_helper'
 
 class Admin::UsersControllerTest < ActionController::TestCase
 
-  setup { login_admin }
+  setup do
+    login_admin
+    ActionMailer::Base.deliveries.clear
+  end
 
   test 'get index' do
     get :index
@@ -25,6 +28,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
       post :create, user: { name: 'name', email: 'email@emailer.com',
                             password: 'password', password_confirmation: 'password' }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test 'update user' do
