@@ -20,19 +20,23 @@ class UsersController < ApplicationController
   end
 
   def update
+    clear_password(params[:user][:password], params[:user][:password_confirmation])
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'Account updated.'
       redirect_to root_path
     else
-      flash[:danger] = 'User update failed.'
-      render 'edit'
+      flash[:danger] = "User update failed. #{@user.errors.full_messages.to_sentence}"
+      redirect_to edit_user_path(@user)
     end
   end
 
   private
     def user_params
-      params.require(:user).permit!
+      params.require(:user).permit(
+        :name, :email, :phone, :account_type, :inactive_on, :current,
+        :password_digest, :tags, :tagging, :notes
+      )
     end
 
     def correct_user

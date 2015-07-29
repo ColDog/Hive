@@ -4,7 +4,7 @@ class Admin::SupplyListsController < ApplicationController
   def create
     supply_list = SupplyList.new(supply_params)
     if supply_list.save
-      flash[:success] = 'Successfully added user to supply.'
+      flash[:success] = 'Successfully added supply.'
       redirect_to :back
     else
       flash[:danger] = "Failed to add. #{supply_list.errors.full_messages.to_sentence}"

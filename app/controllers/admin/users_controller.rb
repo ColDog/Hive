@@ -34,6 +34,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    clear_password(params[:user][:password], params[:user][:password_confirmation])
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'User edited!'

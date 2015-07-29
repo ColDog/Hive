@@ -8,10 +8,6 @@ class Admin::OrganizationsController < ApplicationController
     end
   end
 
-  def show
-    @organization = Organization.find(params[:id])
-  end
-
   def new
     @organization = Organization.new
   end
@@ -50,7 +46,10 @@ class Admin::OrganizationsController < ApplicationController
 
   private
     def organization_params
-      params.require(:organization).permit!
+      params.require(:organization).permit(
+        :name, :description, :avatar, :service_agreement, :signed_service_agreement,
+        :current, :inactive_on, :address, :city, :province, :postal, :tags, :tagging
+      )
     end
 
     def filter_params(params)
