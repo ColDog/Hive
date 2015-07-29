@@ -18,6 +18,7 @@
       %div.row
         = form_tag '#', method: :get, enforce_utf8: false do
           = text_field_tag :search, params[:search], class: 'form-control short-form'
+          = select_tag :category, options_for_select(['User', 'Organization'], params[:category]), include_blank: 'Type?', class: 'form-control short-form'
           = submit_tag 'Search', name: nil, class: 'btn btn-default short-form'
       %div.list{ style: 'height:59vh' }
         %table.table

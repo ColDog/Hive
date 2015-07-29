@@ -42,7 +42,17 @@ class SupplyList < ActiveRecord::Base
       q = "%#{s}%"
       includes(:user, :supply, :organization)
         .references(:user, :supply, :organization)
-        .where('supplies.name ILIKE ? OR users.name ILIKE ? OR organizations.name ILIKE ?', q, q, q)
+        .where('supply_lists.name ILIKE ? OR users.name ILIKE ? OR organizations.name ILIKE ?', q, q, q)
+    else
+      all
+    end
+  end
+
+  scope :category, -> (type) do
+    if type == 'User'
+      where('user_id IS NOT NULL')
+    elsif type == 'Organization'
+      where('organization_id IS NOT NULL')
     else
       all
     end

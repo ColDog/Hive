@@ -27,7 +27,10 @@ class Admin::SuppliesController < ApplicationController
 
   def edit
     @supply = Supply.find(params[:id])
-    @supply_lists = @supply.supply_lists.search params[:search]
+    @supply_lists = @supply.supply_lists
+    filter_params(params).each do |search, result|
+      @supply_lists = @supply_lists.public_send(search, result) if result.present?
+    end
   end
 
   def update
@@ -50,6 +53,10 @@ class Admin::SuppliesController < ApplicationController
   private
     def supply_params
       params.require(:supply).permit(:name, :maximum, :notes)
+    end
+
+    def filter_params(params)
+      params.slice(:category, :search)
     end
 
 end
