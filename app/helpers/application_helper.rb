@@ -19,7 +19,7 @@ module ApplicationHelper
     if per_page
       per_page.to_i
     else
-      10
+      25
     end
   end
 

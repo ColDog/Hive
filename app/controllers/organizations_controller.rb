@@ -2,7 +2,10 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :index, :update, :destroy]
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.page(params[:page]).per(per_page(params[:per_page]))
+    filter_params(params).each do |search, result|
+      @organizations = @organizations.public_send(search, result) if result.present?
+    end
   end
 
   def edit
@@ -47,5 +50,10 @@ class OrganizationsController < ApplicationController
     def organization_params
       params.require(:organization).permit!
     end
+
+    def filter_params(params)
+      params.slice(:search, :current)
+    end
+
 
 end

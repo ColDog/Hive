@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 .sidebar { min-height: 92vh !important; height: 100% !important; background-color: whitesmoke; padding-bottom: 200px; }
 .inside-sidebar { position: fixed }
-.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888; min-height: 92vh !important; height: 100%; background-color: white }
+.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888; min-height: 92vh !important; height: 100%; background-color: white; padding-bottom: 20px; }
 .list { height: 70vh; overflow: scroll; }
 .table-scroll { height: 70vh; overflow: scroll; }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
@@ -19,8 +19,12 @@
 hr { margin-top: 3em !important; margin-bottom: 3em !important; }
 h1 { text-align: center; }
 @import "bootstrap";
-body { background-color: whitesmoke }
+body { background-color: whitesmoke; }
+
+.full-height { min-height: 84vh; }
 
 .avatar { height: 200px; overflow: hidden; }
 .organization { height: 500px; overflow: hidden; background-color: white; padding: 20px; position: relative; margin-top: 2em; }
 .org-text { height: 200px !important; overflow: scroll; }
+
+footer { height: 20px; background-color: #222222; }
