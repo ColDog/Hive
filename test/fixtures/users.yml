@@ -1,21 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: Colin Walker
   email: cjwalker@sfu.ca
   phone: 7787091959
   account_type: string
   inactive_on: 
   current: true
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   signup_digest:
 
 two:
+  id: 2
   name: Another User
   email: someemail@email.ca
   phone: 7787091989
   account_type: string
   inactive_on:
   current: true
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   signup_digest:
+
+admin:
+  id: 3
+  name: admin
+  email: admin@admin.com
+  current: true

@@ -3,11 +3,31 @@
 one:
   name: MyString
   description: MyString
-  avatar: MyString
   tags: MyString
+  name: string
+  description: string
+  avatar: string
+  service_agreement: string
+  signed_service_agreement: false
+  current: true
+  inactive_on:
+  address: string
+  city: string
+  province: string
+  postal: string
 
 two:
   name: MyString
   description: MyString
-  avatar: MyString
   tags: MyString
+  name: string
+  description: string
+  avatar: string
+  service_agreement: string
+  signed_service_agreement: false
+  current: true
+  inactive_on:
+  address: string
+  city: string
+  province: string
+  postal: string

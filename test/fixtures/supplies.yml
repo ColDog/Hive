@@ -2,12 +2,10 @@
 
 one:
   name: MyString
-  type: 
-  maximum: MyString
+  maximum: 10
   notes: MyText
 
 two:
   name: MyString
-  type: 
-  maximum: MyString
+  maximum: 10
   notes: MyText

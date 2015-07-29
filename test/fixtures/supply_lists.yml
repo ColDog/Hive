@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 
-  supply_id: 
+  user_id: 1
+  supply_id: 1
   name: MyString
   notes: MyText
 
 two:
-  user_id: 
-  supply_id: 
+  user_id: 1
+  supply_id: 2
   name: MyString
   notes: MyText
+
+org:
+  organization_id: 1
+  supply_id: 1
+  name: string
+  notes: text
