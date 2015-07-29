@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  DESK_ID = Supply.find_by(name: 'Desk').id
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -10,9 +11,15 @@ class User < ActiveRecord::Base
   has_one   :admin
 
   def desk
-    desk = []
-    SupplyList.where(user_id: self.id).each do |list|
-      desk << list.supply
+    if DESK_ID
+      desk = self.supply_lists.find { |list| list.supply_id == DESK_ID }
+      if desk
+        desk.name
+      else
+        nil
+      end
+    else
+      nil
     end
   end
 
