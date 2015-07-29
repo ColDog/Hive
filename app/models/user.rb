@@ -1,9 +1,4 @@
 class User < ActiveRecord::Base
-
-  def self.DESK_ID
-    @my_const ||= Supply.find_by(name: 'Desk').id
-  end
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
@@ -20,8 +15,8 @@ class User < ActiveRecord::Base
   end
 
   def desk
-    if DESK_ID
-      desk = self.supply_lists.find { |list| list.supply_id == DESK_ID }
+    if ::DESK_ID
+      desk = self.supply_lists.find { |list| list.supply_id == ::DESK_ID }
       if desk
         desk.name
       else
