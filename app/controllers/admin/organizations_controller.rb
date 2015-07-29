@@ -6,6 +6,7 @@ class Admin::OrganizationsController < ApplicationController
     filter_params(params).each do |search, result|
       @organizations = @organizations.public_send(search, result) if result.present?
     end
+    respond_to { |format| format.html ; format.csv { send_data(Organization.build_csv) }  }
   end
 
   def new

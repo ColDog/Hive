@@ -3,9 +3,12 @@ module Csv
 
   def build_csv
     CSV.generate do |csv|
-      csv << self.column_names
+      names = self.column_names - ['encrypted_password']
+      csv << names
       self.all.each do |record|
-        csv << record.attributes.values_at(*self.column_names)
+        hsh = record.attributes
+        hsh['encrypted_password'] = nil if hsh['encrypted_password'].present?
+        csv << hsh.values_at(*names)
       end
     end
   end

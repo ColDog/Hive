@@ -6,6 +6,7 @@ class Admin::UsersController < ApplicationController
     filter_params(params).each do |search, result|
       @users = @users.public_send(search, result) if result.present?
     end
+    respond_to { |format| format.html ; format.csv { send_data(User.build_csv) }  }
   end
 
   def show

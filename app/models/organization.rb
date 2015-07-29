@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  extend Csv
+
   attr_accessor :tagging
   has_many :organization_members, dependent: :destroy
   has_many :supply_lists,         dependent: :destroy

@@ -20,3 +20,7 @@
               = supply.supply_lists.count
             %td
               = supply.maximum
+    %div.form
+      %h4 Downloads
+      = link_to 'Download User Data', admin_users_path(format: :csv), class: 'btn btn-default'
+      = link_to 'Download Organization Data', admin_organizations_path(format: :csv), class: 'btn btn-default'
