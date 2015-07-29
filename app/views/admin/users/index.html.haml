@@ -1,6 +1,6 @@
 = render 'admin/shared/index',  data: @users,
                                 header: %w"Name Active Email Phone Account-Type Desk Actions",
-                                methods: [['Link', :name, :edit_admin_user_path], :current, :email, :phone, :account_type, :desk],
+                                methods: [['Link', :name, :edit_admin_user_path], :active, :email, :phone, :account_type, :desk],
                                 links: [ ['edit', :edit_admin_user_path],
                                          ['delete', :admin_user_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' }] ],
                                 new: ['New User', :new_admin_user_path],

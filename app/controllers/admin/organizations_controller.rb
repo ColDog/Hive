@@ -2,7 +2,7 @@ class Admin::OrganizationsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @organizations = Organization.page(params[:page]).per(per_page(params[:per_page]))
+    @organizations = Organization.all.order(:name).page(params[:page]).per(per_page(params[:per_page]))
     filter_params(params).each do |search, result|
       @organizations = @organizations.public_send(search, result) if result.present?
     end
@@ -19,7 +19,7 @@ class Admin::OrganizationsController < ApplicationController
       redirect_to edit_admin_organization_path(@organization)
     else
       flash[:danger] = "Organization create failed. #{@organization.errors.full_messages.to_sentence}"
-      render 'new'
+      redirect_to edit_admin_organization_path(@organization)
     end
   end
 
@@ -31,7 +31,7 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     if @organization.update(organization_params)
       flash[:success] = 'Organization edited!'
-      redirect_to admin_organizations_path
+      redirect_to edit_admin_organization_path(@organization)
     else
       flash[:danger] = "Organization update failed. #{@organization.errors.full_messages.to_sentence}"
       redirect_to edit_admin_organization_path(@organization)
@@ -48,7 +48,8 @@ class Admin::OrganizationsController < ApplicationController
     def organization_params
       params.require(:organization).permit(
         :name, :description, :avatar, :service_agreement, :signed_service_agreement,
-        :current, :inactive_on, :address, :city, :province, :postal, :tags, :tagging
+        :current, :inactive_on, :address, :city, :province, :postal, :tags, :tagging,
+        :remove_service_agreement
       )
     end
 

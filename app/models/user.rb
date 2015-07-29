@@ -10,6 +10,12 @@ class User < ActiveRecord::Base
   has_many  :organizations, through: :organization_members
   has_one   :admin
 
+  validate :if_current_then_no_date
+
+  def active
+    self.current ? '√' : 'X'
+  end
+
   def desk
     if DESK_ID
       desk = self.supply_lists.find { |list| list.supply_id == DESK_ID }
@@ -40,5 +46,14 @@ class User < ActiveRecord::Base
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
+
+  private
+    def if_current_then_no_date
+      if current && inactive_on.present?
+        errors.add(:base, 'Currently active should not be checked if a date for inactive on is chosen.')
+      elsif current == false && inactive_on.present? == false
+        errors.add(:base, 'If current is not checked, you should select a date.')
+      end
+    end
 
 end

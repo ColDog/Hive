@@ -25,7 +25,7 @@ class Admin::UsersController < ApplicationController
       redirect_to edit_admin_user_path(@user)
     else
       flash[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"
-      render 'new'
+      redirect_to edit_admin_user_path(@user)
     end
   end
 
@@ -38,10 +38,10 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'User edited!'
-      redirect_to user_path(@user)
+      redirect_to edit_admin_user_path(@user)
     else
-      flash[:danger] = 'User update failed.'
-      render 'edit'
+      flash[:danger] = "User update failed. #{@user.errors.full_messages.to_sentence}"
+      redirect_to edit_admin_user_path(@user)
     end
   end
 

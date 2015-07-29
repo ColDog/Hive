@@ -1,6 +1,6 @@
 = render 'admin/shared/index',  data: @organizations,
-                                header: %w"Name Active Employees Description Tags Actions",
-                                methods: [['Link', :name, :edit_admin_organization_path], :current,
+                                header: %w"Name Active Agreement Employees Description Tags Actions",
+                                methods: [['Link', :name, :edit_admin_organization_path], :active, :agreement,
                                          ['Double', :users,:count], :description_short, :pretty_tags],
                                 links: [ ['edit', :edit_admin_organization_path],
                                        ['delete', :admin_organization_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' } ] ],
