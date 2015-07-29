@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
-  DESK_ID = Supply.find_by(name: 'Desk').id
+
+  def self.DESK_ID
+    @my_const ||= Supply.find_by(name: 'Desk').id
+  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
