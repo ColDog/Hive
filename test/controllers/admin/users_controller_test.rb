@@ -34,6 +34,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_equal 'new name', user.name
   end
 
+  test 'password change' do
+    request.env['HTTP_REFERER'] = 'back_to_here'
+    put :update, id: users(:one), user: { password: 'password1', password_confirmation: 'password1' }
+    user = assigns(:user)
+    assert_equal 'password1', user.password
+  end
+
   test 'delete user' do
     request.env['HTTP_REFERER'] = 'back_to_here'
     assert_difference 'User.count', -1 do

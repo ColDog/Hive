@@ -53,7 +53,10 @@ class Admin::UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit!
+      params.require(:user).permit(
+        :name, :email, :phone, :account_type, :inactive_on, :current,
+        :password, :password_confirmation, :tags, :tagging, :notes
+      )
     end
 
     def filter_params(params)

@@ -48,7 +48,7 @@ class Admin::SuppliesController < ApplicationController
 
   private
     def supply_params
-      params.require(:supply).permit!
+      params.require(:supply).permit(:name, :maximum, :notes)
     end
 
 end

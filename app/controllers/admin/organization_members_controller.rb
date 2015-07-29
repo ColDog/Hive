@@ -20,7 +20,9 @@ class Admin::OrganizationMembersController < ApplicationController
 
   private
     def member_params
-      params.require(:organization_member).permit!
+      params.require(:organization_member).permit(
+        :user_id, :organization_id, :admin_contact, :account_contact
+      )
     end
 
 end
