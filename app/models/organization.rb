@@ -1,7 +1,8 @@
 class Organization < ActiveRecord::Base
   extend Csv
+  include Tagging::Instance
+  extend  Tagging::ClassMethods
 
-  attr_accessor :tagging
   has_many :organization_members, dependent: :destroy
   has_many :supply_lists,         dependent: :destroy
   has_many :users, through: :organization_members
@@ -14,16 +15,8 @@ class Organization < ActiveRecord::Base
   validate :if_agreement_then_signed
   validate :if_current_then_no_date
 
-  def tagging=(val)
-    write_attribute(:tags, val.split(','))
-  end
-
   def description_short
     str = self.description.slice(0,40) ; str += '...' ; str
-  end
-
-  def pretty_tags
-    str = '' ; tags.each { |t| str += "#{t} "} ; str
   end
 
   def agreement

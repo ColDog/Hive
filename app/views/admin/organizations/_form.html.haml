@@ -7,7 +7,7 @@
           = f.text_field :name, placeholder: 'organization name', class: 'form-control'
         %div.form-group
           %label Tags
-          = f.text_field :tagging, value: variable.tags.join(','),  class: 'form-control'
+          = f.text_field :tagging, class: 'form-control', "data-role" => "tagsinput"
         %div.form-group
           %label Signed Service Agreement:
           = f.check_box :signed_service_agreement, id: 'service'
@@ -46,6 +46,10 @@
 
 
 :javascript
+  $( document ).ready(function() {
+    new Taggle('tags');
+  });
+
   $('#current').click(function() {
       if( $(this).is(':checked')) {
           $("#currentShow").hide();

@@ -2,7 +2,7 @@ class Admin::OrganizationsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @organizations = Organization.all.order(:name).page(params[:page]).per(per_page(params[:per_page]))
+    @organizations = Organization.all.order(:name).includes(:users).page(params[:page]).per(per_page(params[:per_page]))
     filter_params(params).each do |search, result|
       @organizations = @organizations.public_send(search, result) if result.present?
     end
