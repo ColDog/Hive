@@ -38,7 +38,7 @@
         %div.form-group
           %label Description
           = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 3
-        = f.submit 'Submit', class: 'btn btn-primary'
+        = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
   - if params[:action] == 'edit'
     %div.col-md-8

@@ -5,6 +5,7 @@ class SupplyList < ActiveRecord::Base
 
   validates :supply_id, presence: true
   validates :name,      presence: true
+  
   validates_uniqueness_of :name,      scope: :supply_id
   validates_uniqueness_of :supply_id, scope: [:organization_id, :user_id],
                           allow_nil: true, allow_blank: true,

@@ -14,6 +14,6 @@
       %label Remember Me
 
     %div.form-group
-      = f.submit "Log in", class: 'btn btn-primary'
+      = f.submit "Log in", class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
   = render "devise/shared/links"

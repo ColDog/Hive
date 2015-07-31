@@ -5,7 +5,7 @@
     %h1 Administrators
     = form_for :admin, url: admin_admins_path, method: :post do |f|
       = f.select :user_id, options_from_collection_for_select(User.all, :id, :name), {}, {class: 'short-form form-control' }
-      = f.submit 'Add User', class: 'btn btn-primary'
+      = f.submit 'Add User', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
     = render 'admin/shared/table',  data: @admins,
                                     header: %w"Name Email Actions",

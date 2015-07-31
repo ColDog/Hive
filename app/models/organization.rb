@@ -9,6 +9,8 @@ class Organization < ActiveRecord::Base
   mount_uploader :service_agreement, ServiceAgreementUploader
   mount_uploader :avatar,            AvatarUploader
 
+  validates :name, presence: true, uniqueness: true
+
   after_save :if_agreement_then_signed
   validate :if_current_then_no_date
 

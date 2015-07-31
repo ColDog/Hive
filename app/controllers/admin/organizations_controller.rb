@@ -20,7 +20,7 @@ class Admin::OrganizationsController < ApplicationController
       redirect_to edit_admin_organization_path(@organization)
     else
       flash[:danger] = "Organization create failed. #{@organization.errors.full_messages.to_sentence}"
-      redirect_to edit_admin_organization_path(@organization)
+      redirect_to new_admin_organization_path
     end
   end
 
