@@ -11,7 +11,7 @@ class Organization < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  after_save :if_agreement_then_signed
+  validate :if_agreement_then_signed
   validate :if_current_then_no_date
 
   def tagging=(val)
@@ -67,9 +67,9 @@ class Organization < ActiveRecord::Base
   private
     def if_agreement_then_signed
       if service_agreement.present? && signed_service_agreement == false
-        self.update(signed_service_agreement: true)
+        errors.add(:base, 'Service agreement exists, but is checked false.')
       elsif service_agreement.present? == false && signed_service_agreement == true
-        self.update(signed_service_agreement: false)
+        errors.add(:base, 'Service agreement does not exists, but is checked true.')
       end
     end
 

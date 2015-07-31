@@ -6,7 +6,7 @@ one:
   description: MyString
   description: string
   avatar: string
-  service_agreement: string
+  service_agreement:
   signed_service_agreement: false
   current: true
   inactive_on:
@@ -17,11 +17,11 @@ one:
 
 two:
   id: 2
-  name: MyString
+  name: MyString2
   description: MyString
   description: string
   avatar: string
-  service_agreement: string
+  service_agreement:
   signed_service_agreement: false
   current: true
   inactive_on:

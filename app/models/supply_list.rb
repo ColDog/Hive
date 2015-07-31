@@ -11,8 +11,8 @@ class SupplyList < ActiveRecord::Base
                           allow_nil: true, allow_blank: true,
                           message: 'is already selected for this user or organization.'
 
-  validate :user_xor_organization
-  validate :maximum_level
+  validate :user_xor_organization,  if: :no_errors?
+  validate :maximum_level,          if: :no_errors?
 
   def user?
     user_id.present?
@@ -70,6 +70,10 @@ class SupplyList < ActiveRecord::Base
       unless user? or organization? and !(user? && organization?)
         errors.add(:base, 'User or an organization must be present.')
       end
+    end
+
+    def no_errors?
+      errors.empty?
     end
 
 end
