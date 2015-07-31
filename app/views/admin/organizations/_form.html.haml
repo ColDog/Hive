@@ -10,6 +10,11 @@
           %br
           = f.text_field :tagging, value: variable.tags.join(','), class: 'form-control', id: 'tagsinput'
         %div.form-group
+          %label
+            Avatar
+            = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
+          = f.file_field :avatar
+          %br
           %label Signed Service Agreement:
           = f.check_box :signed_service_agreement, id: 'service'
           %br
@@ -20,6 +25,7 @@
               = f.check_box :remove_service_agreement, id: 'remove'
           %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
             = f.file_field :service_agreement
+          %br
           = f.label 'Currently Active: '
           = f.check_box :current, id: 'current'
           %div#currentShow{ style: variable.current ? 'display:none' : '' }
