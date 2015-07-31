@@ -1,0 +1,17 @@
+%h4
+  Hello
+  = @user.name
+
+You have been added to HiVE! Please follow the link below to set up your account.
+This will allow you to edit your information and your organizations information, as
+well as view all the other organizations that are a part of HiVE.
+
+= link_to 'Signup', signup_url(@digest, @user.id)
+
+Sincerely,
+
+The Hive Team
+HiVE Vancouver Society
+#210 – 128 West Hastings
+Vancouver, BC  V6B 1G8
+(778) 800-1250
