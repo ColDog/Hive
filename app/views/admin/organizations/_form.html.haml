@@ -6,21 +6,20 @@
           %label Name
           = f.text_field :name, placeholder: 'organization name', class: 'form-control'
         %div.form-group
-          %label Tags
-          = f.text_field :tagging, class: 'form-control', "data-role" => "tagsinput"
+          %label Tags (comma separated)
+          %br
+          = f.text_field :tagging, value: variable.tags.join(','), class: 'form-control', id: 'tagsinput'
         %div.form-group
           %label Signed Service Agreement:
           = f.check_box :signed_service_agreement, id: 'service'
           %br
           - if variable.signed_service_agreement
             = link_to 'view service agreement', variable.service_agreement.url, target: '_blank'
-            %br
             %label
               Remove
               = f.check_box :remove_service_agreement, id: 'remove'
           %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
             = f.file_field :service_agreement
-          %br
           = f.label 'Currently Active: '
           = f.check_box :current, id: 'current'
           %div#currentShow{ style: variable.current ? 'display:none' : '' }
@@ -46,10 +45,6 @@
 
 
 :javascript
-  $( document ).ready(function() {
-    new Taggle('tags');
-  });
-
   $('#current').click(function() {
       if( $(this).is(':checked')) {
           $("#currentShow").hide();
