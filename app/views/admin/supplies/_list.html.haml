@@ -43,13 +43,16 @@
     %br
     = render 'search'
     %br
+    - orgs = Organization.all.collect{ |o| [o.name, o.id] }
+    - users = User.all.collect{ |o| [o.name, o.id] }
+
     = form_for variable, url: url, method: method do |f|
       %div.list{ style: 'height:40vh' }
         = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]).category(params[:category]) do |ff|
           = ff.text_field :name, placeholder: 'name', class: 'form-control short-form'
           = ff.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-          = ff.select :organization_id, Organization.all.collect{ |o| [o.name, o.id] }, {include_blank: 'Add Organization'}, class: ' short-form form-control'
-          = ff.select :user_id, User.all.collect{ |o| [o.name, o.id] }, {include_blank: 'Add User'}, class: ' short-form form-control'
+          = ff.select :organization_id, orgs, {include_blank: 'Add Organization'}, class: ' short-form form-control'
+          = ff.select :user_id, users, {include_blank: 'Add User'}, class: ' short-form form-control'
           = ff.remove_nested_fields_link 'X', class: 'btn btn-default'
       %br
       = f.add_nested_fields_link :supply_lists, 'Add', class: 'btn btn-default'
