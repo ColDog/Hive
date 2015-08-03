@@ -4,6 +4,17 @@ class Admin::SupplyListsController < ApplicationController
   def create
     supply_list = SupplyList.new(supply_params)
     if supply_list.save
+      flash[:success] = "Successfully created #{supply_list.name}."
+      redirect_to :back
+    else
+      flash[:danger] = "Failed to create. #{supply_list.errors.full_messages.to_sentence}"
+      redirect_to :back
+    end
+  end
+
+  def update
+    supply_list = SupplyList.find(params[:id])
+    if supply_list.update(supply_params)
       flash[:success] = "Successfully added #{supply_list.owner.name} to #{supply_list.supply.name}."
       redirect_to :back
     else

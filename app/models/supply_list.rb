@@ -67,7 +67,7 @@ class SupplyList < ActiveRecord::Base
     end
 
     def user_xor_organization
-      unless user? or organization? and !(user? && organization?)
+      unless (user? or organization? and !(user? && organization?)) or !(user? or organization?)
         errors.add(:base, 'User or an organization must be present.')
       end
     end

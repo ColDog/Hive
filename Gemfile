@@ -22,6 +22,7 @@ gem 'carrierwave'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'faker'
+gem 'nested_form_fields'
 
 group :development, :test do
   gem 'byebug'

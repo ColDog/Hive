@@ -17,11 +17,11 @@ class Admin::SuppliesController < ApplicationController
   def create
     @supply = Supply.new(supply_params)
     if @supply.save
-      flash[:success] = 'supply created!'
-      redirect_to admin_supplies_path
+      flash[:success] = "Supply #{@supply.name} successfully created."
+      redirect_to :back
     else
-      flash[:danger] = 'supply create failed.'
-      render 'new'
+      flash[:danger] = "Failed to create. #{@supply.errors.full_messages.to_sentence}."
+      redirect_to :back
     end
   end
 
@@ -52,7 +52,10 @@ class Admin::SuppliesController < ApplicationController
 
   private
     def supply_params
-      params.require(:supply).permit(:name, :maximum, :notes)
+      params.require(:supply).permit(
+        :name, :maximum, :notes,
+        supply_lists_attributes: [:name, :notes]
+      )
     end
 
     def filter_params(params)
