@@ -19,7 +19,7 @@ class SupplyListTest < ActiveSupport::TestCase
 
   test 'missing user' do
     list = SupplyList.new(user_id: nil, supply_id: @supply.id, name: 'hello')
-    assert_not list.valid?
+    assert list.valid?
   end
 
   test 'missing supply' do

@@ -6,17 +6,12 @@ class SupplyTest < ActiveSupport::TestCase
   # notes
 
   test 'new valid supply' do
-    supply = Supply.new(name: 'test', maximum: 100)
+    supply = Supply.new(name: 'test')
     assert supply.valid?
   end
 
   test 'invalid supply name' do
-    supply = Supply.new(name: '', maximum: 100)
-    assert_not supply.valid?
-  end
-
-  test 'invalid supply max' do
-    supply = Supply.new(name: 'test', maximum: nil)
+    supply = Supply.new(name: '')
     assert_not supply.valid?
   end
 

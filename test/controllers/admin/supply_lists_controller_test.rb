@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::SupplyListsControllerTest < ActionController::TestCase
 
-  setup { login_admin }
+  setup { login_admin ; request.env["HTTP_REFERER"] = 'back' }
 
   test 'create supply list user' do
     request.env['HTTP_REFERER'] = 'back_to_here'

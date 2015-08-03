@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::SuppliesControllerTest < ActionController::TestCase
 
-  setup { login_admin }
+  setup { login_admin ; request.env["HTTP_REFERER"] = 'back' }
 
   test 'get index' do
     get :index
@@ -35,6 +35,13 @@ class Admin::SuppliesControllerTest < ActionController::TestCase
     assert_difference 'Supply.count', -1 do
       delete :destroy, id: supplies(:one)
     end
+  end
+
+  test 'create supply list' do
+    req = { id: 1, supply_lists_attributes: { '0' => { name: '344432' } } }
+    put :update, id: 1, supply: req
+    supply = assigns(:supply)
+    assert supply.errors.empty?, supply.errors.full_messages
   end
 
 end

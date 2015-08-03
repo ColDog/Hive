@@ -12,11 +12,6 @@ class Admin::SupplyListsController < ApplicationController
     end
   end
 
-  def edit
-    @supply_list = SupplyList.find(params[:id])
-    @supply = Supply.find(params[:supply_id])
-  end
-
   def update
     supply_list = SupplyList.find(params[:id])
     if supply_list.update(supply_params)

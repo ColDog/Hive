@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :organizations
     resources :users
-    resources :supplies do
-      resources :supply_lists, only: [:edit]
-    end
+    resources :supplies
     resources :admins
     resources :supply_lists
     resources :organization_members
