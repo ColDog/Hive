@@ -29,13 +29,6 @@
       %td
         = list.organization.name
       %td -
-%div
-  = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
-    = f.hidden_field :user_id, value: variable.id
-    = f.select :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {}, {class: 'short-form form-control' }
-    = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-    = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-    = f.submit 'Add', class: 'btn btn-primary'
 
 %hr
 %h4 Organizations
