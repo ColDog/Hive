@@ -10,16 +10,16 @@
         %thead
           %tr
             %th Supplies
-            %th Current
-            %th Maximum
+            %th In Use
+            %th Total
         - Supply.all.reverse_order.each do |supply|
           %tr
             %td
               = supply.name
             %td
-              = supply.supply_lists.count
+              = supply.in_use
             %td
-              = supply.maximum
+              = supply.supply_lists.count
     %div.form
       %h4 Downloads
       = link_to 'Download User Data', admin_users_path(format: :csv), class: 'btn btn-default'
