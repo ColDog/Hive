@@ -51,6 +51,8 @@ class SupplyList < ActiveRecord::Base
       where('user_id IS NOT NULL')
     elsif type == 'Organization'
       where('organization_id IS NOT NULL')
+    elsif type == 'Unused'
+      where('organization_id IS NULL AND user_id IS NULL')
     else
       all
     end

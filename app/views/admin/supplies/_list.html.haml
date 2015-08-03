@@ -17,13 +17,7 @@
 %div.tab-content
   %div.tab-pane#search{ role: 'tabpanel', class: search }
     %br
-    %div
-      = form_tag '#', method: :get, enforce_utf8: false do
-        = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
-        = hidden_field_tag :tab, params[:tab]
-        = select_tag :category, options_for_select(['User', 'Organization'], params[:category]), include_blank: 'Type?', class: 'form-control short-form'
-        = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'processing...' }
-    %div.row
+    = render 'search'
     %div.list{ style: 'height:53vh' }
       %table.table
         %thead
@@ -47,17 +41,11 @@
               = link_to 'remove', admin_supply_list_path(list), method: :delete
   %div.tab-pane#add{ role: 'tabpanel', class: add }
     %br
-    %div
-      = form_tag '#', method: :get, enforce_utf8: false do
-        = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
-        = hidden_field_tag :tab, params[:tab]
-        = select_tag :category, options_for_select(['User', 'Organization'], params[:category]), include_blank: 'Type?', class: 'form-control short-form'
-        = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'processing...' }
-    %div.row
+    = render 'search'
     %br
     = form_for variable, url: url, method: method do |f|
       %div.list{ style: 'height:40vh' }
-        = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]) do |ff|
+        = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]).category(params[:category]) do |ff|
           = ff.text_field :name, placeholder: 'name', class: 'form-control short-form'
           = ff.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
           = ff.select :organization_id, Organization.all.collect{ |o| [o.name, o.id] }, {include_blank: 'Add Organization'}, class: ' short-form form-control'
