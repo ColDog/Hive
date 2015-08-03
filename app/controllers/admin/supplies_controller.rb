@@ -20,7 +20,7 @@ class Admin::SuppliesController < ApplicationController
       flash[:success] = "Supply #{@supply.name} successfully created."
       redirect_to :back
     else
-      flash[:danger] = "Failed to create. #{@supply.errors.full_messages.to_sentence}."
+      flash[:danger] = "Failed to create. #{@supply.errors.full_messages.to_sentence}"
       redirect_to :back
     end
   end
@@ -36,11 +36,11 @@ class Admin::SuppliesController < ApplicationController
   def update
     @supply = Supply.find(params[:id])
     if @supply.update(supply_params)
-      flash[:success] = 'supply edited!'
-      redirect_to admin_supplies_path
+      flash[:success] = "Supply #{@supply.name} updated!"
+      redirect_to :back
     else
-      flash[:danger] = 'supply update failed.'
-      render 'edit'
+      flash[:danger] = "Supply update failed: #{@supply.errors.full_messages.to_sentence}"
+      redirect_to :back
     end
   end
 
@@ -53,8 +53,8 @@ class Admin::SuppliesController < ApplicationController
   private
     def supply_params
       params.require(:supply).permit(
-        :name, :maximum, :notes,
-        supply_lists_attributes: [:name, :notes]
+        :name, :notes,
+        supply_lists_attributes: [:name, :notes, :organization_id, :user_id, :id, :_destroy]
       )
     end
 

@@ -1,18 +1,30 @@
 %ul.nav.nav-tabs{ role: 'tablist' }
-  %li.active{ role: 'presentation' }
-    %a{ href: '#search', 'aria-controls': 'search', role: 'tab', 'data-toggle': 'tab' } Search
-  %li{ role: 'presentation' }
-    %a{ href: '#add', 'aria-controls': 'add', role: 'tab', 'data-toggle': 'tab' } Add
+
+  - if params[:tab] and params[:tab] == 'search'
+    - search = 'active'
+    - add = ''
+  - elsif params[:tab] and params[:tab] == 'add'
+    - search = ''
+    - add = 'active'
+  - else
+    - search = 'active'
+    - add = ''
+
+  %li{ role: 'presentation', class: search  }
+    = link_to 'View', edit_admin_supply_path(variable, tab: 'search')
+  %li{ role: 'presentation', class: add }
+    = link_to 'Add', edit_admin_supply_path(variable, tab: 'add')
 %div.tab-content
-  %div.tab-pane.active#search{ role: 'tabpanel' }
+  %div.tab-pane#search{ role: 'tabpanel', class: search }
     %br
     %div
       = form_tag '#', method: :get, enforce_utf8: false do
-        = text_field_tag :search, params[:search], class: 'form-control short-form'
+        = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
+        = hidden_field_tag :tab, params[:tab]
         = select_tag :category, options_for_select(['User', 'Organization'], params[:category]), include_blank: 'Type?', class: 'form-control short-form'
         = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'processing...' }
     %div.row
-    %div.list{ style: 'height:40vh' }
+    %div.list{ style: 'height:53vh' }
       %table.table
         %thead
           %tr
@@ -33,14 +45,22 @@
               = list.notes
             %td
               = link_to 'remove', admin_supply_list_path(list), method: :delete
-  %div.tab-pane#add{ role: 'tabpanel' }
+  %div.tab-pane#add{ role: 'tabpanel', class: add }
+    %br
+    %div
+      = form_tag '#', method: :get, enforce_utf8: false do
+        = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
+        = hidden_field_tag :tab, params[:tab]
+        = select_tag :category, options_for_select(['User', 'Organization'], params[:category]), include_blank: 'Type?', class: 'form-control short-form'
+        = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'processing...' }
+    %div.row
     %br
     = form_for variable, url: url, method: method do |f|
-      = f.nested_fields_for :supply_lists do |ff|
+      = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]) do |ff|
         = ff.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = ff.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-        = ff.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {include_blank: 'Organizations'}, {class: ' short-form form-control'}
-        = ff.select :user_id, options_from_collection_for_select(User.all, :id, :name), {include_blank: 'Users'}, {class: ' short-form form-control'}
+        = ff.select :organization_id, Organization.all.collect{ |o| [o.name, o.id] }, {include_blank: 'Organizations'}, class: ' short-form form-control'
+        = ff.select :user_id, User.all.collect{ |o| [o.name, o.id] }, {include_blank: 'Users'}, class: ' short-form form-control'
         = ff.remove_nested_fields_link 'X', class: 'btn btn-default'
       %br
       = f.add_nested_fields_link :supply_lists, 'Add', class: 'btn btn-default'

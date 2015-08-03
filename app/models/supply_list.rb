@@ -5,14 +5,11 @@ class SupplyList < ActiveRecord::Base
 
   validates :supply_id, presence: true
   validates :name,      presence: true
-  
-  validates_uniqueness_of :name,      scope: :supply_id
-  validates_uniqueness_of :supply_id, scope: [:organization_id, :user_id],
-                          allow_nil: true, allow_blank: true,
-                          message: 'is already selected for this user or organization.'
 
-  validate :user_xor_organization,  if: :no_errors?
-  validate :maximum_level,          if: :no_errors?
+  validates_uniqueness_of :name,      scope: :supply_id
+  validate :uniqueness
+
+  validate :user_xor_organization
 
   def user?
     user_id.present?
@@ -60,20 +57,22 @@ class SupplyList < ActiveRecord::Base
   end
 
   private
-    def maximum_level
-      if SupplyList.where(supply_id: self.supply_id).count >= self.supply.maximum
-        errors.add(:base, 'You are at the maximum number of supplies')
-      end
-    end
-
     def user_xor_organization
       unless (user? or organization? and !(user? && organization?)) or !(user? or organization?)
-        errors.add(:base, 'User or an organization must be present.')
+        errors.add(:user, 'or an organization but not both.')
       end
     end
 
-    def no_errors?
-      errors.empty?
+    def uniqueness
+      if user?
+        if SupplyList.where(user_id: self.user_id).where(supply_id: self.supply_id).exists?
+          errors.add(:user, 'already exists with this supply.')
+        end
+      elsif organization?
+        if SupplyList.where(organization_id: self.organization_id).where(supply_id: self.supply_id).exists?
+          errors.add(:organization, 'already exists with this supply.')
+        end
+      end
     end
 
 end

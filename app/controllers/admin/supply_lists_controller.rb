@@ -12,6 +12,11 @@ class Admin::SupplyListsController < ApplicationController
     end
   end
 
+  def edit
+    @supply_list = SupplyList.find(params[:id])
+    @supply = Supply.find(params[:supply_id])
+  end
+
   def update
     supply_list = SupplyList.find(params[:id])
     if supply_list.update(supply_params)
@@ -25,7 +30,7 @@ class Admin::SupplyListsController < ApplicationController
 
   def destroy
     supply_list = SupplyList.find(params[:id])
-    flash[:success] = "Successfully removed #{supply_list.owner.name} from #{supply_list.supply.name}."
+    flash[:success] = "Successfully removed from #{supply_list.supply.name}."
     supply_list.destroy
     redirect_to :back
   end
