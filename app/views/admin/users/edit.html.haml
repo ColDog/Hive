@@ -1,6 +1,7 @@
 = render 'admin/shared/edit',  title: 'Users',
                               main: ['Users', :admin_users_path],
-                              edit: 'Edit User',
+                              edit: @user.name,
+                              new: ['New User', :new_admin_user_path],
                               form_location: 'admin/users/form',
                               form_variable: @user,
                               form_url: :admin_user_path,

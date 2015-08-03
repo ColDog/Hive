@@ -1,6 +1,7 @@
 = render 'admin/shared/edit',  title: 'Supplies',
                               main: ['Supplies', :admin_supplies_path],
-                              edit: 'Edit Supplies',
+                              edit: @supply.name,
+                              new: ['New Supply', :new_admin_supply_path],
                               form_location: 'admin/supplies/form',
                               form_variable: @supply,
                               form_url: :admin_supply_path,

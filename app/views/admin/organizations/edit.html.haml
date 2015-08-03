@@ -1,6 +1,7 @@
 = render 'admin/shared/edit',   title: 'Organizations',
                                 main: ['Organizations', :admin_organizations_path],
-                                edit: 'Edit Organization',
+                                edit: @organization.name,
+                                new: ['New Organization', :new_admin_organization_path],
                                 form_location: 'admin/organizations/form',
                                 form_variable: @organization,
                                 form_url: :admin_organization_path,
