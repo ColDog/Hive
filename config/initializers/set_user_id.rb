@@ -1,8 +1,5 @@
 if ActiveRecord::Base.connection.table_exists? 'supplies'
-  desk = Supply.find_by(name: 'Desk')
-  if desk
-    DESK_ID = desk.id
-  else
-    DESK_ID = nil
-  end
+  DESK_ID = Supply.where('name ILIKE ?', '%desk%').pluck(:id)
+else
+  DESK_ID = []
 end

@@ -17,16 +17,8 @@ class User < ActiveRecord::Base
   end
 
   def desk
-    if ::DESK_ID
-      desk = self.supply_lists.find { |list| list.supply_id == ::DESK_ID }
-      if desk
-        desk.name
-      else
-        nil
-      end
-    else
-      nil
-    end
+    desk = self.supply_lists.find_all { |list| ::DESK_ID.include?(list.supply_id) }
+    desk.first.name if desk.first
   end
 
   def organization_supplies
