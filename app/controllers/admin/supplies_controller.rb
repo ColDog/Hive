@@ -4,6 +4,7 @@ class Admin::SuppliesController < ApplicationController
   def index
     @supplies = Supply.page(params[:page]).per(8)
     @supplies = @supplies.search(params[:search]) if params[:search]
+    respond_to { |format| format.html ; format.csv { send_data(SupplyList.build_csv) }  }
   end
 
   def show

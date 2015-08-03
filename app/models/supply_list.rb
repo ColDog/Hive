@@ -35,6 +35,15 @@ class SupplyList < ActiveRecord::Base
     end
   end
 
+  def self.build_csv
+    CSV.generate do |csv|
+      csv << ['id', 'name', 'supply name', 'owner name', 'type']
+      self.all.each do |record|
+        csv << [record.id, record.name, record.supply.name, record.owner.name, record.type]
+      end
+    end
+  end
+
   scope :search, -> (s) do
     if s.present?
       q = "%#{s}%"
