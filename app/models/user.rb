@@ -62,6 +62,14 @@ class User < ActiveRecord::Base
     return fin
   end
 
+  def self.select_values
+    sel = []
+    all.order(:name).each do |usr|
+      sel << { 'value': usr.id, 'text': usr.name }
+    end
+    sel
+  end
+
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 

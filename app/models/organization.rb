@@ -52,7 +52,13 @@ class Organization < ActiveRecord::Base
     return fin
   end
 
-
+  def self.select_values
+    sel = []
+    all.order(:name).each do |org|
+      sel << { 'value': org.id, 'text': org.name }
+    end
+    sel
+  end
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR description ILIKE ? OR tags @> ARRAY[?] OR city ILIKE ? OR province ILIKE ? OR postal ILIKE ?', q, q, ["#{s}"], q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
