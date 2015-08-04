@@ -18,8 +18,8 @@
         = render 'admin/shared/search'
       %p{ style: 'text-align:right' }
         = page_entries_info data
-
-    = render 'admin/shared/table', data: data, header: header, methods: methods, links: links
+    - cache do
+      = render 'admin/shared/table', data: data, header: header, methods: methods, links: links
 
     %div.text-center
       = paginate data, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'

@@ -1,8 +1,8 @@
 %h1 Welcome to the HiVE internal site
-
-%div.content
-  - HomeContent.all.reverse_order.each do |post|
-    %div.post
-      %h3
-        = post.title
-      = raw prepare_text(post.content)
+- cache do
+  %div.content
+    - HomeContent.all.reverse_order.each do |post|
+      %div.post
+        %h3
+          = post.title
+        = raw prepare_text(post.content)

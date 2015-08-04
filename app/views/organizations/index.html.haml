@@ -2,22 +2,23 @@
 %div.container-fluid{ style: 'width:95%;margin:auto;'}
   = render 'search'
 
-  %div.row
-    - @organizations.each do |org|
-      %div.col-sm-3
-        %div.organization
-          %div.avatar
-            - if org.avatar.file
-              = image_tag org.avatar, class: 'img-responsive'
-            - else
-              = image_tag '/default/avatar.jpg', class: 'img-responsive'
-          %h3
-            = org.name
-          %div.org-text
-            = raw prepare_text(org.description)
-        - if editable?(org, org.organization_members)
-          %div{ style: 'position:absolute;right:20px;top:7px;background-color:white;padding:4px;' }
-            = link_to 'edit', edit_organization_path(org), class:'edit-button' if editable?(org, org.organization_members)
-  %br
-  %br
-  = render 'search'
+  - cache do
+    %div.row
+      - @organizations.each do |org|
+        %div.col-sm-3
+          %div.organization
+            %div.avatar
+              - if org.avatar.file
+                = image_tag org.avatar, class: 'img-responsive'
+              - else
+                = image_tag '/default/avatar.jpg', class: 'img-responsive'
+            %h3
+              = org.name
+            %div.org-text
+              = raw prepare_text(org.description)
+          - if editable?(org, org.organization_members)
+            %div{ style: 'position:absolute;right:20px;top:7px;background-color:white;padding:4px;' }
+              = link_to 'edit', edit_organization_path(org), class:'edit-button' if editable?(org, org.organization_members)
+    %br
+    %br
+    = render 'search'

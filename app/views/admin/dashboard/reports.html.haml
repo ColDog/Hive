@@ -6,42 +6,44 @@
 
     %div.row
       %div.col-md-6
-        %h4 Supplies
-        %table.table
-          %thead
-            %tr
-              %th Supplies
-              %th In Use
-              %th Total
-          - Supply.all.reverse_order.each do |supply|
-            %tr
-              %td
-                = supply.name
-              %td
-                = supply.in_use
-              %td
-                = supply.supply_lists.count
+        - cache do
+          %h4 Supplies
+          %table.table
+            %thead
+              %tr
+                %th Supplies
+                %th In Use
+                %th Total
+            - Supply.all.reverse_order.each do |supply|
+              %tr
+                %td
+                  = supply.name
+                %td
+                  = supply.in_use
+                %td
+                  = supply.supply_lists.count
       %div.col-md-6
-        %h4 Users
-        %table.table
-          %tr
-            %td Total
-            %td
-              = User.all.count
-          %tr
-            %td Active
-            %td
-              = User.where(current: true).count
-        %h4 Organizations
-        %table.table
-          %tr
-            %td Total
-            %td
-              = Organization.all.count
-          %tr
-            %td Active
-            %td
-              = Organization.where(current: true).count
+        - cache do
+          %h4 Users
+          %table.table
+            %tr
+              %td Total
+              %td
+                = User.all.count
+            %tr
+              %td Active
+              %td
+                = User.where(current: true).count
+          %h4 Organizations
+          %table.table
+            %tr
+              %td Total
+              %td
+                = Organization.all.count
+            %tr
+              %td Active
+              %td
+                = Organization.where(current: true).count
 
     %div.form
       %h4 Downloads

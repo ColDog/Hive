@@ -6,37 +6,39 @@
 
     %div.row
       %div.col-md-8
-        %h4 New Users
-        %table.table
-          %thead
-            %tr
-              %th User
-              %th Email
-              %th Phone
-          - User.all.reverse_order.limit(5).each do |user|
-            %tr
-              %td
-                = link_to user.name, edit_admin_user_path(user)
-              %td
-                = user.email
-              %td
-                = user.phone
-        %hr
-        %h4 New Organizations
-        %table.table
-          %thead
-            %tr
-              %th Name
-              %th Employees
-              %th Tags
-          - Organization.all.reverse_order.limit(5).each do |org|
-            %tr
-              %td
-                = link_to org.name, edit_admin_organization_path(org)
-              %td
-                = org.organization_members.count
-              %td
-                = org.pretty_tags
+        - cache do
+          %h4 New Users
+          %table.table
+            %thead
+              %tr
+                %th User
+                %th Email
+                %th Phone
+            - User.all.reverse_order.limit(5).each do |user|
+              %tr
+                %td
+                  = link_to user.name, edit_admin_user_path(user)
+                %td
+                  = user.email
+                %td
+                  = user.phone
+          %hr
+        - cache do
+          %h4 New Organizations
+          %table.table
+            %thead
+              %tr
+                %th Name
+                %th Employees
+                %th Tags
+            - Organization.all.reverse_order.limit(5).each do |org|
+              %tr
+                %td
+                  = link_to org.name, edit_admin_organization_path(org)
+                %td
+                  = org.organization_members.count
+                %td
+                  = org.pretty_tags
       %div.col-md-4
         %div.well
           %h4 Notes

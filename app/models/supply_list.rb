@@ -7,8 +7,10 @@ class SupplyList < ActiveRecord::Base
   validates :name,      presence: true
 
   validates_uniqueness_of :name,            scope: :supply_id
-  validates_uniqueness_of :user_id,         scope: :supply_id, allow_nil: true, allow_blank: true, message: 'already owns this supply.'
-  validates_uniqueness_of :organization_id, scope: :supply_id, allow_nil: true, allow_blank: true, message: 'already owns this supply.'
+  validates_uniqueness_of :user_id,         scope: :supply_id, allow_nil: true, allow_blank: true,
+                          message: 'already owns this supply.'
+  validates_uniqueness_of :organization_id, scope: :supply_id, allow_nil: true, allow_blank: true,
+                          message: 'already owns this supply.'
 
 
   validate :user_xor_organization
@@ -54,13 +56,11 @@ class SupplyList < ActiveRecord::Base
     count = 0
     CSV.foreach(csv.path, headers: true) do |row|
       hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id.to_i)
-      Rails.logger.info "ROW OF CSV UPLOAD: #{hsh}"
       begin
         sup = SupplyList.find_by(id: hsh['id'])
         if sup
           sup.update! hsh
         else
-          Rails.logger.info "ABOUT TO CREATE: #{hsh}"
           hsh['id'] = nil
           SupplyList.create! hsh
         end
