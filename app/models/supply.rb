@@ -4,6 +4,10 @@ class Supply < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  def picks
+    supply_lists.where('organization_id IS NULL OR user_id IS NULL').order(:name)
+  end
+
   def in_use
     self.supply_lists.where('organization_id IS NOT NULL OR user_id IS NOT NULL').count
   end

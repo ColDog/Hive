@@ -6,7 +6,7 @@ class SupplyList < ActiveRecord::Base
   validates :supply_id, presence: true
   validates :name,      presence: true
 
-  validate :uniqueness
+  # validate :uniqueness
 
   validate :user_xor_organization
 
@@ -74,13 +74,13 @@ class SupplyList < ActiveRecord::Base
     end
 
     def uniqueness
-      if name && !(SupplyList.where.not(id: self.id).where(name: self.name).where(supply_id: self.supply_id).exists?)
+      if name && !(SupplyList.where(name: self.name).where(supply_id: self.supply_id).exists?)
         if user?
-          if SupplyList.where.not(id: self.id).where(user_id: self.user_id).where(supply_id: self.supply_id).exists?
+          if SupplyList.where(user_id: self.user_id).where(supply_id: self.supply_id).exists?
             errors.add(:user, 'already exists with this supply.')
           end
         elsif organization?
-          if SupplyList.where.not(id: self.id).where(organization_id: self.organization_id).where(supply_id: self.supply_id).exists?
+          if SupplyList.where(organization_id: self.organization_id).where(supply_id: self.supply_id).exists?
             errors.add(:organization, 'already exists with this supply.')
           end
         end
