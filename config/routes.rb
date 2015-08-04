@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :supplies
     resources :admins
     resources :supply_lists
+    post 'add_owner/:id' => 'supply_lists#add_owner', as: 'supply_list_add_owner'
     resources :organization_members
     resources :notes
     resources :home_contents

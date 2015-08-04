@@ -16,62 +16,48 @@
     = link_to 'Add', edit_admin_supply_path(variable, tab: 'add')
 
 %div.tab-content
-  %div.tab-pane#search{ role: 'tabpanel', class: search }
-    %br
-    = render 'admin/supplies/search'
-    %div
-      %table.table
-        %thead
-          %tr
-            %th Name
-            %th Owner Type
-            %th Owner Name
-            %th Notes
-            %th Remove
-        - @supply_lists.each do |list|
-          %tr
-            %td
-              %a{ data: { toggle: 'modal', target: "#list#{list.id}" }, style: 'cursor:pointer;' }
-                = list.name
-            %td
-              = list.type
-            %td
-              = list.owner.name if list.owner
-            %td
-              = list.notes
-            %td
-              = link_to 'remove', admin_supply_list_path(list), method: :delete
-  %div.tab-pane#add{ role: 'tabpanel', class: add }
-    %br
-    = render 'admin/supplies/search'
-    %br
-
-    = form_for variable, url: url, method: method do |f|
-      = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]).category(params[:category]) do |ff|
-        = ff.text_field :name, placeholder: 'name', class: 'form-control short-form'
-        = ff.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-        = ff.remove_nested_fields_link 'X', class: 'btn btn-default'
+  - if search.present?
+    %div.tab-pane#search{ role: 'tabpanel', class: search }
       %br
-      = f.add_nested_fields_link :supply_lists, 'Add', class: 'btn btn-default'
-      = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+      = render 'admin/supplies/search'
+      %div
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Owner Type
+              %th Owner Name
+              %th Notes
+              %th Add Owner
+              %th
+          - @supply_lists.each do |list|
+            %tr
+              %td
+                = list.name
+              %td
+                = list.type
+              %td
+                = list.owner.name if list.owner
+              %td
+                = list.notes
+              %td
+                = form_tag admin_supply_list_add_owner_path(list), method: :post do
+                  = select_tag :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {include_blank: 'Add Organization',  class: 'short-form form-control input-sm', style: 'width:120px;'}
+                  = select_tag :user_id, options_from_collection_for_select(User.all, :id, :name), {include_blank: 'Add User',  class: 'short-form form-control input-sm', style: 'width:120px;'}
+                  = submit_tag '√', class: 'btn btn-default btn-sm'
+              %td
+                = link_to 'X', admin_supply_list_path(list), method: :delete, class: 'btn btn-default btn-sm'
+  - elsif add.present?
+    %div.tab-pane#add{ role: 'tabpanel', class: add }
+      %br
+      = render 'admin/supplies/search'
+      %br
 
-
-
-- @supply_lists.each do |list|
-  %div.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'listlabel', id: "list#{list.id}" }
-    %div.modal-dialog{ role: 'document' }
-      %div.modal-content
-        %div.modal-header
-          %btn.close{ 'data-dismiss'=>'modal', 'aria-label'=>'close' }
-            %span{ 'aria-hidden'=>'true' } &times;
-          %h4 Edit Supply List
-        %div.modal-body
-          = form_for list, url: admin_supply_list_path(list), method: :put do |f|
-            %div.form-group
-              = f.text_field :name, placeholder: 'name', class: 'form-control'
-              = f.text_field :notes, placeholder: 'notes', class: 'form-control'
-              = f.select :organization_id, Organization.all.order(:name).collect{ |o| [o.name, o.id] }, {include_blank: 'Add Organization'}, class: 'form-control'
-              = f.select :user_id, User.all.order(:name).collect{ |o| [o.name, o.id] }, {include_blank: 'Add User'}, class: 'form-control'
-              %br
-              = f.submit 'Update', class: 'btn btn-primary'
-          %br
+      = form_for variable, url: url, method: method do |f|
+        = f.nested_fields_for :supply_lists, variable.supply_lists.search(params[:search]).category(params[:category]) do |ff|
+          = ff.text_field :name, placeholder: 'name', class: 'form-control short-form'
+          = ff.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+          = ff.remove_nested_fields_link 'X', class: 'btn btn-default'
+        %br
+        = f.add_nested_fields_link :supply_lists, 'Add', class: 'btn btn-default'
+        = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
