@@ -6,7 +6,8 @@ class SupplyList < ActiveRecord::Base
   validates :supply_id, presence: true
   validates :name,      presence: true
 
-  # validate :uniqueness
+  # validates_uniqueness_of
+
 
   validate :user_xor_organization
 
@@ -31,14 +32,16 @@ class SupplyList < ActiveRecord::Base
       'User'
     elsif organization?
       'Organization'
+    else
+      'None'
     end
   end
 
-  def self.build_csv
+  def self.build_csv(scope = :all, args = [])
     CSV.generate do |csv|
       csv << ['id', 'name', 'supply name', 'owner name', 'type']
-      self.all.each do |record|
-        csv << [record.id, record.name, record.supply.name, record.owner.name, record.type]
+      self.send(scope, *args).each do |record|
+        csv << [record.id, record.name, record.supply.name, record.owner ? record.owner.name : nil, record.type]
       end
     end
   end
@@ -48,9 +51,17 @@ class SupplyList < ActiveRecord::Base
     successes = []
     count = 0
     CSV.foreach(csv.path, headers: true) do |row|
-      hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id)
+      hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id.to_i)
+      Rails.logger.info "ROW OF CSV UPLOAD: #{hsh}"
       begin
-        SupplyList.create! hsh
+        sup = SupplyList.find_by(id: hsh['id'])
+        if sup
+          sup.update! hsh
+        else
+          Rails.logger.info "ABOUT TO CREATE: #{hsh}"
+          hsh['id'] = nil
+          SupplyList.create! hsh
+        end
         successes << hsh['name']
       rescue Exception => e
         if hsh['name']
@@ -92,22 +103,6 @@ class SupplyList < ActiveRecord::Base
     def user_xor_organization
       unless (user? or organization? and !(user? && organization?)) or !(user? or organization?)
         errors.add(:user, 'or an organization but not both.')
-      end
-    end
-
-    def uniqueness
-      if name && !(SupplyList.where(name: self.name).where(supply_id: self.supply_id).exists?)
-        if user?
-          if SupplyList.where(user_id: self.user_id).where(supply_id: self.supply_id).exists?
-            errors.add(:user, 'already exists with this supply.')
-          end
-        elsif organization?
-          if SupplyList.where(organization_id: self.organization_id).where(supply_id: self.supply_id).exists?
-            errors.add(:organization, 'already exists with this supply.')
-          end
-        end
-      else
-        errors.add(:name, 'already exists with this supply.')
       end
     end
 

@@ -46,11 +46,17 @@ class Admin::SupplyListsController < ApplicationController
   end
 
   def upload
-
+    import = SupplyList.import(params[:file], params[:supply_id])
+    flash[:success] = 'File imported.'
+    flash[:results] = import
+    redirect_to edit_admin_supply_path(params[:supply_id], tab: 'load')
   end
 
   def download
-
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.csv  { send_data(SupplyList.build_csv(:where, [supply_id: params[:supply_id]])) }
+    end
   end
 
   def destroy

@@ -8,7 +8,7 @@
 </head>
 <body>
 <%= render 'layouts/navbar' %>
-<% flash.each do |message_type, message| %>
+<% flash.to_hash.slice(:success, :danger, :notify).each do |message_type, message| %>
 	<div class="message" onclick="$('.message').fadeOut(300, function() { $(this).remove(); });" style="transition: all 0.3s">
 		<span style="position: absolute; right: 10px; top: 5px; cursor: pointer;">&times;</span>
 		<div class="center-block text-center alert alert-<%= message_type %>" ><%= message %></div>
