@@ -14,10 +14,11 @@
     = link_to 'View', edit_admin_supply_path(variable, tab: 'search')
   %li{ role: 'presentation', class: add }
     = link_to 'Add', edit_admin_supply_path(variable, tab: 'add')
+
 %div.tab-content
   %div.tab-pane#search{ role: 'tabpanel', class: search }
     %br
-    = render 'search'
+    = render 'admin/supplies/search'
     %div
       %table.table
         %thead
@@ -30,7 +31,8 @@
         - @supply_lists.each do |list|
           %tr
             %td
-              = list.name
+              %a{ data: { toggle: 'modal', target: "#list#{list.id}" }, style: 'cursor:pointer;' }
+                = list.name
             %td
               = list.type
             %td
@@ -41,7 +43,7 @@
               = link_to 'remove', admin_supply_list_path(list), method: :delete
   %div.tab-pane#add{ role: 'tabpanel', class: add }
     %br
-    = render 'search'
+    = render 'admin/supplies/search'
     %br
 
     = form_for variable, url: url, method: method do |f|
@@ -53,3 +55,23 @@
       = f.add_nested_fields_link :supply_lists, 'Add', class: 'btn btn-default'
       = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
+
+
+- @supply_lists.each do |list|
+  %div.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby' => 'listlabel', id: "list#{list.id}" }
+    %div.modal-dialog{ role: 'document' }
+      %div.modal-content
+        %div.modal-header
+          %btn.close{ 'data-dismiss'=>'modal', 'aria-label'=>'close' }
+            %span{ 'aria-hidden'=>'true' } &times;
+          %h4 Edit Supply List
+        %div.modal-body
+          = form_for list, url: admin_supply_list_path(list), method: :put do |f|
+            %div.form-group
+              = f.text_field :name, placeholder: 'name', class: 'form-control'
+              = f.text_field :notes, placeholder: 'notes', class: 'form-control'
+              = f.select :organization_id, Organization.all.order(:name).collect{ |o| [o.name, o.id] }, {include_blank: 'Add Organization'}, class: 'form-control'
+              = f.select :user_id, User.all.order(:name).collect{ |o| [o.name, o.id] }, {include_blank: 'Add User'}, class: 'form-control'
+              %br
+              = f.submit 'Update', class: 'btn btn-primary'
+          %br

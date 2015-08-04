@@ -1,16 +1,16 @@
-= render 'admin/shared/edit',  title: 'Supplies',
-                              main: ['Supplies', :admin_supplies_path],
-                              edit: @supply.name,
-                              new: ['New Supply', :new_admin_supply_path],
-                              form_location: 'admin/supplies/form',
-                              form_variable: @supply,
-                              form_url: :admin_supply_path,
-                              form_method: :put
+%div.container-fluid
+  %div.col-md-2.sidebar.hidden-sm.hidden-xs
+    = render 'admin/shared/sidebar', active: 'supplies'
+  %div.col-md-10.shad-left
+    %h1 Supplies
+    %ul.nav.nav-tabs
+      %li{ role: 'presentation' }
+        = link_to 'All', admin_supplies_path
+      %li{ role: 'presentation' }
+        = link_to 'New', new_admin_supply_path
+      - Supply.all.each do |supply|
+        %li{ role: 'presentation', class: supply.id == @supply.id ? 'active' : '' }
+          = link_to supply.name, edit_admin_supply_path(supply)
 
--# title = title
--# main = [mainlink, main_link_path]
--# edit = edit title
--# form_location = render path
--# form_variable = form variable
--# form_url = form_path
--# form_method = ie: :post
+    %br
+    = render 'admin/supplies/form', variable:  @supply, url: admin_supply_path(@supply), method: :put
