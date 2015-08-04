@@ -13,8 +13,10 @@ Rails.application.routes.draw do
     resources :admins
     resources :supply_lists
     namespace :supply_lists do
-      post 'add_owner/(:id)',     as: 'add_owner',    action: 'add_owner'
-      post 'remove_owner/(:id)',  as: 'remove_owner', action: 'remove_owner'
+      post  'add_owner/(:id)',     as: 'add_owner',     action: 'add_owner'
+      post  'remove_owner/(:id)',  as: 'remove_owner',  action: 'remove_owner'
+      post  'upload/:supply_id',   as: 'upload',        action: 'upload'
+      get   'download/:supply_id', as: 'download',      action: 'download'
     end
     resources :organization_members
     resources :notes

@@ -1,6 +1,5 @@
 class Supply < ActiveRecord::Base
   has_many :supply_lists, dependent: :destroy
-  accepts_nested_attributes_for :supply_lists, allow_destroy: true
 
   validates :name, presence: true, uniqueness: true
 

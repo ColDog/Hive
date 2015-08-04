@@ -45,6 +45,14 @@ class Admin::SupplyListsController < ApplicationController
     end
   end
 
+  def upload
+
+  end
+
+  def download
+
+  end
+
   def destroy
     supply_list = SupplyList.find(params[:id])
     flash[:success] = "Successfully removed from #{supply_list.supply.name}."

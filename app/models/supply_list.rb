@@ -43,6 +43,28 @@ class SupplyList < ActiveRecord::Base
     end
   end
 
+  def self.import(csv, supply_id)
+    errors = {  }
+    successes = []
+    count = 0
+    CSV.foreach(csv.path, headers: true) do |row|
+      hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id)
+      begin
+        SupplyList.create! hsh
+        successes << hsh['name']
+      rescue Exception => e
+        if hsh['name']
+          errors[ hsh['name'] ] = e.message
+        else
+          errors[ count ] = e.message
+        end
+      end
+      count += 1
+    end
+    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
+    return fin
+  end
+
   scope :search, -> (s) do
     if s.present?
       q = "%#{s}%"
