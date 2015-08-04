@@ -6,7 +6,9 @@ class SupplyList < ActiveRecord::Base
   validates :supply_id, presence: true
   validates :name,      presence: true
 
-  # validates_uniqueness_of
+  validates_uniqueness_of :name,            scope: :supply_id
+  validates_uniqueness_of :user_id,         scope: :supply_id, allow_nil: true, allow_blank: true, message: 'already owns this supply.'
+  validates_uniqueness_of :organization_id, scope: :supply_id, allow_nil: true, allow_blank: true, message: 'already owns this supply.'
 
 
   validate :user_xor_organization
