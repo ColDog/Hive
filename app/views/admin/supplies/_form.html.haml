@@ -12,22 +12,23 @@
       %br
       %br
       %div
-        %table.table
-          %tr
-            %td
-              In Use:
-            %td
-              = variable.in_use
-          %tr
-            %td
-              Available:
-            %td
-              = variable.supply_lists.count - variable.in_use
-          %tr
-            %td
-              Total:
-            %td
-              = variable.supply_lists.count
+        - cache(Supply.cache_key(params)) do
+          %table.table
+            %tr
+              %td
+                In Use:
+              %td
+                = variable.in_use
+            %tr
+              %td
+                Available:
+              %td
+                = variable.supply_lists.count - variable.in_use
+            %tr
+              %td
+                Total:
+              %td
+                = variable.supply_lists.count
   - if params[:action] == 'edit'
     %div.col-md-9
       = render '/admin/supplies/list', variable: variable, url: url, method: method

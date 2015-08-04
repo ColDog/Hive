@@ -32,13 +32,17 @@ module ApplicationHelper
   end
 
   def prepare_text(text)
-    final = ''
-    text.each_line do |line|
-      final += '<p>'
-      final += line
-      final += '</p>'
+    if text.is_a? String
+      final = ''
+      text.each_line do |line|
+        final += '<p>'
+        final += line
+        final += '</p>'
+      end
+      final
+    else
+      text
     end
-    final
   end
 
 end

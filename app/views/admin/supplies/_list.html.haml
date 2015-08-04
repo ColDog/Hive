@@ -20,7 +20,7 @@
             %th Notes
             %th Add Owner
             %th
-        - cache(SupplyList.cache_key(params)) do
+        - cache(SupplyList.cache_key(params, search: true)) do
           - @supply_lists.each do |list|
             - cache(list) do
               %tr
@@ -55,6 +55,7 @@
         = link_to 'Download', admin_supply_lists_download_path(variable, format: :csv)
       %br
       %h4 Upload Csv
+      %p Make sure that your column heading on your spreadsheet (the first row), match the one's below. Try downloading by clicking above to see what it should look like. If you download a file and re-upload it, changed records will be updated as long as the ID remains. Don't put an ID for new records.
       = form_tag admin_supply_lists_upload_path(variable.id), method: :post, multipart: true, class: 'form-inline' do
         = file_field_tag :file
         %br

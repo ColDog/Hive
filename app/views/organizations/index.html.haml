@@ -2,7 +2,7 @@
 %div.container-fluid{ style: 'width:95%;margin:auto;'}
   = render 'search'
 
-  - cache do
+  - cache(Organization.cache_key(params, search: true, page: true)) do
     %div.row
       - @organizations.each do |org|
         %div.col-sm-3
