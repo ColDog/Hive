@@ -18,7 +18,7 @@
       %td
         = list.notes
       %td
-        = form_tag admin_supply_list_add_owner_path(list), method: :post do
+        = form_tag admin_supply_lists_add_owner_path(list), method: :post do
           = select_tag :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {include_blank: 'Add Organization',  class: 'short-form form-control input-sm', style: 'width:120px;'}
           = select_tag :user_id, options_from_collection_for_select(User.all, :id, :name), {include_blank: 'Add User',  class: 'short-form form-control input-sm', style: 'width:120px;'}
           = submit_tag '√', class: 'btn btn-default btn-sm'
