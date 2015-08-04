@@ -5,6 +5,7 @@
                                 links: [ ['edit', :edit_admin_organization_path],
                                        ['delete', :admin_organization_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' } ] ],
                                 new: ['New Organization', :new_admin_organization_path],
+                                model: Organization,
                                 main: ['Organizations', :admin_organizations_path],
                                 title: 'Organizations',
                                 search_location: '/admin/shared/search_active'

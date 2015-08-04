@@ -1,19 +1,21 @@
-%table.table
-  %thead
-    %tr
-      - header.each do |header|
-        %th
-          = header
-  - data.each do |data|
-    %tr
-      - methods.each do |method|
-        %td
-          - if method[0] == 'Double'
-            = data.send(method[1]).send(method[2])
-          - elsif method[0] == 'Link'
-            = link_to data.send(method[1]), send(method[2], data), method[3]
-          - else
-            = data.send(method)
-      %td
-        - links.each do |link|
-          = link_to link[0], send(link[1], data), link[2]
+- cache(model.cache_key(params)) do
+  %table.table
+    %thead
+      %tr
+        - header.each do |header|
+          %th
+            = header
+    - data.each do |data|
+      - cache(data) do
+        %tr
+          - methods.each do |method|
+            %td
+              - if method[0] == 'Double'
+                = data.send(method[1]).send(method[2])
+              - elsif method[0] == 'Link'
+                = link_to data.send(method[1]), send(method[2], data), method[3]
+              - else
+                = data.send(method)
+          %td
+            - links.each do |link|
+              = link_to link[0], send(link[1], data), link[2]

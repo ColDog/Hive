@@ -18,7 +18,7 @@
       %p{ style: 'text-align:right' }
         = page_entries_info @supplies
 
-    = render 'admin/shared/table', data: @supplies, header: %w"Name Total In-Use Notes Actions", methods: [['Link', :name, :edit_admin_supply_path], ['Double', :supply_lists, :count], :in_use, :notes], links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' }] ]
+    = render 'admin/shared/table', model: Supply, data: @supplies, header: %w"Name Total In-Use Notes Actions", methods: [['Link', :name, :edit_admin_supply_path], ['Double', :supply_lists, :count], :in_use, :notes], links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' }] ]
 
     %div.text-center
       = paginate @supplies, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'

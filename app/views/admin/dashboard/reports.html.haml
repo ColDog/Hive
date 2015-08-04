@@ -6,7 +6,7 @@
 
     %div.row
       %div.col-md-6
-        - cache do
+        - cache(Supply.cache_key(params)) do
           %h4 Supplies
           %table.table
             %thead
@@ -23,7 +23,7 @@
                 %td
                   = supply.supply_lists.count
       %div.col-md-6
-        - cache do
+        - cache(User.cache_key(params)) do
           %h4 Users
           %table.table
             %tr
@@ -34,6 +34,7 @@
               %td Active
               %td
                 = User.where(current: true).count
+        - cache(Organization.cache_key(params)) do
           %h4 Organizations
           %table.table
             %tr

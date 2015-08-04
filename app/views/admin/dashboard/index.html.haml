@@ -6,14 +6,14 @@
 
     %div.row
       %div.col-md-8
-        - cache do
-          %h4 New Users
-          %table.table
-            %thead
-              %tr
-                %th User
-                %th Email
-                %th Phone
+        %h4 New Users
+        %table.table
+          %thead
+            %tr
+              %th User
+              %th Email
+              %th Phone
+          - cache(User.cache_key(params)) do
             - User.all.reverse_order.limit(5).each do |user|
               %tr
                 %td
@@ -23,14 +23,14 @@
                 %td
                   = user.phone
           %hr
-        - cache do
-          %h4 New Organizations
-          %table.table
-            %thead
-              %tr
-                %th Name
-                %th Employees
-                %th Tags
+        %h4 New Organizations
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Employees
+              %th Tags
+          - cache(Organization.cache_key(params)) do
             - Organization.all.reverse_order.limit(5).each do |org|
               %tr
                 %td
