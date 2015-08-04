@@ -25,4 +25,20 @@ class Admin::SupplyListsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'add owner' do
+    supply_list = supply_lists(:one)
+    post :add_owner, { id: supply_list.id, user_id: 1 }
+    supply_list.reload
+    assert_equal 1, supply_list.user_id
+  end
+
+  test 'remove owner' do
+    supply_list = supply_lists(:one)
+    post :remove_owner, { id: supply_list.id }
+    supply_list.reload
+    assert_equal nil, supply_list.user_id
+    assert_equal nil, supply_list.organization_id
+  end
+
+
 end

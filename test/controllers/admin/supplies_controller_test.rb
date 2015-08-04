@@ -37,11 +37,4 @@ class Admin::SuppliesControllerTest < ActionController::TestCase
     end
   end
 
-  test 'create supply list' do
-    req = { id: 1, supply_lists_attributes: { '0' => { name: '344432' } } }
-    put :update, id: 1, supply: req
-    supply = assigns(:supply)
-    assert supply.errors.empty?, supply.errors.full_messages
-  end
-
 end
