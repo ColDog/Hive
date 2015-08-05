@@ -30,7 +30,7 @@ class Admin::SuppliesController < ApplicationController
     @supply = Supply.find(params[:id])
     @supply_lists = @supply.supply_lists.order(:name)
     filter_params(params).each do |search, result|
-      @supply_lists = @supply_lists.public_send(search, result) if result.present?
+      @supply_lists = @supply_lists.order(:name).public_send(search, result) if result.present?
     end
   end
 
