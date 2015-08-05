@@ -16,7 +16,7 @@ class Organization < ActiveRecord::Base
   validate :if_current_then_no_date
 
   def description_short
-    str = self.description.slice(0,40) ; str += '...' ; str
+    self.description.slice(0,10) if description
   end
 
   def agreement
@@ -41,7 +41,7 @@ class Organization < ActiveRecord::Base
       )
       begin
         Organization.create! hsh
-        successes << hsh['name']
+        successes << hsh
       rescue Exception => e
         if hsh['name']
           errors[ hsh['name'] ] = e.message

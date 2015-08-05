@@ -96,7 +96,7 @@ class SupplyList < ActiveRecord::Base
           hsh['id'] = nil
           SupplyList.create! hsh
         end
-        successes << hsh['name']
+        successes << hsh
       rescue Exception => e
         if hsh['name']
           errors[ hsh['name'] ] = e.message

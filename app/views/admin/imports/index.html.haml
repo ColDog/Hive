@@ -31,15 +31,13 @@
     - if @errors.present? or @successes.present?
       %div.form{ style: 'max-width:600px;margin-top:30px;' }
         %h3 Results
-        %div
-          %h5 Errors
-          %ul
-            - @errors.each do |k,v|
-              %li
-                = k
-                = v
-          %h5 Successes
-          %ul
-            - @successes.each do |k|
-              %li
-                = k
+        %h4 Successful Updates (name of record: values)
+        %ul
+          - @successes.each do |record|
+            %li
+              = record
+        %h4 Errors (name of record: error message)
+        %ul
+          - @errors.each do |name, error|
+            %li
+              = "#{name}: #{error}"

@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
       ).merge(password: pass, password_confirmation: pass)
       begin
         User.create! hsh
-        successes << hsh['email']
+        successes << hsh
       rescue Exception => e
         if hsh['email']
           errors[ hsh['email'] ] = e.message
