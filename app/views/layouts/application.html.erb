@@ -7,9 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% cache do %>
-	<%= render 'layouts/navbar' %>
-<% end %>
+<%= render 'layouts/navbar' %>
 <% flash.to_hash.slice('success', 'danger', 'notify').each do |message_type, message| %>
 	<div class="message" onclick="$('.message').fadeOut(300, function() { $(this).remove(); });" style="transition: all 0.3s">
 		<span style="position: absolute; right: 10px; top: 5px; cursor: pointer;">&times;</span>
