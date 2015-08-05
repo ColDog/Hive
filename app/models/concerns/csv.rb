@@ -69,9 +69,10 @@ module Csv
   module SupplyList
     def build_csv(scope = :all, args = [])
       CSV.generate do |csv|
-        csv << ['id', 'name', 'supply name', 'owner name', 'type']
+        csv << ['id', 'name', 'notes', 'supply name', 'owner name', 'type']
         self.send(scope, *args).each do |record|
-          csv << [record.id, record.name, record.supply.name, record.owner ? record.owner.name : nil, record.type]
+          csv << [record.id, record.name, record.notes, record.supply.name,
+                  record.owner ? record.owner.name : nil, record.type]
         end
       end
     end
