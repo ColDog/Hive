@@ -1,5 +1,4 @@
 class Organization < ActiveRecord::Base
-  extend Csv::Organization
   extend Csv::Build
   include Tagging::Instance
   extend  Tagging::ClassMethods
@@ -30,6 +29,31 @@ class Organization < ActiveRecord::Base
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR description ILIKE ? OR tags @> ARRAY[?] OR city ILIKE ? OR province ILIKE ? OR postal ILIKE ?', q, q, ["#{s}"], q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
+
+  def self.import(csv)
+    errors = {  }
+    successes = []
+    count = 0
+    CSV.foreach(csv.path, headers: true) do |row|
+      hsh = row.to_hash.slice(
+        'name', 'description', 'signed_service_agreement', 'current',
+        'inactive_on', 'address', 'city', 'province', 'postal'
+      )
+      begin
+        Organization.create! hsh
+        successes << hsh['name']
+      rescue Exception => e
+        if hsh['name']
+          errors[ hsh['name'] ] = e.message
+        else
+          errors[ count ] = e.message
+        end
+      end
+      count += 1
+    end
+    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
+    return fin
+  end
 
   private
     def if_agreement_then_signed
