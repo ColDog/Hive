@@ -1,5 +1,6 @@
 class Organization < ActiveRecord::Base
-  extend Csv
+  extend Csv::Organization
+  extend Csv::Build
   include Tagging::Instance
   extend  Tagging::ClassMethods
 
@@ -25,39 +26,6 @@ class Organization < ActiveRecord::Base
 
   def active
     self.current ? '√' : 'X'
-  end
-
-  def self.import(csv)
-    errors = {  }
-    successes = []
-    count = 0
-    CSV.foreach(csv.path, headers: true) do |row|
-      hsh = row.to_hash.slice(
-        'name', 'description', 'signed_service_agreement', 'current',
-        'inactive_on', 'address', 'city', 'province', 'postal'
-      )
-      begin
-        Organization.create! hsh
-        successes << hsh['name']
-      rescue Exception => e
-        if hsh['name']
-          errors[ hsh['name'] ] = e.message
-        else
-          errors[ count ] = e.message
-        end
-      end
-      count += 1
-    end
-    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
-    return fin
-  end
-
-  def self.select_values
-    sel = []
-    all.order(:name).each do |org|
-      sel << { 'value': org.id, 'text': org.name }
-    end
-    sel
   end
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR description ILIKE ? OR tags @> ARRAY[?] OR city ILIKE ? OR province ILIKE ? OR postal ILIKE ?', q, q, ["#{s}"], q, q, q) }

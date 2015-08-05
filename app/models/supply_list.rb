@@ -1,4 +1,6 @@
 class SupplyList < ActiveRecord::Base
+  extend Csv::SupplyList
+
   belongs_to :user
   belongs_to :supply, touch: true
   belongs_to :organization
@@ -39,43 +41,6 @@ class SupplyList < ActiveRecord::Base
     else
       'None'
     end
-  end
-
-  def self.build_csv(scope = :all, args = [])
-    CSV.generate do |csv|
-      csv << ['id', 'name', 'supply name', 'owner name', 'type']
-      self.send(scope, *args).each do |record|
-        csv << [record.id, record.name, record.supply.name, record.owner ? record.owner.name : nil, record.type]
-      end
-    end
-  end
-
-  def self.import(csv, supply_id)
-    errors = {  }
-    successes = []
-    count = 0
-    CSV.foreach(csv.path, headers: true) do |row|
-      hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id.to_i)
-      begin
-        sup = SupplyList.find_by(id: hsh['id'])
-        if sup
-          sup.update! hsh
-        else
-          hsh['id'] = nil
-          SupplyList.create! hsh
-        end
-        successes << hsh['name']
-      rescue Exception => e
-        if hsh['name']
-          errors[ hsh['name'] ] = e.message
-        else
-          errors[ count ] = e.message
-        end
-      end
-      count += 1
-    end
-    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
-    return fin
   end
 
   scope :search, -> (s) do

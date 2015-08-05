@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  extend Csv
+  extend Csv::Build
+  extend Csv::User
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -34,40 +35,6 @@ class User < ActiveRecord::Base
     digest = SecureRandom.urlsafe_base64
     update(signup_digest: digest)
     UserMailer.new_user(self, digest).deliver_now
-  end
-
-  def self.import(csv)
-    errors = {  }
-    successes = []
-    count = 0
-    CSV.foreach(csv.path, headers: true) do |row|
-      pass = SecureRandom.hex(10)
-      hsh = row.to_hash.slice(
-                'name', 'email', 'phone', 'account_type', 'inactive_on', 'current',
-                'password', 'password_confirmation'
-              ).merge(password: pass, password_confirmation: pass)
-      begin
-        User.create! hsh
-        successes << hsh['email']
-      rescue Exception => e
-        if hsh['email']
-          errors[ hsh['email'] ] = e.message
-        else
-          errors[ count ] = e.message
-        end
-      end
-      count += 1
-    end
-    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
-    return fin
-  end
-
-  def self.select_values
-    sel = []
-    all.order(:name).each do |usr|
-      sel << { 'value': usr.id, 'text': usr.name }
-    end
-    sel
   end
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
