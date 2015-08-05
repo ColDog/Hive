@@ -1,5 +1,5 @@
 %div.row
-  %div.col-md-3
+  %div.col-md-2
     = form_for variable, url: url, method: method do |f|
       %div.form-group
         %label Name
@@ -30,5 +30,5 @@
               %td
                 = variable.supply_lists.count
   - if params[:action] == 'edit'
-    %div.col-md-9
+    %div.col-md-10
       = render '/admin/supplies/list', variable: variable, url: url, method: method

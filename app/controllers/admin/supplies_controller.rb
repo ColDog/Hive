@@ -34,6 +34,13 @@ class Admin::SuppliesController < ApplicationController
     end
   end
 
+  def list_form
+    respond_to do |format|
+      format.html { render layout: false }
+      format.js   { render layout: false }
+    end
+  end
+
   def update
     @supply = Supply.find(params[:id])
     if @supply.update(supply_params)

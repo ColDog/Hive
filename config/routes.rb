@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :organizations
     resources :users
+    namespace :supplies do
+      get   'list_form',           as: 'list_form',     action: 'list_form'
+    end
     resources :supplies
     resources :admins
     resources :supply_lists

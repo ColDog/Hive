@@ -18,6 +18,7 @@
             %th Owner Type
             %th Owner Name
             %th Notes
+            %th Add Owner
             %th Actions
         - cache(SupplyList.cache_key(params, search: true)) do
           - @supply_lists.each do |list|
@@ -31,6 +32,10 @@
                   = list.owner.name if list.owner
                 %td
                   = list.notes
+                %td
+                  = form_tag admin_supply_lists_add_owner_path, method: :post do
+                    = hidden_field_tag :id, list.id
+                    %div.addForm
                 %td
                   = link_to 'delete', admin_supply_list_path(list), method: :delete
                   = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
@@ -78,4 +83,4 @@
         - flash['results']['errors'].each do |name, error|
           %li
             = "#{name}: #{error}"
-
+= render 'admin/supplies/js'

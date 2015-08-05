@@ -1,0 +1,9 @@
+<script>
+	$(document).ready( function() {
+		$.get("/admin/supplies/list_form.html", function( data ) {
+			$( ".addForm" ).each(function( i, obj ) {
+				$(obj).html(data)
+			});
+		});
+	});
+</script>
