@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   extend Csv::Build
+  has_many :admins, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
