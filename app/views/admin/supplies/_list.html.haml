@@ -2,7 +2,7 @@
   %li{ role: 'presentation', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
     %a{ href: '#search', 'aria-controls' => 'search', role: 'tab', 'data-toggle' => 'tab' } View
   %li{ role: 'presentation', class: params[:tab] == 'add' ? 'active' : '' }
-    %a{ href: '#add', 'aria-controls' => 'add', role: 'tab', 'data-toggle' => 'tab' } Add
+    %a{ href: '#add', 'aria-controls' => 'add', role: 'tab', 'data-toggle' => 'tab' } New
   %li{ role: 'presentation', class: params[:tab] == 'load' ? 'active' : '' }
     %a{ href: '#load', 'aria-controls' => 'load', role: 'tab', 'data-toggle' => 'tab' } Upload/Download
 
@@ -18,7 +18,6 @@
             %th Owner Type
             %th Owner Name
             %th Notes
-            %th Add Owner
             %th Actions
         - cache(SupplyList.cache_key(params, search: true)) do
           - @supply_lists.each do |list|
@@ -33,12 +32,15 @@
                 %td
                   = list.notes
                 %td
-                  = form_tag admin_supply_lists_add_owner_path, method: :post do
-                    = hidden_field_tag :id, list.id
-                    %div.addForm
-                %td
                   = link_to 'delete', admin_supply_list_path(list), method: :delete
                   = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
+                  %button.btn-link{ style: 'padding:0;', id: "pop#{list.id}", title: "Add Owner to #{list.name} <button class='close' onclick=$('#pop#{list.id}').popover('hide')>&times;</button>", data: { toggle: 'popover', placement: 'left' } } add
+                  %div.popover-content{ style: 'padding:0;' }
+                    %div.hidden{ id: "form#{list.id}", style: 'height:0;' }
+                      = form_tag admin_supply_lists_add_owner_path, method: :post do
+                        = hidden_field_tag :id, list.id
+                        %div.addForm
+                    = render 'admin/supplies/eachjs', list_id: list.id
 
   %div.tab-pane#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
     %br
