@@ -48,14 +48,6 @@
       = f.hidden_field :supply_id, value: variable.id
       = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
       = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
-    %br
-    %h4 Add Owner to Supply Item
-    = form_tag admin_supply_lists_add_owner_path, method: :post do
-      = select_tag :id, options_from_collection_for_select(variable.supply_lists, :id, :name), {include_blank: 'Supply Item', class: 'short-form form-control'}
-      = select_tag :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {include_blank: 'Add User', class: 'short-form form-control'}
-      = select_tag :organization_id, options_from_collection_for_select(Organization.all.order(:name), :id, :name), {include_blank: 'Add Organization', class: 'short-form form-control'}
-      = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
-      = submit_tag 'Add', class: 'btn btn-primary'
 
   %div.tab-pane#load{ role: 'tabpanel', class: params[:tab] == 'load' ? 'active' : '' }
     %br
