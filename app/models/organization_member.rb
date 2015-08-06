@@ -1,6 +1,6 @@
 class OrganizationMember < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :organization
+  belongs_to :user,         touch: true
+  belongs_to :organization, touch: true
 
   validates :user_id, presence: true
   validates :organization_id, presence: true

@@ -1,7 +1,7 @@
 class SupplyList < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :supply, touch: true
-  belongs_to :organization
+  belongs_to :user,         touch: true
+  belongs_to :supply,       touch: true
+  belongs_to :organization, touch: true
 
   validates :supply_id, presence: true
   validates :name,      presence: true
