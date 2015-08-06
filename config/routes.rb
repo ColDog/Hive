@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get '/'       => 'dashboard#index',   as: 'dashboard'
     get 'reports' => 'dashboard#reports', as: 'dashboard_reports'
     namespace :imports do
-      get  '/',             as: 'imports',        action: 'index'
+      get  '/',             as: 'index',          action: 'index'
       post 'users',         as: 'users',          action: 'users'
       post 'organizations', as: 'organizations',  action: 'organizations'
       post 'supply_lists',  as: 'supply_lists',   action: 'supply_lists'
