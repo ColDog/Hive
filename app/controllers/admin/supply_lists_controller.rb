@@ -45,12 +45,6 @@ class Admin::SupplyListsController < ApplicationController
     end
   end
 
-  def upload
-    @results = SupplyList.import(params[:file], params[:supply_id])
-    flash[:success] = 'File imported.'
-    redirect_to edit_admin_supply_path(params[:supply_id], tab: 'load')
-  end
-
   def download
     respond_to do |format|
       format.html { redirect_to :back }

@@ -26,10 +26,12 @@ Rails.application.routes.draw do
     resources :home_contents
     get '/'       => 'dashboard#index',   as: 'dashboard'
     get 'reports' => 'dashboard#reports', as: 'dashboard_reports'
-
-    get  '/imports'       => 'imports#index', as: 'imports'
-    post '/imports/users' => 'imports#users', as: 'import_users'
-    post '/imports/organizations' => 'imports#organizations', as: 'import_organizations'
+    namespace :imports do
+      get  '/',             as: 'imports',        action: 'index'
+      post 'users',         as: 'users',          action: 'users'
+      post 'organizations', as: 'organizations',  action: 'organizations'
+      post 'supply_lists',  as: 'supply_lists',   action: 'supply_lists'
+    end
   end
 
   root to: 'home#index'
