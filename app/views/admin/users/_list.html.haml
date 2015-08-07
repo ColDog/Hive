@@ -88,5 +88,5 @@
           Include Account Type
       %div.form-group
         %label Attachments
-        = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :file), {},{multiple: true, class: 'form-control'}
+        = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :filename), {},{multiple: true, class: 'form-control'}
       = submit_tag 'Send Email', class: 'btn btn-primary'

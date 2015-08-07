@@ -7,6 +7,6 @@
   %ul.list-unstyled
     - Attachment.all.each do |attachment|
       %li
-        = link_to attachment.file, attachment.file.url, target: '_blank'
+        = link_to attachment.filename, attachment.file.url, target: '_blank'
         &nbsp;
         = link_to 'Delete', admin_attachment_path(attachment), method: :delete
