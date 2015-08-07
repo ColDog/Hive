@@ -18,7 +18,7 @@ class ServiceAgreementUploader < CarrierWave::Uploader::Base
 
   def timestamp
     var = :"@#{mounted_as}_timestamp"
-    model.instance_variable_get(var) or model.instance_variable_set(var, Time.now.strftime('%C-%M-%dT%H%M'))
+    model.instance_variable_get(var) or model.instance_variable_set(var, Time.now.strftime('%C-%m-%dT%H%M'))
   end
 
 
