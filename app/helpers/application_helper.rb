@@ -47,6 +47,7 @@ module ApplicationHelper
 
   def hash_to_table(recs)
     return raw('<p>None</p>') if recs.count == 0 or !recs
+    recs = recs.as_json
     html = []
     head = recs[0].keys
     html << '<table class="table">'

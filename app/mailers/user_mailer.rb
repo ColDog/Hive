@@ -9,7 +9,13 @@ class UserMailer < ApplicationMailer
     @user = user
     @digest = digest
     @message = mail['content']
-    @supplies = @user.all_supplies if mail['supplies']
+    @supplies = []
+    if mail['supplies']
+      @user.all_supplies.each do |list|
+        @supplies << { 'Type': list.supply.name, 'Name': list.name }
+      end
+    end
+
     mail['attachments'].each do |att|
       file = Attachment.find_by(id: att.to_i)
       if file and file.file.url
