@@ -41,5 +41,8 @@
       = link_to 'Download User Data', admin_users_path(format: :csv), class: 'btn btn-default'
       = link_to 'Download Organization Data', admin_organizations_path(format: :csv), class: 'btn btn-default'
       = link_to 'Download Supply Data', admin_supplies_path(format: :csv), class: 'btn btn-default'
+    %hr
+    = render 'admin/shared/attachments'
+
 
 = render 'admin/shared/modal'

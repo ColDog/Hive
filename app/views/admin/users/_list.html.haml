@@ -70,3 +70,23 @@
       = f.label 'Administrator?'
       &nbsp;&nbsp;
       = f.submit 'Add', class: 'btn btn-primary'
+
+%div.box
+  %h4 Send Email
+  = form_tag admin_users_mail_path(variable), method: :post do
+    = fields_for :mail do |f|
+      %div.form-group
+        %label Content
+        = f.text_area :content, value: "I've got you all registered and you are officially part of the HiVE! You will receive a membership invoice each month on the 1st",
+          class: 'form-control', rows: 10
+      %div.form-group
+        %label
+          = f.check_box :supplies, checked: true
+          Include Supplies
+        %label
+          = f.check_box :account_type, checked: true
+          Include Account Type
+      %div.form-group
+        %label Attachments
+        = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :name), {},{multiple: true, class: 'form-control'}
+      = submit_tag 'Send Email', class: 'btn btn-primary'

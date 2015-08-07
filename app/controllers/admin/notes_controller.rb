@@ -1,4 +1,5 @@
 class Admin::NotesController < ApplicationController
+  before_action :authenticate_admin
 
   def create
     @note = Note.create(note_params)

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :organizations
+    namespace :users do
+      post 'mail/:id',  as: 'mail', action: 'mail'
+    end
     resources :users
     namespace :supplies do
       get   'list_form',           as: 'list_form',     action: 'list_form'
@@ -33,6 +36,7 @@ Rails.application.routes.draw do
       post 'supply_lists',  as: 'supply_lists',   action: 'supply_lists'
       get  'results/:key',       as: 'results',   action: 'results'
     end
+    resources :attachments
   end
 
   root to: 'home#index'

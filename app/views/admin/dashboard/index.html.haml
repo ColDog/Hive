@@ -5,7 +5,7 @@
     %h1 Dashboard
 
     %div.row
-      %div.col-md-8
+      %div.col-md-7
         %h4 New Users
         %table.table
           %thead
@@ -39,7 +39,7 @@
                   = org.organization_members.count
                 %td
                   = org.pretty_tags
-      %div.col-md-4
+      %div.col-md-5
         %div.well
           %h4 Notes
           = form_for :note, url: admin_notes_path, method: :post do |f|

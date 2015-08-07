@@ -18,11 +18,17 @@ class Admin::UsersController < ApplicationController
     @password = SecureRandom.hex(10)
   end
 
+  def mail
+    user = User.find(params[:id])
+    user.send_mail(params[:mail])
+    flash[:success] = "Email sent to #{user.name}."
+    redirect_to :back
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'User created!'
-      @user.send_signup_digest
       redirect_to edit_admin_user_path(@user)
     else
       flash[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"

@@ -27,14 +27,18 @@ class User < ActiveRecord::Base
     SupplyList.where(organization_id: ids)
   end
 
+  def all_supplies
+    organization_supplies + supply_lists
+  end
+
   def verify_signup_digest?(digest)
     self.signup_digest == digest
   end
 
-  def send_signup_digest
+  def send_mail(content)
     digest = SecureRandom.urlsafe_base64
     update(signup_digest: digest)
-    UserMailer.new_user(self, digest).deliver_now
+    UserMailer.new_user(self, digest, content).deliver_now
   end
 
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
