@@ -1,2 +1,0 @@
-id,name,phone,account_type,inactive_on,current,notes,created_at,updated_at,signup_digest,email,reset_password_token,reset_password_sent_at,remember_created_at,sign_in_count,current_sign_in_at,last_sign_in_at,current_sign_in_ip,last_sign_in_ip
-1,admin,,,,true,,2015-08-07 02:03:30 UTC,2015-08-07 02:03:44 UTC,,admin@admin.com,,,,1,2015-08-07 02:03:44 UTC,2015-08-07 02:03:44 UTC,::1,::1
