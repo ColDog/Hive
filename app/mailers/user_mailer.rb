@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-
+  add_template_helper(ApplicationHelper)
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -10,6 +10,11 @@ class UserMailer < ApplicationMailer
     @digest = digest
     @message = mail['content']
     @supplies = []
+
+    # checks
+    @include_link     = mail['sign_in_link'] == '1' ? true : false
+    @include_supplies = mail['supplies'] == '1' ? true : false
+    @include_type     = mail['account_type'] == '1' ? true : false
 
     if mail['supplies'].present?
       @user.all_supplies.each do |list|

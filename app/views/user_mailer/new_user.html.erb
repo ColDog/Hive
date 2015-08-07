@@ -162,26 +162,26 @@
 						<td>
 							<p>Hello <%= @user.name %>,</p>
 
-							<h1>Welcome to the HiVE</h1>
-
 							<%=raw prepare_text(@message) %>
 
-							<% if @type.present? %>
+							<% if @include_type %>
 								<h5>Your account type: <%= @type %></h5>
 							<% end %>
 
-							<% if @supplies.present? %>
+							<% if @include_supplies %>
 								<h5>Your Supply Items:</h5>
 								<%= hash_to_table(@supplies) %>
 							<% end %>
 
-							<table>
-								<tr>
-									<td class="padding">
-										<p><%= link_to 'Access My Account', signup_url(@digest, @user.id), class: 'btn-primary' %></p>
-									</td>
-								</tr>
-							</table>
+							<% if @include_link %>
+								<table>
+									<tr>
+										<td class="padding">
+											<p><%= link_to 'Access My Account', signup_url(@digest, @user.id), class: 'btn-primary' %></p>
+										</td>
+									</tr>
+								</table>
+							<% end %>
 
 							<% if @attach_urls.present? %>
 								<h5>Attachments:</h5>

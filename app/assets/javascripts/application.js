@@ -14,7 +14,6 @@
 //= require bootstrap
 //= require nested_form_fields
 //= require jquery_ujs
-//= require jquery.remotipart
 //= require turbolinks
 //= require select2
 //= require_tree .
