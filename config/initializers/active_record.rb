@@ -17,12 +17,7 @@ module Extensions
       CSV.foreach(csv.path, headers: true) do |row|
         attrs = row.to_hash.slice(*opts[:slice], 'id').merge(opts[:merge])
 
-        if opts[:password]
-          pass = SecureRandom.hex(10)
-          attrs.merge(password: pass, password_confirmation: pass)
-        end
-
-        Rails.logger.debug "    IMPORT DATA: \n    Model: #{self.name}, \n    Attributes: #{attrs}"
+        Rails.logger.debug "    IMPORT DATA: \n    Model: #{self.name}, \n    Attributes: #{attrs}, \n    Password: #{opts[:password]}"
 
         begin
           obj = self.find_by(id: attrs['id'].to_i)
@@ -31,7 +26,13 @@ module Extensions
             result[:successes][:updated] << attrs
           else
             attrs['id'] = nil
+            if opts[:password]
+              pass = SecureRandom.hex(10)
+              attrs = attrs.merge(password: pass, password_confirmation: pass)
+            end
             self.create! attrs
+            attrs.delete(:password)
+            attrs.delete(:password_confirmation)
             result[:successes][:new] << attrs
           end
         rescue Exception => e
