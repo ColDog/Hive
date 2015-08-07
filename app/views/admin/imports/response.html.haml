@@ -1,0 +1,8 @@
+%h5 New Records
+= hash_to_table @log.log['successes']['new']
+
+%h5 Updated Records
+= hash_to_table @log.log['successes']['updated']
+
+%h5 Errors
+= hash_to_table @log.log['errors']

@@ -82,9 +82,8 @@ class SupplyList < ActiveRecord::Base
       end
     end
   end
-  def self.import(csv, supply_id)
-    errors = {  }
-    successes = []
+  def self.import(csv, supply_id, key)
+    result = {errors: [], successes: { updated: [], new: [] }}
     count = 0
     CSV.foreach(csv.path, headers: true) do |row|
       hsh = row.to_hash.slice('name', 'notes', 'id').merge('supply_id' => supply_id.to_i)
@@ -92,22 +91,18 @@ class SupplyList < ActiveRecord::Base
         sup = SupplyList.find_by(id: hsh['id'])
         if sup
           sup.update! hsh
+          result[:successes][:updated] << hsh
         else
           hsh['id'] = nil
           SupplyList.create! hsh
+          result[:successes][:new] << hsh
         end
-        successes << hsh
       rescue Exception => e
-        if hsh['name']
-          errors[ hsh['name'] ] = e.message
-        else
-          errors[ count ] = e.message
-        end
+        result[:errors] << { name: hsh['name'], error: e.message }
       end
       count += 1
     end
-    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
-    return fin
+    UploadLog.create(log: result, key: key)
   end
 
 end

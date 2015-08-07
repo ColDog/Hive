@@ -40,9 +40,8 @@ class User < ActiveRecord::Base
   scope :search,  -> (s) { q = "%#{s}%" ; where('name ILIKE ? OR email ILIKE ? OR phone ILIKE ? OR account_type ILIKE ?', q, q, q, q) }
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 
-  def self.import(csv)
-    errors = {  }
-    successes = []
+  def self.import(csv, key)
+    result = { errors: {}, successes: [] }
     count = 0
     CSV.foreach(csv.path, headers: true) do |row|
       pass = SecureRandom.hex(10)
@@ -52,18 +51,17 @@ class User < ActiveRecord::Base
       ).merge(password: pass, password_confirmation: pass)
       begin
         User.create! hsh
-        successes << hsh
+        result[:successes] << hsh
       rescue Exception => e
         if hsh['email']
-          errors[ hsh['email'] ] = e.message
+          result[:errors][ hsh['email'] ] = e.message
         else
-          errors[ count ] = e.message
+          result[:errors][ count ] = e.message
         end
       end
       count += 1
     end
-    fin = { } ; fin[:errors] = errors ; fin[:successes] = successes
-    return fin
+    UploadLog.create(log: result, key: key)
   end
 
   private

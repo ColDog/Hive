@@ -13,4 +13,9 @@ module Csv
       end
     end
   end
+  module Log
+    def log_result(result, key)
+      UploadLog.create(log: result, key: key)
+    end
+  end
 end
