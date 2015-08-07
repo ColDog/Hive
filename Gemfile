@@ -23,8 +23,6 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'faker'
 gem 'newrelic_rpm'
-gem 'remotipart'
-gem 'httplog'
 
 group :development, :test do
   gem 'byebug'
