@@ -14,6 +14,7 @@ module Extensions
 
     def import_base(csv, opts = {})
       result = {errors: [], successes: { updated: [], new: [] }}
+      tot = 0
       CSV.foreach(csv.path, headers: true) do |row|
         attrs = row.to_hash.slice(*opts[:slice], 'id').merge(opts[:merge])
 
@@ -38,7 +39,15 @@ module Extensions
         rescue Exception => e
           result[:errors] << { name: attrs['name'], error: e.message }
         end
+
+        tot += 1
       end
+
+      result[:info] = {
+        name: self.name, total_records: tot,
+        total_new: result[:successes][:new].count,
+        total_updated: result[:successes][:updated].count
+      }
 
       UploadLog.create(log: result, key: opts[:key])
     end
