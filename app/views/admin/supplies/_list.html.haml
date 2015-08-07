@@ -61,14 +61,13 @@
       %p Make sure that your column heading on your spreadsheet (the first row), match the following (id,name,notes). Try downloading by clicking above to see what it should look like. If you download a file and re-upload it, changed records will be updated as long as the ID remains. Don't put an ID for new records. Only ID and name are required.
       %div#upload
         - key = SecureRandom.hex
-        = form_for :supply_list, url: admin_imports_supply_lists_path, multipart: true, remote: true do |f|
+        = form_for :supply_list, url: admin_imports_supply_lists_path, multipart: true do |f|
           = f.hidden_field :supply_id, value: variable.id
           = f.hidden_field :key, value: key
           = f.file_field :file
           %br
           = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
           %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
-      = render 'admin/shared/results', key: key, id: 'upload'
 
 = render 'admin/supplies/js'
-= render 'admin/shared/modal'
+= render 'admin/shared/results'

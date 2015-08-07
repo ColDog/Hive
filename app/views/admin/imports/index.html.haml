@@ -15,26 +15,25 @@
           %h5 User Column Headings
           %p name, email, phone, account_type, inactive_on, current, notes
           - key1 = SecureRandom.hex
-          = form_for :user, url: admin_imports_users_path, multipart: true, remote: true do |f|
+          = form_for :user, url: admin_imports_users_path, multipart: true do |f|
             = f.hidden_field :key, value: key1
             = f.file_field :file
             %br
             = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
             %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
-          = render 'admin/shared/results', key: key1, id: 'user'
 
         %div#org.col-md-6.col-sm-6
           %h3 Import Organization Data
           %h5 Organization Column Headings
           %p name, description, avatar, signed_service_agreement, current, inactive_on, address, city, province, postal
           - key2 = SecureRandom.hex
-          = form_for :organization, url: admin_imports_organizations_path, multipart: true, remote: true do |f|
+          = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
             = f.hidden_field :key, value: key2
             = f.file_field :file
             %br
             = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
             %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
-          = render 'admin/shared/results', key: key2, id: 'org'
+
     %hr
     %div.form
       %h4 Downloads
@@ -44,5 +43,4 @@
     %hr
     = render 'admin/shared/attachments'
 
-
-= render 'admin/shared/modal'
+= render 'admin/shared/results'

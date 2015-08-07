@@ -16,6 +16,11 @@
 <% end %>
 
 <%= yield %>
+<pre>
+	<code>
+		<%=debug params %>
+	</code>
+</pre>
 
 <script>
 	$(document).ready(function() {

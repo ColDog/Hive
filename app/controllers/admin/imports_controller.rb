@@ -6,17 +6,17 @@ class Admin::ImportsController < ApplicationController
 
   def users
     User.import(params[:user][:file], params[:user][:key])
-    head :ok
+    redirect_to admin_imports_index_path(key: params[:user][:key])
   end
 
   def organizations
     Organization.import(params[:organization][:file], params[:organization][:key])
-    head :ok
+    redirect_to admin_imports_index_path(key: params[:organization][:key])
   end
 
   def supply_lists
     SupplyList.import(params[:supply_list][:file], params[:supply_list][:supply_id], params[:supply_list][:key])
-    head :ok
+    redirect_to edit_admin_supply_path(params[:supply_list][:supply_id], key: params[:supply_list][:key])
   end
 
   def results
