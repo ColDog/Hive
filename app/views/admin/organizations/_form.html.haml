@@ -18,8 +18,8 @@
           %label Signed Service Agreement:
           = f.check_box :signed_service_agreement, id: 'service'
           %br
-          - if variable.signed_service_agreement
-            = link_to 'view service agreement', variable.service_agreement.url, target: '_blank'
+          - if variable.service_agreement.present?
+            = link_to 'view service agreement', variable.service_agreement.url, target: '_blank' if variable.service_agreement.present?
             %label
               Remove
               = f.check_box :remove_service_agreement, id: 'remove'
@@ -35,9 +35,9 @@
           %label Address
           = f.text_field :address, placeholder: 'address', class: 'form-control'
           %div{ style: 'width:100%' }
-            = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:50%'
-            = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:25%'
-            = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:25%'
+            = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:45%'
+            = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:22%'
+            = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:33%'
           %br
           %br
         %div.form-group
