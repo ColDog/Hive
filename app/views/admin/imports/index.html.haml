@@ -4,35 +4,34 @@
     = render 'admin/shared/sidebar', active: 'imports'
 
   %div.col-md-10.shad-left
-    - cache do
-      %h1 Imports
-      %div.form{ style: 'max-width:600px;margin-top:30px;' }
-        %p Before uploading, change the column headings (the first row of your spreadsheet) to match the headings described below. Then save the spreadsheet as a 'csv' and then upload.
+    %h1 Imports
+    %div.form{ style: 'max-width:600px;margin-top:30px;' }
+      %p Before uploading, change the column headings (the first row of your spreadsheet) to match the headings described below. Then save the spreadsheet as a 'csv' and then upload.
 
-      %div.row
-        %div#user.col-md-6.col-sm-6
-          %h3 Import Users
-          %h5 User Column Headings
-          %p name, email, phone, account_type, inactive_on, current, notes
-          - key1 = SecureRandom.hex
-          = form_for :user, url: admin_imports_users_path, multipart: true do |f|
-            = f.hidden_field :key, value: key1
-            = f.file_field :file
-            %br
-            = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
-            %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+    %div.row
+      %div#user.col-md-6.col-sm-6
+        %h3 Import Users
+        %h5 User Column Headings
+        %p name, email, phone, account_type, inactive_on, current, notes
+        - key1 = SecureRandom.hex
+        = form_for :user, url: admin_imports_users_path, multipart: true do |f|
+          = f.hidden_field :key, value: key1
+          = f.file_field :file
+          %br
+          = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
+          %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
 
-        %div#org.col-md-6.col-sm-6
-          %h3 Import Organization Data
-          %h5 Organization Column Headings
-          %p name, description, avatar, signed_service_agreement, current, inactive_on, address, city, province, postal
-          - key2 = SecureRandom.hex
-          = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
-            = f.hidden_field :key, value: key2
-            = f.file_field :file
-            %br
-            = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
-            %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+      %div#org.col-md-6.col-sm-6
+        %h3 Import Organization Data
+        %h5 Organization Column Headings
+        %p name, description, avatar, signed_service_agreement, current, inactive_on, address, city, province, postal
+        - key2 = SecureRandom.hex
+        = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
+          = f.hidden_field :key, value: key2
+          = f.file_field :file
+          %br
+          = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
+          %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
 
     %hr
     %div.form
