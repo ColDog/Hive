@@ -46,7 +46,7 @@ module ApplicationHelper
   end
 
   def hash_to_table(recs)
-    return nil if recs.count == 0 or !recs
+    return raw('<p>None</p>') if recs.count == 0 or !recs
     html = []
     head = recs[0].keys
     html << '<table class="table">'

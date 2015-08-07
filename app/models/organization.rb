@@ -31,26 +31,10 @@ class Organization < ActiveRecord::Base
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 
   def self.import(csv, key)
-    result = {errors: {}, successes: []}
-    count = 0
-    CSV.foreach(csv.path, headers: true) do |row|
-      hsh = row.to_hash.slice(
-        'name', 'description', 'signed_service_agreement', 'current',
-        'inactive_on', 'address', 'city', 'province', 'postal'
-      )
-      begin
-        Organization.create! hsh
-        result[:successes] << hsh
-      rescue Exception => e
-        if hsh['name']
-          result[:errors][hsh['name']] = e.message
-        else
-          result[:errors][count] = e.message
-        end
-      end
-      count += 1
-    end
-    UploadLog.create(log: result, key: key)
+    self.import_base(
+      csv, key: key, merge: {},
+      slice: %w(name description signed_service_agreement current inactive_on address city province postal)
+    )
   end
 
   private

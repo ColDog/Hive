@@ -41,27 +41,10 @@ class User < ActiveRecord::Base
   scope :current, -> (s) { s == 'Active' ? q = true : q = false ; where(current: q) if s }
 
   def self.import(csv, key)
-    result = { errors: {}, successes: [] }
-    count = 0
-    CSV.foreach(csv.path, headers: true) do |row|
-      pass = SecureRandom.hex(10)
-      hsh = row.to_hash.slice(
-        'name', 'email', 'phone', 'account_type', 'inactive_on', 'current',
-        'password', 'password_confirmation'
-      ).merge(password: pass, password_confirmation: pass)
-      begin
-        User.create! hsh
-        result[:successes] << hsh
-      rescue Exception => e
-        if hsh['email']
-          result[:errors][ hsh['email'] ] = e.message
-        else
-          result[:errors][ count ] = e.message
-        end
-      end
-      count += 1
-    end
-    UploadLog.create(log: result, key: key)
+    self.import_base(
+      csv, key: key, password: true, merge: {},
+      slice: %w(name email phone account_type inactive_on current password password_confirmation)
+    )
   end
 
   private

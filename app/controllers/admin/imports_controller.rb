@@ -4,27 +4,26 @@ class Admin::ImportsController < ApplicationController
   end
 
   def users
-    # import = User.import(params[:file])
-    # respond_to { |format| format.js { render json: import } }
+    User.import(params[:user][:file], params[:user][:key])
+    head :ok
   end
 
   def organizations
-    # import = Organization.import(params[:file])
-    # respond_to { |format| format.js { render json: import } }
+    Organization.import(params[:organization][:file], params[:organization][:key])
+    head :ok
   end
 
   def supply_lists
     SupplyList.import(params[:supply_list][:file], params[:supply_list][:supply_id], params[:supply_list][:key])
-    respond_to do |format|
-      format.js   { render json: 'response OK' }
-      format.html { render json: 'response OK' }
-    end
+    head :ok
   end
 
   def results
     @log = UploadLog.find_by(key: params[:key])
-    respond_to do |format|
-      format.html { render 'admin/imports/response', layout: false }
+    if @log
+      render 'admin/imports/response', layout: false
+    else
+      render json: { error: 'Could not find the requested log.'}
     end
   end
 
