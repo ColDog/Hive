@@ -15,17 +15,17 @@ module Extensions
     def import_base(csv, opts = {})
       result = {errors: [], successes: { updated: [], new: [] }}
       CSV.foreach(csv.path, headers: true) do |row|
-        Rails.logger.debug "    IMPORT CSV ATTRIBUTES- START: #{row.to_hash}"
-        Rails.logger.debug "    IMPORT CSV ATTRIBUTES- SLICE: #{opts[:slice]}"
-        Rails.logger.debug "    IMPORT CSV ATTRIBUTES- MERGE: #{opts[:merge]}"
-        attrs = row.to_hash.slice(*opts[:slice]).merge(opts[:merge])
+        attrs = row.to_hash.slice(*opts[:slice], 'id').merge(opts[:merge])
+
         if opts[:password]
           pass = SecureRandom.hex(10)
           attrs.merge(password: pass, password_confirmation: pass)
         end
-        Rails.logger.debug "    IMPORT CSV ATTRIBUTES- END:   #{attrs}"
+
+        Rails.logger.debug "    IMPORT DATA: \n    Model: #{self.name}, \n    Attributes: #{attrs}"
+
         begin
-          obj = self.find_by(id: attrs['id'])
+          obj = self.find_by(id: attrs['id'].to_i)
           if obj
             obj.update attrs
             result[:successes][:updated] << attrs
