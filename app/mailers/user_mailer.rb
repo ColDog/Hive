@@ -16,11 +16,10 @@ class UserMailer < ApplicationMailer
       end
     end
 
+    @attach_urls = []
     mail['attachments'].each do |att|
-      file = Attachment.find_by(id: att.to_i)
-      if file and file.file.url
-        attachments[file.filename] = file.file.url
-      end
+      record = Attachment.find_by(id: att.to_i)
+      @attach_urls << {name: record.filename, url: record.file.url}
     end
     @type = @user.account_type if mail['account_type']
     mail( to: @user.email, subject: 'New Account Created at Hive' )

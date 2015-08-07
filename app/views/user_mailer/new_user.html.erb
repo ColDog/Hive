@@ -167,11 +167,11 @@
 							<%=raw prepare_text(@message) %>
 
 							<% if @type %>
-								<p>Your account type: <%= @type %></p>
+								<h5>Your account type: <%= @type %></h5>
 							<% end %>
 
 							<% if @supplies %>
-								<p>Your Supply Items</p>
+								<h5>Your Supply Items:</h5>
 								<%= hash_to_table(@supplies) %>
 							<% end %>
 
@@ -182,6 +182,13 @@
 									</td>
 								</tr>
 							</table>
+
+							<% if @attach_urls.present? %>
+								<h5>Attachments:</h5>
+								<% @attach_urls.each do |url| %>
+									<p><%= link_to url[:name], url[:url] %></p>
+								<% end %>
+							<% end %>
 
 							<p>
 								Sincerely,
