@@ -19,7 +19,7 @@ class UserMailer < ApplicationMailer
     mail['attachments'].each do |att|
       file = Attachment.find_by(id: att.to_i)
       if file and file.file.url
-        attachments[file] = file.file.url
+        attachments[file.file.url] = file.file.url
       end
     end
     @type = @user.account_type if mail['account_type']

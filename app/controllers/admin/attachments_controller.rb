@@ -2,7 +2,7 @@ class Admin::AttachmentsController < ApplicationController
   before_action :authenticate_admin
 
   def create
-    attach = Attachment.new(file: params[:file], name: params[:name])
+    attach = Attachment.new(file: params[:file])
     if attach.save
       flash[:success] = 'Attachment uploaded.'
       redirect_to :back

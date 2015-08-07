@@ -1,13 +1,12 @@
 %div.form
   %h4 Email Attachments
-  = form_tag admin_attachments_path, method: :post do
+  = form_tag admin_attachments_path, method: :post, multipart: true do
     = file_field_tag :file, class: 'short-form'
-    = text_field_tag :name, 'label', class: 'form-control short-form', style: 'width:100px;'
     = submit_tag 'Add', class: 'btn btn-default'
   %br
   %ul.list-unstyled
     - Attachment.all.each do |attachment|
       %li
-        = link_to attachment.name, attachment.file.url, target: '_blank'
+        = link_to attachment.file, attachment.file.url, target: '_blank'
         &nbsp;
         = link_to 'Delete', admin_attachment_path(attachment), method: :delete
