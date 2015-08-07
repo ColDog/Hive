@@ -166,11 +166,11 @@
 
 							<%=raw prepare_text(@message) %>
 
-							<% if @type %>
+							<% if @type.present? %>
 								<h5>Your account type: <%= @type %></h5>
 							<% end %>
 
-							<% if @supplies %>
+							<% if @supplies.present? %>
 								<h5>Your Supply Items:</h5>
 								<%= hash_to_table(@supplies) %>
 							<% end %>

@@ -10,7 +10,8 @@ class UserMailer < ApplicationMailer
     @digest = digest
     @message = mail['content']
     @supplies = []
-    if mail['supplies']
+
+    if mail['supplies'].present?
       @user.all_supplies.each do |list|
         @supplies << { 'Type': list.supply.name, 'Name': list.name }
       end
@@ -22,7 +23,7 @@ class UserMailer < ApplicationMailer
       @attach_urls << {name: record.filename, url: record.file.url} if record
     end
 
-    @type = @user.account_type if mail['account_type']
+    @type = @user.account_type if mail['account_type'].present?
     mail( to: @user.email, subject: 'New Account Created at Hive' )
   end
 end
