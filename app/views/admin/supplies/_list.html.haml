@@ -6,7 +6,7 @@
   %li{ role: 'presentation', class: params[:tab] == 'load' ? 'active' : '' }
     %a{ href: '#load', 'aria-controls' => 'load', role: 'tab', 'data-toggle' => 'tab' } Upload/Download
 
-%div.tab-content.box{ style: 'margin:0 0 0 0;' }
+%div.tab-content.box{ style: 'margin:0 0 0 0; border-top: none;' }
   %div.tab-pane.box-content#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
     %br
     = render 'admin/supplies/search'

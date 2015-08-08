@@ -17,7 +17,9 @@
 .select2-container { height: 180px !important; }
 
 hr { margin-top: 3.5em !important; margin-bottom: 1em !important; }
-h1 { text-align: center; }
+
+h1 { text-align: center; margin-bottom: 1em !important; margin-top: 1em !important; }
+
 @import "bootstrap";
 body { background-color: whitesmoke; }
 
@@ -31,7 +33,7 @@ body { background-color: whitesmoke; }
 
 // BOX
 .box {
-  background-color: white; margin: 8px 0 30px 0; box-shadow: 0 0 5px -1px rgba(0,0,0,0.75);
+  background-color: white; margin: 8px 0 30px 0; border: thin solid; border-color: rgb(221, 221, 221);
   .box-head { background-color: #f5f5f5; padding: 2px 15px 2px 15px;  }
   .box-content { padding: 5px 15px 15px 15px; }
   .box-foot { padding: 15px 15px 15px 15px; border-top: thin solid; border-color: #eee;  }
