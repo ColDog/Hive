@@ -1,0 +1,20 @@
+= select_tag :supply_id, options_from_collection_for_select(Supply.all, :id, :name), {include_blank: 'Supply', id: 'supply', class: 'short-form form-control'}
+%div#newOption
+  = select_tag :supply_id, '', {include_blank: 'Select a Supply', class: 'short-form form-control'}
+:javascript
+  $("#supply").change(function() {
+    var listId = $( "#supply" ).val();
+    $.ajax({
+      url: "/admin/supply_lists/select",
+      data: { id: listId },
+      cache: true,
+      error: function () {
+        console.log( "error" );
+      },
+      complete: function (html) {
+        console.log( "complete" );
+      }
+    }).done(function(data) {
+      $('#newOption').html(data)
+    });
+  });

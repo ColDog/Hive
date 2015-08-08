@@ -17,13 +17,14 @@ Rails.application.routes.draw do
     end
     resources :supplies
     resources :admins
-    resources :supply_lists
     namespace :supply_lists do
       post  'add_owner/(:id)',     as: 'add_owner',     action: 'add_owner'
       post  'remove_owner/(:id)',  as: 'remove_owner',  action: 'remove_owner'
       post  'upload/:supply_id',   as: 'upload',        action: 'upload'
+      get   'select',              as: 'select',        action: 'select'
       get   'download/:supply_id', as: 'download',      action: 'download'
     end
+    resources :supply_lists
     resources :organization_members
     resources :notes
     resources :home_contents

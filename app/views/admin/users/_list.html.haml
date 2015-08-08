@@ -32,8 +32,8 @@
         %td -
   %hr
   %div
-    = form_tag admin_supply_lists_add_owner_path, method: :post do
-      = select_tag :id, option_groups_from_collection_for_select(Supply.all, :picks, :name, :id, :name), {class: 'short-form form-control'}
+    = form_tag admin_supply_lists_add_owner_path, method: :post, id: 'supSelect' do
+      = render 'admin/shared/sup_sel'
       = hidden_field_tag :user_id, variable.id
       = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
       = submit_tag 'Add', class: 'btn btn-primary'

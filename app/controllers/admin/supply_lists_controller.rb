@@ -45,6 +45,11 @@ class Admin::SupplyListsController < ApplicationController
     end
   end
 
+  def select
+    @supply_list = SupplyList.where(supply_id: params[:id]).where(user_id: nil).where(organization_id: nil)
+    render 'admin/supply_lists/select', layout: false
+  end
+
   def download
     respond_to do |format|
       format.html { redirect_to :back }
