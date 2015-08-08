@@ -39,5 +39,8 @@ body { background-color: whitesmoke; }
   .box-foot { padding: 15px 15px 15px 15px; border-top: thin solid; border-color: #eee;  }
 }
 
+.input-none { border:none!important;outline:none!important;background:transparent;box-shadow: none!important; }
+.input-none:focus { border:none!important;outline:none!important;background:transparent;box-shadow: none!important; }
+
 
 footer { height: 20px; background-color: #222222; }

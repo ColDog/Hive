@@ -45,16 +45,6 @@
                 = link_to 'Admins', admin_admins_path
               %li
                 = link_to 'Imports', admin_imports_index_path
-          %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-              Add Note
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                = form_for :note, url: admin_notes_path, method: :post do |f|
-                  = f.text_field :title, placeholder: 'title', class: 'form-control'
-                  = f.text_area :content, placeholder: 'content', class: 'form-control', rows: 4
-                  = f.submit 'Submit', class: 'btn btn-default'
       - else
         %li
           = link_to 'Log In', new_user_session_path
