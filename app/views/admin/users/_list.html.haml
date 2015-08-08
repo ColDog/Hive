@@ -1,64 +1,67 @@
 %div.box
-  %h4 Supplies
-  %table.table
-    %thead
-      %tr
-        %th Supply Name
-        %th Name
-        %th Notes
-        %th Organization
-        %th Action
-    - @user.supply_lists.each do |list|
-      %tr
-        %td
-          = list.supply.name
-        %td
-          = list.name
-        %td
-          = list.notes
-        %td -
-        %td
-          = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
-    - @user.organization_supplies.each do |list|
-      %tr
-        %td
-          = list.supply.name
-        %td
-          = list.name
-        %td
-          = list.notes
-        %td
-          = list.organization.name
-        %td -
-  %hr
-  %div
-    = form_tag admin_supply_lists_add_owner_path, method: :post, id: 'supSelect' do
-      = render 'admin/shared/sup_sel'
-      = hidden_field_tag :user_id, variable.id
-      = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
-      = submit_tag 'Add', class: 'btn btn-primary'
+  %div.box-head
+    %h4 Supplies
+  %div.box-content
+    %table.table
+      %thead
+        %tr
+          %th Supply Name
+          %th Name
+          %th Notes
+          %th Organization
+          %th Action
+      - @user.supply_lists.each do |list|
+        %tr
+          %td
+            = list.supply.name
+          %td
+            = list.name
+          %td
+            = list.notes
+          %td -
+          %td
+            = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
+      - @user.organization_supplies.each do |list|
+        %tr
+          %td
+            = list.supply.name
+          %td
+            = list.name
+          %td
+            = list.notes
+          %td
+            = list.organization.name
+          %td -
+  %div.box-foot
+    %div
+      = form_tag admin_supply_lists_add_owner_path, method: :post, id: 'supSelect' do
+        = render 'admin/shared/sup_sel'
+        = hidden_field_tag :user_id, variable.id
+        = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
+        = submit_tag 'Add', class: 'btn btn-primary'
 
 %div.box
-  %h4 Organizations
-  %table.table
-    %thead
-      %tr
-        %th Organization Name
-        %th Admin Contact
-        %th Accountant
-        %th Remove
-    - variable.organization_members.each do |list|
-      %tr
-        %td
-          = list.organization.name
-        %td
-          = list.admin_contact
-        %td
-          = list.account_contact
-        %td
-          = link_to 'remove', admin_organization_member_path(list), method: :delete
-  %hr
-  %div
+  %div.box-head
+    %h4 Organizations
+  %div.box-content
+    %table.table
+      %thead
+        %tr
+          %th Organization Name
+          %th Admin Contact
+          %th Accountant
+          %th Remove
+      - variable.organization_members.each do |list|
+        %tr
+          %td
+            = list.organization.name
+          %td
+            = list.admin_contact
+          %td
+            = list.account_contact
+          %td
+            = link_to 'remove', admin_organization_member_path(list), method: :delete
+  %div.box-foot
     = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
       = f.hidden_field :user_id, value: variable.id
       = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: ' short-form form-control'}
@@ -72,23 +75,25 @@
       = f.submit 'Add', class: 'btn btn-primary'
 
 %div.box
-  %h4 Send Email
-  = form_tag admin_users_mail_path(variable), method: :post do
-    = fields_for :mail do |f|
-      %div.form-group
-        %label Content
-        = f.text_area :content, class: 'form-control', rows: 13, value: "Welcome to the HiVE! \nI've got you all registered and invoiced, and you are officially a member of the HiVE! \nYour contract would have been sent to you via EchoSign for you to sign and return. Please let me know if it did not arrive. \nI have attached a little bit of information about how to be a great member of the HiVE and about our perks program. \nAlso attached are instructions for connecting to the printer. Your user id for the printer is __ and the password is __. Printing is $0.10 per page for black and $0.35 for colour, billed every second month. \nPlease let me know if you have any questions or concerns! Thank you for joining the HiVE."
-      %div.form-group
-        %label
-          = f.check_box :supplies, checked: true
-          Include Supplies
-        %label
-          = f.check_box :account_type, checked: true
-          Include Account Type
-        %label
-          = f.check_box :sign_in_link, checked: true
-          Include a Sign In Link
-      %div.form-group
-        %label Attachments
-        = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :filename), {},{multiple: true, class: 'form-control'}
-      = submit_tag 'Send Email', class: 'btn btn-primary'
+  %div.box-head
+    %h4 Send Email
+  %div.box-content
+    = form_tag admin_users_mail_path(variable), method: :post do
+      = fields_for :mail do |f|
+        %div.form-group
+          %label Content
+          = f.text_area :content, class: 'form-control', rows: 13, value: "Welcome to the HiVE! \nI've got you all registered and invoiced, and you are officially a member of the HiVE! \nYour contract would have been sent to you via EchoSign for you to sign and return. Please let me know if it did not arrive. \nI have attached a little bit of information about how to be a great member of the HiVE and about our perks program. \nAlso attached are instructions for connecting to the printer. Your user id for the printer is __ and the password is __. Printing is $0.10 per page for black and $0.35 for colour, billed every second month. \nPlease let me know if you have any questions or concerns! Thank you for joining the HiVE."
+        %div.form-group
+          %label
+            = f.check_box :supplies, checked: true
+            Include Supplies
+          %label
+            = f.check_box :account_type, checked: true
+            Include Account Type
+          %label
+            = f.check_box :sign_in_link, checked: true
+            Include a Sign In Link
+        %div.form-group
+          %label Attachments
+          = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :filename), {},{multiple: true, class: 'form-control'}
+        = submit_tag 'Send Email', class: 'btn btn-primary'

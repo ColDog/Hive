@@ -1,3 +1,7 @@
+TO-DO Aug 8
+- write more tests
+- email subject line
+
 DATABASE
   Admins
   	user_id

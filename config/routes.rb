@@ -28,8 +28,6 @@ Rails.application.routes.draw do
     resources :organization_members
     resources :notes
     resources :home_contents
-    get '/'       => 'dashboard#index',   as: 'dashboard'
-    get 'reports' => 'dashboard#reports', as: 'dashboard_reports'
     namespace :imports do
       get  '/',             as: 'index',          action: 'index'
       post 'users',         as: 'users',          action: 'users'
@@ -38,6 +36,7 @@ Rails.application.routes.draw do
       get  'results/:key',       as: 'results',   action: 'results'
     end
     resources :attachments
+    get '/'       => 'dashboard#index',   as: 'dashboard'
   end
 
   root to: 'home#index'

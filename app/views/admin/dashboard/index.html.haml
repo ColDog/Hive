@@ -5,51 +5,97 @@
     %h1 Dashboard
 
     %div.row
-      %div.col-md-7
-        %h4 New Users
-        %table.table
-          %thead
-            %tr
-              %th User
-              %th Email
-              %th Phone
-          - cache(User.cache_key(params)) do
-            - User.all.reverse_order.limit(5).each do |user|
-              %tr
-                %td
-                  = link_to user.name, edit_admin_user_path(user)
-                %td
-                  = user.email
-                %td
-                  = user.phone
-          %hr
-        %h4 New Organizations
-        %table.table
-          %thead
-            %tr
-              %th Name
-              %th Employees
-              %th Tags
-          - cache(Organization.cache_key(params)) do
-            - Organization.all.reverse_order.limit(5).each do |org|
-              %tr
-                %td
-                  = link_to org.name, edit_admin_organization_path(org)
-                %td
-                  = org.organization_members.count
-                %td
-                  = org.pretty_tags
-      %div.col-md-5
-        %div.well
-          %h4 Notes
-          = form_for :note, url: admin_notes_path, method: :post do |f|
-            = f.text_field :title, placeholder: 'title', class: 'form-control'
-            = f.text_area :content, placeholder: 'content', class: 'form-control', rows: 4
-            = f.submit 'Submit', class: 'btn btn-default'
+      %div.col-md-6
+        - cache(Note.cache_key(params)) do
           - Note.all.reverse_order.each do |note|
-            %h5
-              = note.title
-              = link_to '[x]', admin_note_path(note), method: :delete
-            %p
-              = note.content
-            %br
+            %div.box
+              %div.box-head
+                %h4
+                  = note.title
+                  = link_to raw('&times;'), admin_note_path(note), method: :delete
+              %div.box-content
+                %p
+                  = note.content
+        - cache(Supply.cache_key(params)) do
+          %div.box
+            %div.box-head
+              %h4 Supplies
+            %div.box-content
+              %table.table
+                %thead
+                  %tr
+                    %th Supplies
+                    %th In Use
+                    %th Total
+                - Supply.all.reverse_order.each do |supply|
+                  %tr
+                    %td
+                      = supply.name
+                    %td
+                      = supply.in_use
+                    %td
+                      = supply.supply_lists.count
+      %div.col-md-6
+        - cache(User.cache_key(params)) do
+          %div.box
+            %div.box-head
+              %h4 Users
+            %div.box-content
+              %table.table
+                %tr
+                  %td Total
+                  %td
+                    = User.all.count
+                %tr
+                  %td Active
+                  %td
+                    = User.where(current: true).count
+          %div.box
+            %div.box-head
+              %h4 New Users
+            %div.box-content
+              %table.table
+                %thead
+                  %tr
+                    %th User
+                    %th Email
+                    %th Phone
+                - User.all.reverse_order.limit(5).each do |user|
+                  %tr
+                    %td
+                      = link_to user.name, edit_admin_user_path(user)
+                    %td
+                      = user.email
+                    %td
+                      = user.phone
+        - cache(Organization.cache_key(params)) do
+          %div.box
+            %div.box-head
+              %h4 Organizations
+            %div.box-content
+              %table.table
+                %tr
+                  %td Total
+                  %td
+                    = Organization.all.count
+                %tr
+                  %td Active
+                  %td
+                    = Organization.where(current: true).count
+                    %div.box
+          %div.box
+            %div.box-head
+              %h4 New Organizations
+            %div.box-content
+              %table.table
+                %thead
+                  %tr
+                    %th Name
+                    %th Employees
+                - Organization.all.reverse_order.limit(5).each do |org|
+                  %tr
+                    %td
+                      = link_to org.name, edit_admin_organization_path(org)
+                    %td
+                      = org.organization_members.count
+

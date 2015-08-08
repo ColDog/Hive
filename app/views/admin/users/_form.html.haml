@@ -1,28 +1,33 @@
 %div.row
   %div.col-md-4
-    = form_for variable, url: url, method: method do |f|
-      = f.label 'Name'
-      = f.text_field :name, class: 'form-control'
-      = f.label 'Email'
-      = f.email_field :email, class: 'form-control'
-      = f.label 'Phone'
-      = f.phone_field :phone, class: 'form-control'
-      = f.label 'Account Type'
-      = f.phone_field :account_type, class: 'form-control'
-      %br
-      = f.label 'Currently Active: '
-      = f.check_box :current, id: 'current'
-      %div#currentShow{ style: variable.current ? 'display:none' : '' }
-        = f.label 'Inactive on:'
-        = f.date_select :inactive_on, include_blank: true
-      %br
-      = f.password_field :password, value: @password, placeholder: 'password', class: 'form-control'
-      = f.password_field :password_confirmation, value: @password, placeholder: 'password confirmation', class: 'form-control'
-      %br
-      = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
-    %br
-    %span User is an administrator?
-    = variable.admin ? 'Yes' : 'No'
+    %div.box
+      %div.box-head
+        %h4
+          = variable.name ? variable.name : 'New'
+      %div.box-content
+        = form_for variable, url: url, method: method do |f|
+          = f.label 'Name'
+          = f.text_field :name, class: 'form-control'
+          = f.label 'Email'
+          = f.email_field :email, class: 'form-control'
+          = f.label 'Phone'
+          = f.phone_field :phone, class: 'form-control'
+          = f.label 'Account Type'
+          = f.phone_field :account_type, class: 'form-control'
+          %br
+          = f.label 'Currently Active: '
+          = f.check_box :current, id: 'current'
+          %div#currentShow{ style: variable.current ? 'display:none' : '' }
+            = f.label 'Inactive on:'
+            = f.date_select :inactive_on, include_blank: true
+          %br
+          = f.password_field :password, value: @password, placeholder: 'password', class: 'form-control'
+          = f.password_field :password_confirmation, value: @password, placeholder: 'password confirmation', class: 'form-control'
+          %br
+          = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+        %br
+        %span User is an administrator?
+        = variable.admin ? 'Yes' : 'No'
   - if params[:action] == 'edit'
     %div.col-md-8
       %div

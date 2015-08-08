@@ -3,23 +3,30 @@
     = render 'admin/shared/sidebar', active: 'home'
   %div.col-md-10.shad-left
     %h1 Home Page
-    = form_for :home_content, url: admin_home_contents_path, method: :post do |f|
-      %div.form-group
-        %label Title
-        = f.text_field :title, class: 'form-control'
-      %div.form-group
-        %label Content
-        = f.text_area :content, class: 'form-control', rows: 8
-      = f.submit 'Add Post', class: 'btn btn-primary'
-    %hr
+    %div.box
+      %div.box-head
+        %h4 New Post
+      %div.box-content
+        = form_for :home_content, url: admin_home_contents_path, method: :post do |f|
+          %div.form-group
+            %label Title
+            = f.text_field :title, class: 'form-control'
+          %div.form-group
+            %label Content
+            = f.text_area :content, class: 'form-control', rows: 8
+          = f.submit 'Add Post', class: 'btn btn-primary'
     - HomeContent.all.reverse_order.each do |post|
-      = form_for post, url: admin_home_content_path(post), method: :patch do |f|
-        %div.form-group
-          %label Title
-          = f.text_field :title, class: 'form-control'
-        %div.form-group
-          %label Content
-          = f.text_area :content, class: 'form-control', rows: 8
-        = f.submit 'Update Post', class: 'btn btn-primary'
-        = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-danger'
-      %br
+      %div.box
+        %div.box-head
+          %h4
+            = post.title
+        %div.box-content
+          = form_for post, url: admin_home_content_path(post), method: :patch do |f|
+            %div.form-group
+              %label Title
+              = f.text_field :title, class: 'form-control'
+            %div.form-group
+              %label Content
+              = f.text_area :content, class: 'form-control', rows: 8
+            = f.submit 'Update Post', class: 'btn btn-primary'
+            = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-danger'

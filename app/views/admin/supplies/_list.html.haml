@@ -7,7 +7,7 @@
     %a{ href: '#load', 'aria-controls' => 'load', role: 'tab', 'data-toggle' => 'tab' } Upload/Download
 
 %div.tab-content.box{ style: 'margin:0 0 0 0;' }
-  %div.tab-pane#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
+  %div.tab-pane.box-content#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
     %br
     = render 'admin/supplies/search'
     %div
@@ -42,7 +42,7 @@
                         %div.addForm
                     = render 'admin/supplies/eachjs', list_id: list.id
 
-  %div.tab-pane#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
+  %div.tab-pane.box-content#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
     %br
     %h4 Create New Supply Item
     = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
@@ -51,7 +51,7 @@
       = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
       = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
-  %div.tab-pane#load{ role: 'tabpanel', class: params[:tab] == 'load' ? 'active' : '' }
+  %div.tab-pane.box-content#load{ role: 'tabpanel', class: params[:tab] == 'load' ? 'active' : '' }
     %br
     %div
       %h4

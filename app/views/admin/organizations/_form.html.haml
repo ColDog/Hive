@@ -1,49 +1,53 @@
 %div.row
   %div.col-md-4
-    %div
-      = form_for variable, url: url, method: method do |f|
-        %div.form-group
-          %label Name
-          = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-        %div.form-group
-          %label Tags (comma separated)
-          %br
-          = f.text_field :tagging, value: variable.tags.join(','), class: 'form-control', id: 'tagsinput'
-        %div.form-group
-          %label
-            Avatar
-            = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
-          = f.file_field :avatar
-          %br
-          %label Signed Service Agreement:
-          = f.check_box :signed_service_agreement, id: 'service'
-          %br
-          - if variable.service_agreement.present?
-            = link_to 'view service agreement', variable.service_agreement.url, target: '_blank' if variable.service_agreement.present?
+    %div.box
+      %div.box-head
+        %h4
+          = variable.name ? variable.name : 'New'
+      %div.box-content
+        = form_for variable, url: url, method: method do |f|
+          %div.form-group
+            %label Name
+            = f.text_field :name, placeholder: 'organization name', class: 'form-control'
+          %div.form-group
+            %label Tags (comma separated)
+            %br
+            = f.text_field :tagging, value: variable.tags.join(','), class: 'form-control', id: 'tagsinput'
+          %div.form-group
             %label
-              Remove
-              = f.check_box :remove_service_agreement, id: 'remove'
-          %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
-            = f.file_field :service_agreement
-          %br
-          = f.label 'Currently Active: '
-          = f.check_box :current, id: 'current'
-          %div#currentShow{ style: variable.current ? 'display:none' : '' }
-            %label Inactive on
-            = f.date_select :inactive_on, include_blank: true
-        %div.form-group
-          %label Address
-          = f.text_field :address, placeholder: 'address', class: 'form-control'
-          %div{ style: 'width:100%' }
-            = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:45%'
-            = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:22%'
-            = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:33%'
-          %br
-          %br
-        %div.form-group
-          %label Description
-          = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 3
-        = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+              Avatar
+              = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
+            = f.file_field :avatar
+            %br
+            %label Signed Service Agreement:
+            = f.check_box :signed_service_agreement, id: 'service'
+            %br
+            - if variable.service_agreement.present?
+              = link_to 'view service agreement', variable.service_agreement.url, target: '_blank' if variable.service_agreement.present?
+              %label
+                Remove
+                = f.check_box :remove_service_agreement, id: 'remove'
+            %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
+              = f.file_field :service_agreement
+            %br
+            = f.label 'Currently Active: '
+            = f.check_box :current, id: 'current'
+            %div#currentShow{ style: variable.current ? 'display:none' : '' }
+              %label Inactive on
+              = f.date_select :inactive_on, include_blank: true
+          %div.form-group
+            %label Address
+            = f.text_field :address, placeholder: 'address', class: 'form-control'
+            %div{ style: 'width:100%' }
+              = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:45%'
+              = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:22%'
+              = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:33%'
+            %br
+            %br
+          %div.form-group
+            %label Description
+            = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 3
+          = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
   - if params[:action] == 'edit'
     %div.col-md-8
