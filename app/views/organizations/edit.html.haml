@@ -13,7 +13,8 @@
         = f.text_field :name, placeholder: 'name', class: 'form-control'
       %div.form-group
         %label Tags
-        = f.text_field :tags, value: @organization.tags.join(','), class: 'select2 form-control', id: 'tagging'
+        %br
+        = f.text_field :tagging, value: @organization.tags.join(','), class: 'form-control', id: 'tagsinput'
       %div.form-group
         %label Description
         = f.text_area :description, class: 'form-control', rows: 10
