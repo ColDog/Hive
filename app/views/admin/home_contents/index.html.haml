@@ -3,30 +3,23 @@
     = render 'admin/shared/sidebar', active: 'home'
   %div.col-md-10.shad-left
     %h1 Home Page
-    %div.box
-      %div.box-head
-        %h4 New Post
-      %div.box-content
-        = form_for :home_content, url: admin_home_contents_path, method: :post do |f|
-          %div.form-group
-            %label Title
-            = f.text_field :title, class: 'form-control'
-          %div.form-group
-            %label Content
-            = f.text_area :content, class: 'form-control', rows: 8
-          = f.submit 'Add Post', class: 'btn btn-primary'
-    - HomeContent.all.reverse_order.each do |post|
+    %div.col-md-6
       %div.box
-        %div.box-head
-          %h4
-            = post.title
-        %div.box-content
+        = form_for :home_content, url: admin_home_contents_path, method: :post do |f|
+          %div.box-head
+            %h4
+              = f.text_field :title, placeholder: 'title', class: 'form-control input-none', style: 'font-size:1em;margin:auto;'
+          %div.box-content
+            = f.text_area :content, placeholder: 'content', class: 'form-control input-none', rows: 8
+            = f.submit 'Create Post', class: 'btn btn-primary btn-xs'
+    - HomeContent.all.reverse_order.each do |post|
+      %div.col-md-6
+        %div.box
           = form_for post, url: admin_home_content_path(post), method: :patch do |f|
-            %div.form-group
-              %label Title
-              = f.text_field :title, class: 'form-control'
-            %div.form-group
-              %label Content
-              = f.text_area :content, class: 'form-control', rows: 8
-            = f.submit 'Update Post', class: 'btn btn-primary'
-            = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-danger'
+            %div.box-head
+              %h4
+                = f.text_field :title, class: 'form-control input-none', style: 'font-size:1em;margin:auto;'
+            %div.box-content
+              = f.text_area :content, class: 'form-control input-none', rows: 8
+              = f.submit 'Update Post', class: 'btn btn-primary btn-xs'
+              = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-default btn-xs'

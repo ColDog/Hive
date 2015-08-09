@@ -12,10 +12,9 @@
               %div.box-head
                 %h4
                   = note.title
-                  = link_to raw('&times;'), admin_note_path(note), method: :delete
+                  = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
               %div.box-content
-                %p
-                  = note.content
+                = raw prepare_text(note.content)
         - cache(Supply.cache_key(params)) do
           %div.box
             %div.box-head
@@ -35,6 +34,7 @@
                       = supply.in_use
                     %td
                       = supply.supply_lists.count
+
       %div.col-md-6
         - cache(User.cache_key(params)) do
           %div.box
@@ -42,6 +42,10 @@
               %h4 Users
             %div.box-content
               %table.table
+                %thead
+                  %tr
+                    %th Users
+                    %th Total
                 %tr
                   %td Total
                   %td
@@ -50,30 +54,28 @@
                   %td Active
                   %td
                     = User.where(current: true).count
-          %div.box
-            %div.box-head
-              %h4 New Users
-            %div.box-content
               %table.table
                 %thead
                   %tr
-                    %th User
+                    %th Recently Updated
                     %th Email
-                    %th Phone
                 - User.all.reverse_order.limit(5).each do |user|
                   %tr
                     %td
                       = link_to user.name, edit_admin_user_path(user)
                     %td
                       = user.email
-                    %td
-                      = user.phone
+
         - cache(Organization.cache_key(params)) do
           %div.box
             %div.box-head
               %h4 Organizations
             %div.box-content
               %table.table
+                %thead
+                  %tr
+                    %th All Organizations
+                    %th Total
                 %tr
                   %td Total
                   %td
@@ -82,15 +84,10 @@
                   %td Active
                   %td
                     = Organization.where(current: true).count
-                    %div.box
-          %div.box
-            %div.box-head
-              %h4 New Organizations
-            %div.box-content
               %table.table
                 %thead
                   %tr
-                    %th Name
+                    %th Recently Updated
                     %th Employees
                 - Organization.all.reverse_order.limit(5).each do |org|
                   %tr
@@ -98,4 +95,3 @@
                       = link_to org.name, edit_admin_organization_path(org)
                     %td
                       = org.organization_members.count
-

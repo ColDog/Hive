@@ -9,15 +9,8 @@
       %div.col-md-6.col-sm-6
         %div.box
           %div.box-head
-            %h4 Instructions
-          %div.box-content
-            %p Before uploading, change the column headings (the first row of your spreadsheet) to match the headings described below. Then save the spreadsheet as a 'csv' and then upload.
-        %div.box
-          %div.box-head
             %h4 Import Users
           %div#user.box-content
-            %h5 User Column Headings
-            %p name, email, phone, account_type, inactive_on, current, notes
             - key1 = SecureRandom.hex
             = form_for :user, url: admin_imports_users_path, multipart: true do |f|
               = f.hidden_field :key, value: key1
@@ -29,8 +22,6 @@
           %div.box-head
             %h4 Import Organization
           %div#org.box-content
-            %h5 Organization Column Headings
-            %p name, description, avatar, signed_service_agreement, current, inactive_on, address, city, province, postal
             - key2 = SecureRandom.hex
             = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
               = f.hidden_field :key, value: key2

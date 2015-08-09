@@ -1,7 +1,10 @@
 @import "bootstrap-sprockets";
-.sidebar { min-height: 92vh !important; height: 100% !important; background-color: whitesmoke; padding-bottom: 200px; }
-.inside-sidebar { position: fixed }
-.shad-left {  -webkit-box-shadow: -2px 0px 10px -2px #888; min-height: 92vh !important; height: 100%; background-color: white; padding-bottom: 20px; }
+.sidebar { min-height: 92vh !important; height: 100% !important; background-color: whitesmoke; margin: 0 !important; padding: 0 !important; }
+.inside-sidebar {
+  position: fixed; width: 100%; margin: 0 !important; padding: 0 !important;
+  a { border-radius: 0!important; }
+}
+.shad-left { min-height: 92vh !important; height: 100%; background-color: white; padding-bottom: 20px; z-index: 0; }
 .list { height: 70vh; overflow: scroll; }
 .table-scroll { height: 70vh; overflow: scroll; }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
@@ -21,7 +24,7 @@ hr { margin-top: 3.5em !important; margin-bottom: 1em !important; }
 h1 { text-align: center; margin-bottom: 1em !important; margin-top: 1em !important; }
 
 @import "bootstrap";
-body { background-color: whitesmoke; }
+body { background-color: whitesmoke; padding-top: 50px; }
 
 .full-height { min-height: 84vh; }
 
