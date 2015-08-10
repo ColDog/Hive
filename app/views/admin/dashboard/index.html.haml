@@ -1,7 +1,7 @@
 %div.container-fluid
   %div.col-md-2.sidebar.hidden-sm.hidden-xs
     = render 'admin/shared/sidebar', active: 'dashboard'
-  %div.col-md-10.shad-left
+  %div.col-md-10.col-xs-12.shad-left
     %h1 Dashboard
 
     %div.row
@@ -34,6 +34,34 @@
                       = supply.in_use
                     %td
                       = supply.supply_lists.count
+        %div.box
+          %div.box-head
+            %h4 Supply Report
+          %div#report.box-content
+            = form_tag admin_dashboard_report_path do
+              = text_field_tag :search, 'search term', class: 'form-control short-form'
+              = submit_tag 'Search', class: 'btn btn-default'
+            %div#report-result
+
+            :javascript
+              $('#report form').submit(function() {
+                var valuesToSubmit = $(this).serialize();
+                $.ajax({
+                  type: "POST",
+                  url: $(this).attr('action'), //sumbits it to the given url of the form
+                  data: valuesToSubmit,
+                  dataType: "HTML",
+                  error: function () {
+                    console.log( "error" );
+                  },
+                  complete: function (html) {
+                    console.log( "complete" );
+                  }
+                }).done(function(data){
+                  $('#report-result').html(data)
+                });
+                return false; // prevents normal behaviour
+              });
 
       %div.col-md-6
         - cache(User.cache_key(params)) do

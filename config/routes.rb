@@ -36,7 +36,8 @@ Rails.application.routes.draw do
       get  'results/:key',       as: 'results',   action: 'results'
     end
     resources :attachments
-    get '/'       => 'dashboard#index',   as: 'dashboard'
+    get   '/'                 => 'dashboard#index',   as: 'dashboard'
+    post  '/dashboard/report' => 'dashboard#report',  as: 'dashboard_report'
   end
 
   root to: 'home#index'

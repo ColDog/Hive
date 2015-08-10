@@ -4,7 +4,31 @@
   position: fixed; width: 100%; margin: 0 !important; padding: 0 !important;
   a { border-radius: 0!important; }
 }
-.shad-left { width: 88% !important; min-height: 92vh !important; height: 100%; background-color: white; padding-bottom: 20px; z-index: 0; }
+
+$screen-lg-min: 1200px;
+$screen-md-min: 992px;
+$screen-sm-min: 768px;
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Sass Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+  .shad-left { width: 88% !important;  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+  .shad-left { width: 88% !important;  }
+}
+
+
+.shad-left { min-height: 92vh !important; height: 100%; background-color: white; padding-bottom: 20px; z-index: 0; }
 .list { height: 70vh; overflow: scroll; }
 .table-scroll { height: 70vh; overflow: scroll; }
 .container-fluid { width: 100%; margin: 0; padding: 0 !important; }
