@@ -2,9 +2,12 @@
   %thead
     %tr
       %th Name
-      %th Count
+      %th In Use
+      %th Total
   %tr
     %td
       = @search
     %td
-      = @list.count
+      = @in_use
+    %td
+      = @total
