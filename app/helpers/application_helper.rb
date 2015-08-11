@@ -31,36 +31,4 @@ module ApplicationHelper
     end
   end
 
-  def prepare_text(text)
-    if text.is_a? String
-      final = ''
-      text.each_line do |line|
-        final += '<p>'
-        final += line
-        final += '</p>'
-      end
-      final
-    else
-      text
-    end
-  end
-
-  def hash_to_table(recs)
-    return raw('<p>None</p>') if recs.count == 0 or !recs
-    recs = recs.as_json
-    html = []
-    head = recs[0].keys
-    html << '<table class="table">'
-    html << '<thead><tr>'
-    head.each { |item| html << "<th>#{item}</th>" }
-    html << '</thead></tr>'
-    recs.each do |rec|
-      html << '<tr>'
-      rec.values_at(*head).each { |item| html << "<td>#{item}</td>"  }
-      html << '</tr>'
-    end
-    html << '</table>'
-    raw(html.join(''))
-  end
-
 end

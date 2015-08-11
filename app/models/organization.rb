@@ -1,5 +1,4 @@
 class Organization < ActiveRecord::Base
-  extend Csv::Build
   include Tagging::Instance
   extend  Tagging::ClassMethods
 
