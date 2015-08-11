@@ -21,8 +21,8 @@ gem 'fog'
 gem 'carrierwave'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'faker'
 gem 'newrelic_rpm'
+gem 'github-markdown'
 
 group :development, :test do
   gem 'byebug'
