@@ -21,7 +21,7 @@
             %h3
               = org.name
             %div.org-text
-              = raw prepare_text(org.description)
+              = raw org.description.to_html
           - if editable?(org, org.organization_members)
             %div{ style: 'position:absolute;right:20px;top:30px;background-color:white;padding:4px;' }
               = link_to 'edit', edit_organization_path(org), class:'edit-button' if editable?(org, org.organization_members)

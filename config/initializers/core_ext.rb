@@ -1,6 +1,6 @@
 module ToTable
   def to_table(remove = [])
-    return raw('<p>None</p>') if self.count == 0 or !self
+    return '<p>None</p>' if self.count == 0 or !self
     recs = self.as_json
     html = []
     head = recs[0].keys - remove
@@ -14,12 +14,7 @@ module ToTable
       html << '</tr>'
     end
     html << '</table>'
-
-    if respond_to? :raw
-      raw(html.join(''))
-    else
-      html.join('')
-    end
+    html.join('')
   end
 end
 
@@ -88,7 +83,8 @@ module Extensions
       result[:info] = {
         name: self.name, total_records: tot,
         total_new: result[:successes][:new].count,
-        total_updated: result[:successes][:updated].count
+        total_updated: result[:successes][:updated].count,
+        total_errors: result[:errors].count
       }
 
       UploadLog.create(log: result, key: opts[:key])

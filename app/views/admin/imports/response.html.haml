@@ -1,8 +1,40 @@
-%h5 New Records
-= hash_to_table @log.log['successes']['new']
+%h3
+  Results From
+  = @log.log['info']['name']
+  Upload
 
-%h5 Updated Records
-= hash_to_table @log.log['successes']['updated']
+%h4 Summary
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Total
+  %tr
+    %td
+      New
+    %td
+      = @log.log['info']['total_new']
+  %tr
+    %td
+      Updated
+    %td
+      = @log.log['info']['total_updated']
+  %tr
+    %td
+      Errors
+    %td
+      = @log.log['info']['total_errors']
+  %tr
+    %td
+      Total
+    %td
+      = @log.log['info']['total_records']
 
-%h5 Errors
-= hash_to_table @log.log['errors']
+%h4 New Records
+=raw @log.log['successes']['new'].to_table
+
+%h4 Updated Records
+=raw @log.log['successes']['updated'].to_table
+
+%h4 Errors
+=raw @log.log['errors'].to_table

@@ -13,10 +13,9 @@
         = link_to 'Supplies', admin_supplies_path
       %li{ class: active == 'Users' ? 'active' : '' }
         = link_to 'Users', admin_users_path
-      %li{ class: active == 'Administrators' ? 'active' : '' }
-      %br
-      %ul.nav.nav-sidebar.nav-pills.nav-stacked
-      %li
+    %br
+    %ul.nav.nav-sidebar.nav-pills.nav-stacked
+      %li{ class: active == 'administrators' ? 'active' : '' }
         = link_to 'Administrators', admin_admins_path
       %li{ class: active == 'imports' ? 'active' : '' }
         = link_to 'Imports', admin_imports_index_path

@@ -5,4 +5,4 @@
       %div.post
         %h3
           = post.title
-        = raw prepare_text(post.content)
+        = raw post.content.to_html

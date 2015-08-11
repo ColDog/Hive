@@ -14,7 +14,7 @@
                   = note.title
                   = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
               %div.box-content
-                = raw prepare_text(note.content)
+                = raw note.content.to_html
         - cache(Supply.cache_key(params)) do
           %div.box
             %div.box-head

@@ -170,7 +170,7 @@
 
 							<% if @include_supplies %>
 								<h5>Your Supply Items:</h5>
-								<%= hash_to_table(@supplies) %>
+								<%= raw @supplies.to_table %>
 							<% end %>
 
 							<% if @include_link %>
