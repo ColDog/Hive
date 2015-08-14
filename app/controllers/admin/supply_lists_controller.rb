@@ -36,12 +36,13 @@ class Admin::SupplyListsController < ApplicationController
   end
 
   def remove_owner
-    supply_list = SupplyList.find(params[:id])
-    if supply_list.update(organization_id: nil, user_id: nil)
+    supply_list = SupplyList.find_by(id: params[:id])
+    if supply_list && supply_list.update(organization_id: nil, user_id: nil)
       flash[:success] = 'Successfully removed owner.'
       redirect_to :back
     else
-      flash[:danger] = "Failed to remove: #{supply_list.errors.full_messages.to_sentence}"
+      msg = supply_list ? supply_list.errors.full_messages.to_sentence : 'Please select an item to remove its owners.'
+      flash[:danger] = "Failed to remove: #{msg}"
       redirect_to :back
     end
   end

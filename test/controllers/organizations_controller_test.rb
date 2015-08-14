@@ -15,6 +15,13 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_select 'a.edit-button', 2
   end
 
+  test 'should get index with no editing' do
+    login_user_two
+    get :index
+    assert_response :success
+    assert_select 'a.edit-button', 0
+  end
+
   test 'admin get index' do
     login_admin
     get :index

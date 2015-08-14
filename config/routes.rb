@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       post 'users',         as: 'users',          action: 'users'
       post 'organizations', as: 'organizations',  action: 'organizations'
       post 'supply_lists',  as: 'supply_lists',   action: 'supply_lists'
-      get  'results/:key',       as: 'results',   action: 'results'
+      get  'results/:key',  as: 'results',        action: 'results'
     end
     resources :attachments
     get   '/'                 => 'dashboard#index',   as: 'dashboard'

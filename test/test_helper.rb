@@ -23,4 +23,10 @@ class ActionController::TestCase
     users(:one)
   end
 
+  def login_user_two
+    @request.env['devise.mapping'] = Devise.mappings[:user]
+    sign_in :user, users(:two)
+    users(:two)
+  end
+
 end
