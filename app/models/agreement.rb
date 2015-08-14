@@ -3,4 +3,5 @@ class Agreement < ActiveRecord::Base
   mount_uploader  :agreement, ServiceAgreementUploader
   validates       :agreement, presence: true
   validates       :name,      presence: true
+  validates       :organization_id, presence: true
 end

@@ -6,7 +6,8 @@ class Admin::AgreementsController < ApplicationController
     agreement = Agreement.new(
       agreement: params[:agreement][:agreement],
       valid_until: params[:agreement][:valid_until],
-      name: params[:agreement][:name]
+      name: params[:agreement][:name],
+      organization_id: params[:agreement][:organization_id]
     )
     if agreement.save
       flash[:success] = 'Agreement uploaded.'

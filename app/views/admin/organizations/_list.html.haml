@@ -75,15 +75,17 @@
       - variable.agreements.each do |item|
         %tr
           %td
-            = link_to item.agreement, item.agreement.url
+            = link_to item.name, item.agreement.url
           %td
             = item.valid_until
           %td
             = item.created_at
           %td
-            = link_to 'delete', admin_agreement_path(list), method: :delete
+            = link_to 'delete', admin_agreement_path(item), method: :delete
   %div.box-foot
     = form_for :agreement, url: admin_agreements_path, method: :post do |f|
-      = f.file_field :agreement
-      = f.date_select :valid_until
-      = f.submit 'Add Agreement'
+      = f.hidden_field :organization_id, value: variable.id
+      = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+      = f.date_field :valid_until, class: 'form-control short-form'
+      = f.file_field :agreement, class: 'short-form form-control'
+      = f.submit 'Add Agreement', class: 'btn btn-primary'

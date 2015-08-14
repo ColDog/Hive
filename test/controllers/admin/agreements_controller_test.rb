@@ -8,7 +8,16 @@ class Admin::AgreementsControllerTest < ActionController::TestCase
 
   test 'create agreement' do
     file = fixture_file_upload 'hive.pdf'
-    assert_difference 'Agreement.count' do
+    assert_difference 'Agreement.count', +1 do
+      post :create, agreement: { agreement: file, valid_until: Time.now, name: 'new file', organization_id: 1 }
+    end
+    assert_response :redirect
+  end
+
+
+  test 'another failed agreement' do
+    file = fixture_file_upload 'hive.pdf'
+    assert_no_difference 'Agreement.count' do
       post :create, agreement: { agreement: file, valid_until: Time.now, name: 'new file' }
     end
     assert_response :redirect
