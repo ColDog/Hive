@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20150814025819) do
     t.string   "name"
     t.string   "description"
     t.string   "avatar"
-    t.string   "service_agreement"
     t.boolean  "signed_service_agreement", default: false
     t.boolean  "current",                  default: true
     t.date     "inactive_on"
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150814025819) do
     t.text     "tags",                     default: [],                 array: true
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "service_agreement"
   end
 
   create_table "supplies", force: :cascade do |t|

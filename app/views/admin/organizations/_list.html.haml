@@ -61,3 +61,29 @@
       = hidden_field_tag :organization_id, variable.id
       = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
       = submit_tag 'Add', class: 'btn btn-primary'
+%div.box
+  %div.box-head
+    %h4 Service Agreements
+  %div.box-content
+    %table.table
+      %thead
+        %tr
+          %th File Name
+          %th Valid Until
+          %th Created At
+          %th Actions
+      - variable.agreements.each do |item|
+        %tr
+          %td
+            = link_to item.agreement, item.agreement.url
+          %td
+            = item.valid_until
+          %td
+            = item.created_at
+          %td
+            = link_to 'delete', admin_agreement_path(list), method: :delete
+  %div.box-foot
+    = form_for :agreement, url: admin_agreements_path, method: :post do |f|
+      = f.file_field :agreement
+      = f.date_select :valid_until
+      = f.submit 'Add Agreement'

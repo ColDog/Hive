@@ -18,15 +18,6 @@
               Avatar
               = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
             = f.file_field :avatar
-            %br
-            %label Signed Service Agreement:
-            = f.check_box :signed_service_agreement, id: 'service'
-            %br
-            - if variable.service_agreement.present?
-              = link_to 'view service agreement', variable.service_agreement.url, target: '_blank' if variable.service_agreement.present?
-              %label
-                Remove
-                = f.check_box :remove_service_agreement, id: 'remove'
             %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
               = f.file_field :service_agreement
             %br
@@ -60,12 +51,5 @@
           $("#currentShow").hide();
       } else {
           $("#currentShow").show();
-      }
-  });
-  $('#service').click(function() {
-      if( $(this).is(':checked')) {
-          $("#serviceShow").show();
-      } else {
-          $("#serviceShow").hide();
       }
   });
