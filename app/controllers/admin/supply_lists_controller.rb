@@ -24,12 +24,13 @@ class Admin::SupplyListsController < ApplicationController
   end
 
   def add_owner
-    supply_list = SupplyList.find(params[:id])
-    if supply_list.update(organization_id: params[:organization_id], user_id: params[:user_id])
+    supply_list = SupplyList.find_by(id: params[:id])
+    if supply_list && supply_list.update(organization_id: params[:organization_id], user_id: params[:user_id])
       flash[:success] = "Successfully added #{supply_list.owner.name} to #{supply_list.supply.name}."
       redirect_to :back
     else
-      flash[:danger] = "Failed to add. #{supply_list.errors.full_messages.to_sentence}"
+      msg = supply_list ? supply_list.errors.full_messages.to_sentence : 'Please select a supply item.'
+      flash[:danger] = "Failed to add. #{msg}"
       redirect_to :back
     end
   end
