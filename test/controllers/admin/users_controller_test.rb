@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest < ActionController::TestCase
-
   setup do
     login_admin
     ActionMailer::Base.deliveries.clear

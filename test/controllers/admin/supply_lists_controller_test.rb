@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class Admin::SupplyListsControllerTest < ActionController::TestCase
-
-  setup { login_admin ; request.env["HTTP_REFERER"] = 'back' }
+  setup do
+    request.env['HTTP_REFERER'] = 'back'
+    login_admin
+  end
 
   test 'create supply list user' do
     assert_difference 'SupplyList.count', +1 do

@@ -6,7 +6,6 @@ one:
   description: MyString
   description: string
   avatar: string
-  service_agreement:
   signed_service_agreement: false
   current: true
   inactive_on:
@@ -21,7 +20,6 @@ two:
   description: MyString
   description: string
   avatar: string
-  service_agreement:
   signed_service_agreement: false
   current: true
   inactive_on:

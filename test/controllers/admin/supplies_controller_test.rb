@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class Admin::SuppliesControllerTest < ActionController::TestCase
-
-  setup { login_admin ; request.env["HTTP_REFERER"] = 'back' }
+  setup do
+    request.env['HTTP_REFERER'] = 'back'
+    login_admin
+  end
 
   test 'get index' do
     get :index

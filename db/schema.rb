@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150814035356) do
   create_table "agreements", force: :cascade do |t|
     t.integer  "organization_id"
     t.string   "agreement"
+    t.string   "name"
     t.date     "valid_until"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

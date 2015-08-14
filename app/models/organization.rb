@@ -11,7 +11,6 @@ class Organization < ActiveRecord::Base
 
   validates :name, presence: true
 
-  validate :if_agreement_then_signed
   validate :if_current_then_no_date
 
   def description_short
@@ -37,14 +36,6 @@ class Organization < ActiveRecord::Base
   end
 
   private
-    def if_agreement_then_signed
-      if service_agreement.present? && signed_service_agreement == false
-        errors.add(:base, 'Service agreement exists, but is checked false.')
-      elsif service_agreement.present? == false && signed_service_agreement == true
-        errors.add(:base, 'Service agreement does not exists, but is checked true.')
-      end
-    end
-
     def if_current_then_no_date
       if current && inactive_on.present?
         errors.add(:base, 'Currently active should not be checked if a date for inactive on is chosen.')
