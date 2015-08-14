@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814025819) do
+ActiveRecord::Schema.define(version: 20150814035356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20150814025819) do
   end
 
   add_index "admins", ["user_id"], name: "index_admins_on_user_id", using: :btree
+
+  create_table "agreements", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.string   "agreement"
+    t.date     "valid_until"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "agreements", ["organization_id"], name: "index_agreements_on_organization_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
     t.string   "file"
@@ -61,7 +71,6 @@ ActiveRecord::Schema.define(version: 20150814025819) do
     t.string   "name"
     t.string   "description"
     t.string   "avatar"
-    t.string   "service_agreement"
     t.boolean  "signed_service_agreement", default: false
     t.boolean  "current",                  default: true
     t.date     "inactive_on"
@@ -131,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150814025819) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "admins", "users"
+  add_foreign_key "agreements", "organizations"
   add_foreign_key "organization_members", "organizations"
   add_foreign_key "organization_members", "users"
   add_foreign_key "supply_lists", "organizations"

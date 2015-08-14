@@ -5,8 +5,8 @@ class Organization < ActiveRecord::Base
   has_many :organization_members, dependent: :destroy
   has_many :supply_lists,         dependent: :destroy
   has_many :users, through: :organization_members
+  has_many :agreements
 
-  mount_uploader :service_agreement, ServiceAgreementUploader
   mount_uploader :avatar,            AvatarUploader
 
   validates :name, presence: true

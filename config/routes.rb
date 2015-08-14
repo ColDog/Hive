@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :organizations
+    resources :agreements
     namespace :users do
       post 'mail/:id',  as: 'mail', action: 'mail'
     end
