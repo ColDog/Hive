@@ -48,7 +48,7 @@
       - variable.supply_lists.each do |list|
         %tr
           %td
-            = list.supply.name
+            = link_to list.supply.name, edit_admin_supply_path(list.supply)
           %td
             = list.name
           %td

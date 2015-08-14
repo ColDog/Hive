@@ -20,12 +20,7 @@ end
 
 class String
   def to_html
-    html = GitHub::Markdown.render_gfm(self)
-    if respond_to? :raw
-      raw(html)
-    else
-      html
-    end
+    GitHub::Markdown.render_gfm(self)
   end
 end
 

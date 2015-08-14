@@ -24,11 +24,12 @@
       Errors
     %td
       = @log.log['info']['total_errors']
-  %tr
-    %td
-      Total
-    %td
-      = @log.log['info']['total_records']
+  %tfoot
+    %tr.active
+      %td
+        Total
+      %td
+        = @log.log['info']['total_records']
 
 %h4 New Records
 =raw @log.log['successes']['new'].to_table
