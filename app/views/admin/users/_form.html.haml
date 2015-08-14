@@ -12,7 +12,7 @@
           %div.form-group
             %label Email
             = f.email_field :email, class: 'form-control'
-            - Rails.logger.info "*****FORM debug user edit => form value: #{ f.email_field :email}"
+            - Rails.logger.info "*****FORM debug user edit => form value: #{ f.email_field :email }"
           %div.form-group
             %label Phone
             = f.phone_field :phone, class: 'form-control'
