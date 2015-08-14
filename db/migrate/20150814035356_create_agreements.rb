@@ -8,10 +8,10 @@ class CreateAgreements < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    #
-    # Organization.all.each do |org|
-    #   Agreement.create(organization_id: org.id, agreement: org.service_agreement) if org.service_agreement
-    # end
+
+    Organization.all.each do |org|
+      Agreement.create(organization_id: org.id, agreement: org.service_agreement) if org.service_agreement
+    end
 
     remove_column :organizations, :service_agreement, :string
   end
