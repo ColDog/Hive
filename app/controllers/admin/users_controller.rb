@@ -38,6 +38,7 @@ class Admin::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    Rails.logger.info "DEBUG USER EDIT CONTROLLER USER: EMAIL: #{@user.email}, ID: #{@user.id}"
   end
 
   def update
