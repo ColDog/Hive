@@ -62,7 +62,8 @@ class Admin::UsersController < ApplicationController
     def user_params
       params.require(:user).permit(
         :name, :email, :phone, :account_type, :inactive_on, :current,
-        :password, :password_confirmation, :tags, :tagging, :notes
+        :password, :password_confirmation, :tags, :tagging, :notes,
+        :linked_in
       )
     end
 

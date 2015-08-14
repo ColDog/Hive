@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
+
+  get '*path' => redirect('/')
 end

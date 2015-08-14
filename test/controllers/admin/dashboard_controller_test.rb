@@ -9,9 +9,4 @@ class Admin::DashboardControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'get reports' do
-    get :reports
-    assert_response :success
-  end
-
 end

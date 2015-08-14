@@ -19,7 +19,8 @@
             %label Account Type
             = f.phone_field :account_type, class: 'form-control'
           %div.form-group
-            %label LinkedIn
+            %label
+              = link_to 'LinkedIn', variable.linked_in
             = f.text_field :linked_in, class: 'form-control'
           %br
           = f.label 'Currently Active: '

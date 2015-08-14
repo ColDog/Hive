@@ -28,7 +28,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
       post :create, user: { name: 'name', email: 'email@emailer.com',
                             password: 'password', password_confirmation: 'password' }
     end
-    assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   test 'update user' do
