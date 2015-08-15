@@ -7,7 +7,6 @@ namespace :db do
         agreement = org.agreements.build(agreement: org.service_agreement, name: 'Agreement')
         if agreement.save
           puts '.'
-          org.update(service_agreement: nil)
         else
           puts "Record: #{agreement}, Errors: #{agreement.errors.full_messages}"
         end
