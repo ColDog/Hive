@@ -7,8 +7,7 @@ class Organization < ActiveRecord::Base
   has_many :users, through: :organization_members
   has_many :agreements
 
-  mount_uploader :avatar,            AvatarUploader
-  mount_uploader :service_agreement, ServiceAgreementUploader
+  mount_uploader :avatar, AvatarUploader
 
   validates :name, presence: true
 
@@ -19,7 +18,7 @@ class Organization < ActiveRecord::Base
   end
 
   def agreement
-    self.signed_service_agreement ? '√' : 'X'
+    self.signed_service_agreement ? '√' : 'X' # todo change this to look at currently valid?
   end
 
   def active

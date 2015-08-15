@@ -48,9 +48,8 @@ class Admin::OrganizationsController < ApplicationController
   private
     def organization_params
       params.require(:organization).permit(
-        :name, :description, :avatar, :service_agreement, :signed_service_agreement,
-        :current, :inactive_on, :address, :city, :province, :postal, :tags, :tagging,
-        :remove_service_agreement
+        :name, :description, :avatar, :signed_service_agreement,
+        :current, :inactive_on, :address, :city, :province, :postal, :tags, :tagging
       )
     end
 

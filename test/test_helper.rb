@@ -6,6 +6,11 @@ Minitest::Reporters.use!
 
 class ActiveSupport::TestCase
   fixtures :all
+
+  def sample_file(filename = 'hive.pdf')
+    File.new("test/fixtures/#{filename}")
+  end
+
 end
 
 class ActionController::TestCase
