@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class ServiceAgreementUploader < CarrierWave::Uploader::Base
+class AgreementUploader < CarrierWave::Uploader::Base
 
   if Rails.env.production?
     storage :fog
@@ -20,6 +20,5 @@ class ServiceAgreementUploader < CarrierWave::Uploader::Base
     var = :"@#{mounted_as}_timestamp"
     model.instance_variable_get(var) or model.instance_variable_set(var, Time.now.strftime('%C-%m-%dT%H%M%S'))
   end
-
 
 end
