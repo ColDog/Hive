@@ -18,14 +18,15 @@
               Avatar
               = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
             = f.file_field :avatar
-            %div#serviceShow{ style: variable.signed_service_agreement ? '' : 'display:none' }
-              = f.file_field :service_agreement
             %br
             = f.label 'Currently Active: '
             = f.check_box :current, id: 'current'
             %div#currentShow{ style: variable.current ? 'display:none' : '' }
-              %label Inactive on
-              = f.date_select :inactive_on, include_blank: true
+              %label Inactive on:&nbsp;
+              = f.date_field :inactive_on, include_blank: true
+            %br
+            = f.label 'Signed Agreement: '
+            = f.check_box :signed_service_agreement
           %div.form-group
             %label Address
             = f.text_field :address, placeholder: 'address', class: 'form-control'
