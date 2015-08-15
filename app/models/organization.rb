@@ -8,6 +8,7 @@ class Organization < ActiveRecord::Base
   has_many :agreements
 
   mount_uploader :avatar,            AvatarUploader
+  mount_uploader :service_agreement, ServiceAgreementUploader
 
   validates :name, presence: true
 
