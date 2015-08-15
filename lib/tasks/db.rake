@@ -16,13 +16,13 @@ namespace :db do
   #   end
   # end
 
-  desc 'Remove corrupted agreements'
-  task remove_corrupt: :environment do
-    Agreement.all.each do |agreement|
-      if %W[ SAAgreement20-08-15T1500.pdf SAAgreement20-08-15T1501.pdf SAAgreement20-08-15T1502.pdf  ].include? agreement.agreement.file.filename
-        agreement.destroy
-      end
-    end
-  end
+  # desc 'Remove corrupted agreements'
+  # task remove_corrupt: :environment do
+  #   Agreement.all.each do |agreement|
+  #     if %W[ SAAgreement20-08-15T1500.pdf SAAgreement20-08-15T1501.pdf SAAgreement20-08-15T1502.pdf  ].include? agreement.agreement.file.filename
+  #       agreement.destroy
+  #     end
+  #   end
+  # end
 
 end
