@@ -75,7 +75,8 @@
       - variable.agreements.each do |item|
         %tr
           %td
-            = link_to item.name, item.agreement.url
+            - name = item.name.present? ? item.name : item.agreement.filename
+            = link_to name, item.agreement.url
           %td
             = day item.valid_until
           %td
