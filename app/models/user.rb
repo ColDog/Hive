@@ -31,7 +31,11 @@ class User < ActiveRecord::Base
   end
 
   def verify_signup_digest?(digest)
-    self.signup_digest == digest
+    if self.signup_digest == digest
+      self.update(signup_digest: nil)
+    else
+      false
+    end
   end
 
   def send_mail(content)
