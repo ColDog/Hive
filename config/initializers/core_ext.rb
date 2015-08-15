@@ -20,7 +20,16 @@ end
 
 class String
   def to_html
-    GitHub::Markdown.render_gfm(self)
+    GitHub::Markdown.render_gfm(self) if self
+  end
+end
+
+class NilClass
+  def to_html
+    nil
+  end
+  def to_table
+    nil
   end
 end
 

@@ -47,13 +47,13 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    def organization_params
-      params.require(:organization).permit!
-    end
+  def organization_params
+    params.require(:organization).permit!
+  end
 
-    def filter_params(params)
-      params.slice(:search, :current)
-    end
+  def filter_params(params)
+    params.slice(:search, :current)
+  end
 
 
 end

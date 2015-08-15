@@ -4,7 +4,6 @@ one:
   id: 1
   name: MyString
   description: MyString
-  description: string
   avatar: string
   signed_service_agreement: false
   current: true
@@ -17,8 +16,7 @@ one:
 two:
   id: 2
   name: MyString2
-  description: MyString
-  description: string
+  description:
   avatar: string
   signed_service_agreement: false
   current: true
