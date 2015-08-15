@@ -7,10 +7,6 @@ class Admin::SuppliesController < ApplicationController
     respond_to { |format| format.html ; format.csv { send_data(SupplyList.build_csv) }  }
   end
 
-  def show
-    @supply = Supply.find(params[:id])
-  end
-
   def new
     @supply = Supply.new
   end

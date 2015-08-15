@@ -18,4 +18,18 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'csv organization upload' do
+    file = fixture_file_upload 'user_test.csv'
+    assert_difference 'User.count', 0 do
+      post :organizations, organization: { file: file, key: SecureRandom.hex }
+    end
+  end
+
+  test 'csv supply_list upload' do
+    file = fixture_file_upload 'user_test.csv'
+    assert_difference 'SupplyList.count', 1 do
+      post :supply_lists, supply_list: { supply_id: 1, file: file, key: SecureRandom.hex }
+    end
+  end
+
 end

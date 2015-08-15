@@ -9,10 +9,6 @@ class Admin::UsersController < ApplicationController
     respond_to { |format| format.html ; format.csv { send_data(User.build_csv) }  }
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def new
     @user = User.new
     @password = SecureRandom.hex(10)

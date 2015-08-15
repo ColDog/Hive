@@ -49,5 +49,4 @@ class Admin::SupplyListsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-
 end
