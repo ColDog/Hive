@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def day(t)
+    t.strftime('%b %d, %Y') if t
+  end
+
   def authenticate_admin
     unless user_signed_in? && current_user.admin
       flash[:danger] = 'You do not have the necessary permissions.'

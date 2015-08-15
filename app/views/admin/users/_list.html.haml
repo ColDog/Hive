@@ -13,7 +13,7 @@
       - @user.supply_lists.each do |list|
         %tr
           %td
-            = list.supply.name
+            = link_to list.supply.name, edit_admin_supply_path(list.supply)
           %td
             = list.name
           %td
@@ -24,7 +24,7 @@
       - @user.organization_supplies.each do |list|
         %tr
           %td
-            = list.supply.name
+            = link_to list.supply.name, edit_admin_supply_path(list.supply)
           %td
             = list.name
           %td
@@ -54,7 +54,7 @@
       - variable.organization_members.each do |list|
         %tr
           %td
-            = list.organization.name
+            = link_to list.organization.name, edit_admin_organization_path(list.organization)
           %td
             = list.admin_contact
           %td
