@@ -4,7 +4,7 @@ namespace :db do
   task move_agreements: :environment do
     Organization.all.each do |org|
 
-      if org.service_agreement.file.exists?
+      if org.service_agreement.file
         agreement = org.agreements.build(agreement: org.service_agreement, name: 'Agreement')
         if agreement.save
           puts '.'
