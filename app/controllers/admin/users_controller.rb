@@ -19,7 +19,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def mail
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     user.send_mail(params[:mail])
     flash[:success] = "Email sent to #{user.name}."
     redirect_to :back

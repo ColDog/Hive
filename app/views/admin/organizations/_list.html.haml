@@ -81,10 +81,9 @@
           %td
             = day item.created_at
           %td
-            = link_to 'delete', admin_agreement_path(item), method: :delete
+            = link_to 'delete', admin_organization_agreement_path(variable, item), method: :delete
   %div.box-foot
-    = form_for :agreement, url: admin_agreements_path, method: :post do |f|
-      = f.hidden_field :organization_id, value: variable.id
+    = form_for :agreement, url: admin_organization_agreements_path(variable), method: :post do |f|
       = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
       = f.date_field :valid_until, class: 'form-control short-form'
       = f.file_field :agreement, class: 'short-form form-control'

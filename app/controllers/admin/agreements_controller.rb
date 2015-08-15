@@ -3,12 +3,7 @@ class Admin::AgreementsController < ApplicationController
   before_action :authenticate_admin
 
   def create
-    agreement = Agreement.new(
-      agreement: params[:agreement][:agreement],
-      valid_until: params[:agreement][:valid_until],
-      name: params[:agreement][:name],
-      organization_id: params[:agreement][:organization_id]
-    )
+    agreement = Organization.find(params[:organization_id]).agreements.build(agreement_params)
     if agreement.save
       flash[:success] = 'Agreement uploaded.'
       redirect_to :back
@@ -22,6 +17,11 @@ class Admin::AgreementsController < ApplicationController
     Agreement.find(params[:id]).destroy
     flash[:success] = 'Agreement destroyed.'
     redirect_to :back
+  end
+
+  private
+  def agreement_params
+    params.require(:agreement).permit(:agreement, :valid_until, :name)
   end
 
 

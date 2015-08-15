@@ -47,4 +47,9 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
+  test 'send mail' do
+    post :mail, user_id: users(:one), mail: { content: 'Hello there.' }
+    assert_equal ActionMailer::Base.deliveries.size, 1
+  end
+
 end

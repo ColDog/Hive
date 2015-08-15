@@ -78,7 +78,7 @@
   %div.box-head
     %h4 Send Email
   %div.box-content
-    = form_tag admin_users_mail_path(variable), method: :post do
+    = form_tag admin_user_mail_path(variable), method: :post do
       = fields_for :mail do |f|
         %div.form-group
           %label Content

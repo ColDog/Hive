@@ -162,7 +162,7 @@
 						<td>
 							<p>Hello <%= @user.name %>,</p>
 
-							<%=raw prepare_text(@message) %>
+							<%=raw @message.to_html %>
 
 							<% if @include_type %>
 								<h5>Your account type: <%= @type %></h5>

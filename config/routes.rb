@@ -3,32 +3,31 @@ Rails.application.routes.draw do
   resources :organizations
   devise_for :users
   resources :users
-  resources :organization_members
   get '/signup/:hash/:id' => 'users#signup', as: 'signup'
 
   namespace :admin do
-    resources :organizations
-    resources :agreements
-    namespace :users do
-      post 'mail/:id',  as: 'mail', action: 'mail'
+    resources :organizations do
+      resources :agreements
     end
-    resources :users
-    namespace :supplies do
-      get   'list_form',           as: 'list_form',     action: 'list_form'
+
+    resources :organization_members
+
+    resources :users do
+      post 'mail',  as: 'mail', action: 'mail'
     end
+
     resources :supplies
+    get 'supplies/list_form' => 'supplies#list_form', as: 'supplies_list_form'
+
     resources :admins
     namespace :supply_lists do
       post  'add_owner/(:id)',     as: 'add_owner',     action: 'add_owner'
       post  'remove_owner/(:id)',  as: 'remove_owner',  action: 'remove_owner'
-      post  'upload/:supply_id',   as: 'upload',        action: 'upload'
       get   'select',              as: 'select',        action: 'select'
       get   'download/:supply_id', as: 'download',      action: 'download'
     end
     resources :supply_lists
-    resources :organization_members
-    resources :notes
-    resources :home_contents
+
     namespace :imports do
       get  '/',             as: 'index',          action: 'index'
       post 'users',         as: 'users',          action: 'users'
@@ -36,7 +35,11 @@ Rails.application.routes.draw do
       post 'supply_lists',  as: 'supply_lists',   action: 'supply_lists'
       get  'results/:key',  as: 'results',        action: 'results'
     end
+
+    resources :notes
+    resources :home_contents
     resources :attachments
+
     get   '/'                 => 'dashboard#index',   as: 'dashboard'
     post  '/dashboard/report' => 'dashboard#report',  as: 'dashboard_report'
   end
