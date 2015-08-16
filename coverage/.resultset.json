@@ -7,14 +7,6 @@
         1,
         null
       ],
-      "/Users/ColinWalker/workspace/rails/hive/app/helpers/admin/agreements_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/ColinWalker/workspace/rails/hive/app/helpers/admin/attachments_helper.rb": [
-        1,
-        null
-      ],
       "/Users/ColinWalker/workspace/rails/hive/app/helpers/application_helper.rb": [
         1,
         null,
@@ -56,6 +48,6 @@
         null
       ]
     },
-    "timestamp": 1439753967
+    "timestamp": 1439763738
   }
 }
