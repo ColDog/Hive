@@ -15,4 +15,4 @@
 //= require nested_form_fields
 //= require jquery_ujs
 //= require turbolinks
-//= require vendor/assets/javascripts/tags.js
+//= require tags.js
