@@ -1,0 +1,61 @@
+{
+  "MiniTest": {
+    "coverage": {
+      "/Users/ColinWalker/workspace/rails/hive/app/models/admin.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/ColinWalker/workspace/rails/hive/app/helpers/admin/agreements_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/ColinWalker/workspace/rails/hive/app/helpers/admin/attachments_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/ColinWalker/workspace/rails/hive/app/helpers/application_helper.rb": [
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1439752629
+  }
+}
