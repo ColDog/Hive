@@ -2,7 +2,7 @@ class Admin::SuppliesController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @supplies = Supply.page(params[:page]).per(8)
+    @supplies = Supply.all.includes(:supply_lists).page(params[:page]).per(8)
     @supplies = @supplies.search(params[:search]) if params[:search]
     respond_to { |format| format.html ; format.csv { send_data(SupplyList.build_csv) }  }
   end
@@ -24,7 +24,7 @@ class Admin::SuppliesController < ApplicationController
 
   def edit
     @supply = Supply.find(params[:id])
-    @supply_lists = @supply.supply_lists.order(:name)
+    @supply_lists = @supply.supply_lists.includes([:user, :organization]).order(:name)
     filter_params(params).each do |search, result|
       @supply_lists = @supply_lists.order(:name).public_send(search, result) if result.present?
     end
