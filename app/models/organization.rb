@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  include Validators
   include Tagging::Instance
   extend  Tagging::ClassMethods
 
@@ -10,8 +11,7 @@ class Organization < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   validates :name, presence: true
-
-  validate :if_current_then_no_date
+  validates_with InactiveOnValidator
 
   def description_short
     self.description.slice(0,10) if description
@@ -34,14 +34,5 @@ class Organization < ActiveRecord::Base
       slice: %w(name description signed_service_agreement current inactive_on address city province postal)
     )
   end
-
-  private
-    def if_current_then_no_date
-      if current && inactive_on.present?
-        errors.add(:base, 'Currently active should not be checked if a date for inactive on is chosen.')
-      elsif current == false && inactive_on.present? == false
-        errors.add(:base, 'If current is not checked, you should select a date.')
-      end
-    end
 
 end

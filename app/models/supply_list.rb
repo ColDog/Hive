@@ -83,7 +83,7 @@ class SupplyList < ActiveRecord::Base
     end
   end
 
-  def self.import(csv, supply_id, key)
+  def self.import(csv, key, supply_id)
     self.import_base(
       csv, slice:  %w(name notes id),
       merge: { supply_id: supply_id },

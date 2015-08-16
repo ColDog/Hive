@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Validators
   has_many :admins, dependent: :destroy
 
   # Include default devise modules. Others available are:
@@ -10,7 +11,7 @@ class User < ActiveRecord::Base
   has_many  :organizations, through: :organization_members
   has_one   :admin
 
-  validate :if_current_then_no_date
+  validates_with InactiveOnValidator
 
   def active
     self.current ? '√' : 'X'
@@ -53,14 +54,5 @@ class User < ActiveRecord::Base
       slice: %w(name email phone account_type inactive_on current password password_confirmation)
     )
   end
-
-  private
-    def if_current_then_no_date
-      if current && inactive_on.present?
-        errors.add(:base, 'Currently active should not be checked if a date for inactive on is chosen.')
-      elsif current == false && inactive_on.present? == false
-        errors.add(:base, 'If current is not checked, you should select a date.')
-      end
-    end
 
 end

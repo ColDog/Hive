@@ -15,7 +15,7 @@ class Admin::ImportsController < ApplicationController
   end
 
   def supply_lists
-    SupplyList.import(params[:supply_list][:file], params[:supply_list][:supply_id], params[:supply_list][:key])
+    SupplyList.import(params[:supply_list][:file], params[:supply_list][:key], params[:supply_list][:supply_id])
     redirect_to edit_admin_supply_path(params[:supply_list][:supply_id], key: params[:supply_list][:key], tab: 'load')
   end
 
