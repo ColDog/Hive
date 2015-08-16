@@ -30,7 +30,8 @@ class UserMailer < ApplicationMailer
       end
     end
 
-    @type = @user.account_type if mail['account_type'].present?
+    @type = @user.account_type if @include_type
+
     mail( to: @user.email, subject: 'New Account Created at Hive' )
   end
 end

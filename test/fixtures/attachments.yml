@@ -5,5 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
+  id: 1
+  file: files
+  name: thing
+
+two:
+  id: 2
   file: files
   name: thing
