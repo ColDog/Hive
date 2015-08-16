@@ -8,13 +8,14 @@
       %div.col-md-6
         - cache(Note.cache_key(params)) do
           - Note.all.reverse_order.each do |note|
-            %div.box
-              %div.box-head
-                %h4
-                  = note.title
-                  = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
-              %div.box-content
-                = raw note.content.to_html
+            - cache(note) do
+              %div.box
+                %div.box-head
+                  %h4
+                    = note.title
+                    = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
+                %div.box-content
+                  = raw note.content.to_html
         - cache(Supply.cache_key(params)) do
           %div.box
             %div.box-head
@@ -27,13 +28,14 @@
                     %th In Use
                     %th Total
                 - Supply.all.reverse_order.each do |supply|
-                  %tr
-                    %td
-                      = supply.name
-                    %td
-                      = supply.in_use
-                    %td
-                      = supply.supply_lists.count
+                  - cache(supply) do
+                    %tr
+                      %td
+                        = supply.name
+                      %td
+                        = supply.in_use
+                      %td
+                        = supply.supply_lists.count
         %div.box
           %div.box-head
             %h4 Supply Report
@@ -88,11 +90,12 @@
                     %th Recently Updated
                     %th Email
                 - User.all.reverse_order.limit(5).each do |user|
-                  %tr
-                    %td
-                      = link_to user.name, edit_admin_user_path(user)
-                    %td
-                      = user.email
+                  - cache(user) do
+                    %tr
+                      %td
+                        = link_to user.name, edit_admin_user_path(user)
+                      %td
+                        = user.email
 
         - cache(Organization.cache_key(params)) do
           %div.box
@@ -118,8 +121,9 @@
                     %th Recently Updated
                     %th Employees
                 - Organization.all.reverse_order.limit(5).each do |org|
-                  %tr
-                    %td
-                      = link_to org.name, edit_admin_organization_path(org)
-                    %td
-                      = org.organization_members.count
+                  - cache(org) do
+                    %tr
+                      %td
+                        = link_to org.name, edit_admin_organization_path(org)
+                      %td
+                        = org.organization_members.count
