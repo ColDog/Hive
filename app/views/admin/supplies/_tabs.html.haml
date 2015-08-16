@@ -1,0 +1,9 @@
+%ul.nav.nav-tabs
+  %li{ role: 'presentation', class: all }
+    = link_to 'All', admin_supplies_path
+  %li{ role: 'presentation', class: new }
+    = link_to 'New', new_admin_supply_path
+  - Supply.all.each do |supply|
+    - cur = @supply ? @supply.id : nil
+    %li{ role: 'presentation', class: supply.id == cur ? 'active' : '' }
+      = link_to truncate(supply.name, length: 10), edit_admin_supply_path(supply)

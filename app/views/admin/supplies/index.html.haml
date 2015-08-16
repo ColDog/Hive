@@ -3,15 +3,7 @@
     = render 'admin/shared/sidebar', active: 'Supplies'
   %div.col-md-10.col-xs-12.shad-left
     %h1 Supplies
-
-    %ul.nav.nav-tabs
-      %li.active{ role: 'presentation' }
-        = link_to 'All', admin_supplies_path
-      %li{ role: 'presentation' }
-        = link_to 'New', new_admin_supply_path
-      - Supply.all.each do |supply|
-        %li{ role: 'presentation' }
-          = link_to supply.name, edit_admin_supply_path(supply)
+    = render 'admin/supplies/tabs', all: 'active', new: ''
     %br
     %div.search
       = render 'search'

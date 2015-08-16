@@ -3,14 +3,7 @@
     = render 'admin/shared/sidebar', active: 'Supplies'
   %div.col-md-10.shad-left
     %h1 Supplies
-    %ul.nav.nav-tabs
-      %li{ role: 'presentation' }
-        = link_to 'All', admin_supplies_path
-      %li{ role: 'presentation' }
-        = link_to 'New', new_admin_supply_path
-      - Supply.all.each do |supply|
-        %li{ role: 'presentation', class: supply.id == @supply.id ? 'active' : '' }
-          = link_to supply.name, edit_admin_supply_path(supply)
+    = render 'admin/supplies/tabs', all: '', new: ''
 
     %br
     = render 'admin/supplies/form', variable:  @supply, url: admin_supply_path(@supply), method: :put
