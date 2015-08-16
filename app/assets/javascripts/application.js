@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require bootstrap
-//= require nested_form_fields
 //= require jquery_ujs
 //= require turbolinks
 //= require tags.js
