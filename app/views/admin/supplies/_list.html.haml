@@ -40,7 +40,13 @@
                       = form_tag admin_supply_lists_add_owner_path, method: :post do
                         = hidden_field_tag :id, list.id
                         %div.addForm
-                    = render 'admin/supplies/eachjs', list_id: list.id
+                    :javascript
+                      $("#pop#{list.id}").popover({
+                        html: true,
+                        content: function () {
+                          return $("#form#{list.id}").html();
+                        }
+                      });
       %div.text-center
         = paginate @supply_lists, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'
         %br
@@ -80,5 +86,4 @@
           = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
           %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
 
-= render 'admin/supplies/js'
 = render 'admin/shared/results'
