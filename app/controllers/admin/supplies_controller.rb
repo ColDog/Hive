@@ -24,7 +24,7 @@ class Admin::SuppliesController < ApplicationController
 
   def edit
     @supply = Supply.find(params[:id])
-    @supply_lists = @supply.supply_lists.includes([:user, :organization]).order(:name)
+    @supply_lists = @supply.supply_lists.includes([:user, :organization]).order(:name).page(params[:page]).per(per_page(params[:per_page]))
     filter_params(params).each do |search, result|
       @supply_lists = @supply_lists.order(:name).public_send(search, result) if result.present?
     end
