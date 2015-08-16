@@ -2,8 +2,8 @@
 languages:
   Ruby: true
   JavaScript: true
-  PHP: true
-  Python: true
+  PHP: false
+  Python: false
  exclude_paths:
  - "public"
  - "vendor"
