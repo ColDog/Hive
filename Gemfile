@@ -25,6 +25,7 @@ gem 'newrelic_rpm'
 gem 'github-markdown'
 
 group :development, :test do
+  gem 'codeclimate-test-reporter', require: nil
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
