@@ -12,4 +12,5 @@
 
       %br
       %div.col-md-4
-        = render 'admin/organizations/form', url: admin_organizations_path, method: :post, org: @organization
+        - cache @organization.cache_key(params) do
+          = render 'admin/organizations/form', url: admin_organizations_path, method: :post, org: @organization

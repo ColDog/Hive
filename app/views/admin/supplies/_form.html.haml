@@ -1,34 +1,33 @@
-- cache(Supply.cache_key(params)) do
-  %div.box
-    %div.box-head
-      %h4
-        = supply.name ? supply.name : 'New'
-    %div.box-content
-      = form_for supply, url: url, method: method do |f|
-        %div.form-group
-          %label Name
-          = f.text_field :name, placeholder: 'name', class: 'form-control'
-        %div.form-group
-          %label Description
-          = f.text_area :notes, placeholder: 'notes', class: 'form-control'
-        %br
-        = f.submit 'Submit', class: 'btn btn-primary'
-        %br
-        %br
-        %div
-          %table.table
-            %tr
-              %td
-                In Use:
-              %td
-                = supply.in_use
-            %tr
-              %td
-                Available:
-              %td
-                = supply.supply_lists.count - supply.in_use
-            %tr
-              %td
-                Total:
-              %td
-                = supply.supply_lists.count
+%div.box
+  %div.box-head
+    %h4
+      = supply.name ? supply.name : 'New'
+  %div.box-content
+    = form_for supply, url: url, method: method do |f|
+      %div.form-group
+        %label Name
+        = f.text_field :name, placeholder: 'name', class: 'form-control'
+      %div.form-group
+        %label Description
+        = f.text_area :notes, placeholder: 'notes', class: 'form-control'
+      %br
+      = f.submit 'Submit', class: 'btn btn-primary'
+      %br
+      %br
+      %div
+        %table.table
+          %tr
+            %td
+              In Use:
+            %td
+              = supply.in_use
+          %tr
+            %td
+              Available:
+            %td
+              = supply.supply_lists.count - supply.in_use
+          %tr
+            %td
+              Total:
+            %td
+              = supply.supply_lists.count
