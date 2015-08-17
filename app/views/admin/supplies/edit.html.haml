@@ -1,4 +1,4 @@
-- cache [Supply.cache_key_params(params), @supply.cache_key_params(params), @supply_lists.cache_key_params(params), params[:tab], params[:key]] do
+- cache [Supply.cache_key_params(params), @supply.cache_key_params(params)] do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Supplies'
@@ -10,9 +10,9 @@
       %br
       %div.row
         %div.col-md-3
-          - @supply.cache_key_params(params) do
+          - cache @supply.cache_key_params(params) do
             = render 'admin/supplies/form', supply:  @supply, url: admin_supply_path(@supply), method: :put
         %div.col-md-9
-          - cache [@supply_lists.cache_key_params(params), params[:tab], params[:key]] do
+          - cache [@supply.cache_key_params(params), 'list'] do
             = render '/admin/supplies/list', supply: @supply, url: admin_supply_path(@supply), method: :put
   = javascript_include_tag 'supplies'
