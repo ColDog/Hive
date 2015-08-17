@@ -2,7 +2,7 @@ class Admin::SuppliesController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @supplies = Supply.all.includes(:supply_lists).page(params[:page]).per(8)
+    @supplies = Supply.all.includes(:supply_lists).page(params[:page]).per(per_page(params[:per_page]))
     @supplies = @supplies.search(params[:search]) if params[:search]
     respond_to { |format| format.html ; format.csv { send_data(SupplyList.build_csv) }  }
   end
