@@ -1,91 +1,96 @@
-%div.box
-  %div.box-head
-    %h4 Users
-  %div.box-content
-    %table.table
-      %thead
-        %tr
-          %th User Name
-          %th User Email
-          %th Administrator
-          %th Accountant
-          %th Actions
-      - org.organization_members.includes(:user).each do |member|
-        %tr
-          %td
-            = link_to member.user.name, edit_admin_user_path(member.user)
-          %td
-            = member.user.email
-          %td
-            = member.admin_contact
-          %td
-            = member.account_contact
-          %td
-            = link_to 'remove', admin_organization_member_path(member), method: :delete
-  %div.box-foot
-    = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-      = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control'}
-      = f.hidden_field :organization_id, value: params[:id]
-      &nbsp;&nbsp;
-      = f.check_box :account_contact
-      = f.label 'Accountant?'
-      &nbsp;&nbsp;
-      = f.check_box :admin_contact
-      = f.label 'Administrator?'
-      &nbsp;
-      = f.submit 'Add User', class: 'btn btn-primary'
-%div.box
-  %div.box-head
-    %h4 Organization Wide Supplies
-  %div.box-content
-    %table.table
-      %thead
-        %tr
-          %th Supply Name
-          %th Name
-          %th Notes
-          %th Action
-      - org.supply_lists.each do |list|
-        %tr
-          %td
-            = link_to list.supply.name, edit_admin_supply_path(list.supply)
-          %td
-            = list.name
-          %td
-            = list.notes
-          %td
-            = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
-  %div.box-foot
-    = form_tag admin_supply_lists_add_owner_path, method: :post do
-      = render 'admin/shared/sup_sel'
-      = hidden_field_tag :organization_id, org.id
-      = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
-      = submit_tag 'Add', class: 'btn btn-primary'
-%div.box
-  %div.box-head
-    %h4 Service Agreements
-  %div.box-content
-    %table.table
-      %thead
-        %tr
-          %th File Name
-          %th Valid Until
-          %th Created At
-          %th Actions
-      - org.agreements.each do |item|
-        %tr
-          %td
-            - name = item.name.present? ? item.name : item.agreement.filename
-            = link_to name, item.agreement.url
-          %td
-            = day item.valid_until
-          %td
-            = day item.created_at
-          %td
-            = link_to 'delete', admin_organization_agreement_path(org, item), method: :delete
-  %div.box-foot
-    = form_for :agreement, url: admin_organization_agreements_path(org), method: :post do |f|
-      = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-      = f.date_field :valid_until, class: 'form-control short-form'
-      = f.file_field :agreement, class: 'short-form form-control'
-      = f.submit 'Add Agreement', class: 'btn btn-primary'
+- cache [User.cache_key(params), org.cache_key(params)] do
+  - cache [User.cache_key(params), org.cache_key(params)] do
+    %div.box
+      %div.box-head
+        %h4 Users
+      %div.box-content
+        %table.table
+          %thead
+            %tr
+              %th User Name
+              %th User Email
+              %th Administrator
+              %th Accountant
+              %th Actions
+          - org.organization_members.includes(:user).each do |member|
+            %tr
+              %td
+                = link_to member.user.name, edit_admin_user_path(member.user)
+              %td
+                = member.user.email
+              %td
+                = member.admin_contact
+              %td
+                = member.account_contact
+              %td
+                = link_to 'remove', admin_organization_member_path(member), method: :delete
+      %div.box-foot
+        - cache User.cache_key(params) do
+          = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
+            = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control'}
+            = f.hidden_field :organization_id, value: params[:id]
+            &nbsp;&nbsp;
+            = f.check_box :account_contact
+            = f.label 'Accountant?'
+            &nbsp;&nbsp;
+            = f.check_box :admin_contact
+            = f.label 'Administrator?'
+            &nbsp;
+            = f.submit 'Add User', class: 'btn btn-primary'
+  - cache org.cache_key(params) do
+    %div.box
+      %div.box-head
+        %h4 Organization Wide Supplies
+      %div.box-content
+        %table.table
+          %thead
+            %tr
+              %th Supply Name
+              %th Name
+              %th Notes
+              %th Action
+          - org.supply_lists.each do |list|
+            %tr
+              %td
+                = link_to list.supply.name, edit_admin_supply_path(list.supply)
+              %td
+                = list.name
+              %td
+                = list.notes
+              %td
+                = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
+      %div.box-foot
+        = form_tag admin_supply_lists_add_owner_path, method: :post do
+          = render 'admin/shared/sup_sel'
+          = hidden_field_tag :organization_id, org.id
+          = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
+          = submit_tag 'Add', class: 'btn btn-primary'
+  - cache org.cache_key(params) do
+    %div.box
+      %div.box-head
+        %h4 Service Agreements
+      %div.box-content
+        %table.table
+          %thead
+            %tr
+              %th File Name
+              %th Valid Until
+              %th Created At
+              %th Actions
+          - org.agreements.each do |item|
+            %tr
+              %td
+                - name = item.name.present? ? item.name : item.agreement.filename
+                = link_to name, item.agreement.url
+              %td
+                = day item.valid_until
+              %td
+                = day item.created_at
+              %td
+                = link_to 'delete', admin_organization_agreement_path(org, item), method: :delete
+      %div.box-foot
+        = form_for :agreement, url: admin_organization_agreements_path(org), method: :post do |f|
+          = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+          = f.date_field :valid_until, class: 'form-control short-form'
+          = f.file_field :agreement, class: 'short-form form-control'
+          = f.submit 'Add Agreement', class: 'btn btn-primary'
