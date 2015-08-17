@@ -1,5 +1,5 @@
-%h1 Welcome to the HiVE internal site
-- cache(HomeContent.cache_key(params)) do
+- cache(HomeContent.cache_key_params(params)) do
+  %h1 Welcome to the HiVE internal site
   %div.content
     - HomeContent.all.reverse_order.each do |post|
       %div.post

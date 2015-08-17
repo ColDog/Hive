@@ -1,4 +1,4 @@
-- cache [UploadLog.cache_key(params), Attachment.cache_key(params), params[:key]] do
+- cache [UploadLog.cache_key_params(params), Attachment.cache_key_params(params), params[:key]] do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'imports'

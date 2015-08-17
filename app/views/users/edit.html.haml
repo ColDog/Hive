@@ -1,20 +1,21 @@
-%h1 Edit User
-%div.form
-  = form_for @user do |f|
-    %div.form-group
-      %label Name
-      = f.text_field :name, class: 'form-control'
-    %div.form-group
-      %label Email
-      = f.email_field :email, class: 'form-control'
-    %div.form-group
-      %label Phone
-      = f.phone_field :phone, class: 'form-control'
-    %div.form-group
-      %label LinkedIn
-      = f.text_field :linked_in, class: 'form-control'
-    %div.form-group
-      %label New Password
-      = f.password_field :password, placeholder: 'password', class: 'form-control'
-      = f.password_field :password_confirmation, placeholder: 'confirm password', class: 'form-control'
-    = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+- cache @user do
+  %h1 Edit User
+  %div.form
+    = form_for @user do |f|
+      %div.form-group
+        %label Name
+        = f.text_field :name, class: 'form-control'
+      %div.form-group
+        %label Email
+        = f.email_field :email, class: 'form-control'
+      %div.form-group
+        %label Phone
+        = f.phone_field :phone, class: 'form-control'
+      %div.form-group
+        %label LinkedIn
+        = f.text_field :linked_in, class: 'form-control'
+      %div.form-group
+        %label New Password
+        = f.password_field :password, placeholder: 'password', class: 'form-control'
+        = f.password_field :password_confirmation, placeholder: 'confirm password', class: 'form-control'
+      = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }

@@ -1,4 +1,4 @@
-- cache([Note.cache_key(params), Organization.cache_key(params), Supply.cache_key(params), User.cache_key(params)]) do
+- cache([Note.cache_key_params(params), Organization.cache_key_params(params), Supply.cache_key_params(params), User.cache_key_params(params)]) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'dashboard'
@@ -7,7 +7,7 @@
 
       %div.row
         %div.col-md-6
-          - cache(Note.cache_key(params)) do
+          - cache(Note.cache_key_params(params)) do
             - Note.all.reverse_order.each do |note|
               - cache(note) do
                 %div.box
@@ -17,7 +17,7 @@
                       = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
                   %div.box-content
                     = raw note.content.to_html
-          - cache(Supply.cache_key(params)) do
+          - cache(Supply.cache_key_params(params)) do
             %div.box
               %div.box-head
                 %h4 Supplies
@@ -67,7 +67,7 @@
                 });
 
         %div.col-md-6
-          - cache(User.cache_key(params)) do
+          - cache(User.cache_key_params(params)) do
             %div.box
               %div.box-head
                 %h4 Users
@@ -98,7 +98,7 @@
                         %td
                           = user.email
 
-          - cache(Organization.cache_key(params)) do
+          - cache(Organization.cache_key_params(params)) do
             %div.box
               %div.box-head
                 %h4 Organizations

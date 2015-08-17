@@ -1,4 +1,4 @@
-- cache HomeContent.cache_key(params) do
+- cache HomeContent.cache_key_params(params) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'home'
@@ -14,13 +14,14 @@
               = f.text_area :content, placeholder: 'content', class: 'form-control input-none', rows: 8
               = f.submit 'Create Post', class: 'btn btn-primary btn-xs'
       - HomeContent.all.reverse_order.each do |post|
-        %div.col-md-6
-          %div.box
-            = form_for post, url: admin_home_content_path(post), method: :patch do |f|
-              %div.box-head
-                %h4
-                  = f.text_field :title, class: 'form-control input-none', style: 'font-size:1em;margin:auto;'
-              %div.box-content
-                = f.text_area :content, class: 'form-control input-none', rows: 8
-                = f.submit 'Update Post', class: 'btn btn-primary btn-xs'
-                = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-default btn-xs'
+        - cache(post)
+          %div.col-md-6
+            %div.box
+              = form_for post, url: admin_home_content_path(post), method: :patch do |f|
+                %div.box-head
+                  %h4
+                    = f.text_field :title, class: 'form-control input-none', style: 'font-size:1em;margin:auto;'
+                %div.box-content
+                  = f.text_area :content, class: 'form-control input-none', rows: 8
+                  = f.submit 'Update Post', class: 'btn btn-primary btn-xs'
+                  = link_to 'Delete Post', admin_home_content_path(post), method: :delete, class: 'btn btn-default btn-xs'

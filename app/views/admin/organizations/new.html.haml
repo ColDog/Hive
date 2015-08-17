@@ -1,4 +1,4 @@
-- cache do
+- cache @organization.cache_key_params(params) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Organizations'
@@ -12,5 +12,5 @@
 
       %br
       %div.col-md-4
-        - cache @organization.cache_key(params) do
+        - cache @organization.cache_key_params(params) do
           = render 'admin/organizations/form', url: admin_organizations_path, method: :post, org: @organization

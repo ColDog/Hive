@@ -1,4 +1,4 @@
-- cache [Organization.cache_key(params), User.cache_key(params)] do
+- cache [Organization.cache_key_params(params), User.cache_key_params(params)] do
   = select_tag :organization_id, options_from_collection_for_select(Organization.all.order(:name), :id, :name), {include_blank: 'Add Organization',  class: 'form-control' }
   = select_tag :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {include_blank: 'Add User',  class: 'form-control' }
   = submit_tag 'add', class: 'btn btn-primary'

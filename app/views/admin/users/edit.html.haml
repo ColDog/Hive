@@ -1,4 +1,4 @@
-- cache @user.cache_key(params) do
+- cache [@user.cache_key(params), Organization.cache_key_params(params), Attachment.cache_key_params(params)] do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Users'
