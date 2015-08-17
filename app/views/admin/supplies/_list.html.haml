@@ -1,89 +1,87 @@
-- cache [SupplyList.cache_key(params, search: true, page: true), params[:key]] do
-  %ul.nav.nav-tabs{ role: 'tablist' }
-    %li{ role: 'presentation', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
-      %a{ href: '#search', 'aria-controls' => 'search', role: 'tab', 'data-toggle' => 'tab' } View
-    %li{ role: 'presentation', class: params[:tab] == 'add' ? 'active' : '' }
-      %a{ href: '#add', 'aria-controls' => 'add', role: 'tab', 'data-toggle' => 'tab' } New
-    %li{ role: 'presentation', class: params[:tab] == 'load' ? 'active' : '' }
-      %a{ href: '#load', 'aria-controls' => 'load', role: 'tab', 'data-toggle' => 'tab' } Upload/Download
+%ul.nav.nav-tabs{ role: 'tablist' }
+  %li{ role: 'presentation', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
+    %a{ href: '#search', 'aria-controls' => 'search', role: 'tab', 'data-toggle' => 'tab' } View
+  %li{ role: 'presentation', class: params[:tab] == 'add' ? 'active' : '' }
+    %a{ href: '#add', 'aria-controls' => 'add', role: 'tab', 'data-toggle' => 'tab' } New
+  %li{ role: 'presentation', class: params[:tab] == 'load' ? 'active' : '' }
+    %a{ href: '#load', 'aria-controls' => 'load', role: 'tab', 'data-toggle' => 'tab' } Upload/Download
 
-  %div.tab-content.box{ style: 'margin:0 0 0 0; border-top: none;' }
-    %div.tab-pane.box-content#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
-      %br
-      = render 'admin/supplies/search'
-      %div
-        %table.table
-          %thead
-            %tr
-              %th Name
-              %th Owner Type
-              %th Owner Name
-              %th Notes
-              %th Actions
-          - @supply_lists.each do |list|
-            - cache(list) do
-              %tr
-                %td
-                  = list.name
-                %td
-                  = list.type
-                %td
-                  = list.owner.name if list.owner
-                %td
-                  = list.notes
-                %td
-                  = link_to 'delete', admin_supply_list_path(list), method: :delete
-                  = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
-                  %button.btn-link{ style: 'padding:0;', id: "pop#{list.id}", title: "Add Owner to #{list.name} <button class='close' onclick=$('#pop#{list.id}').popover('hide')>&times;</button>", data: { toggle: 'popover', placement: 'left' } } add
-                  %div.popover-content{ style: 'padding:0;' }
-                    %div.hidden{ id: "form#{list.id}", style: 'height:0;' }
-                      = form_tag admin_supply_lists_add_owner_path, method: :post do
-                        = hidden_field_tag :id, list.id
-                        %div.addForm
-                    :javascript
-                      $("#pop#{list.id}").popover({
-                        html: true,
-                        content: function () {
-                          return $("#form#{list.id}").html();
-                        }
-                      });
-        %div.text-center
-          = paginate @supply_lists, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'
-          %br
-          = page_entries_info @supply_lists
-          %br
-          %span Results:
-          = link_to '10', params.merge(per_page: 10)
-          = link_to '20', params.merge(per_page: 20)
-          = link_to '50', params.merge(per_page: 50)
-          = link_to '100', params.merge(per_page: 100)
-          = link_to '200', params.merge(per_page: 200)
-
-    %div.tab-pane.box-content#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
-      %br
-      %h4 Create New Supply Item
-      = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
-        = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
-        = f.hidden_field :supply_id, value: supply.id
-        = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
-        = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
-
-    %div.tab-pane.box-content#load{ role: 'tabpanel', class: params[:tab] == 'load' ? 'active' : '' }
-      %br
-      %div
-        %h4
-          = link_to 'Download', admin_supply_lists_download_path(supply, format: :csv)
+%div.tab-content.box{ style: 'margin:0 0 0 0; border-top: none;' }
+  %div.tab-pane.box-content#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
+    %br
+    = render 'admin/supplies/search'
+    %div
+      %table.table
+        %thead
+          %tr
+            %th Name
+            %th Owner Type
+            %th Owner Name
+            %th Notes
+            %th Actions
+        - @supply_lists.each do |list|
+          %tr
+            %td
+              = list.name
+            %td
+              = list.type
+            %td
+              = list.owner.name if list.owner
+            %td
+              = list.notes
+            %td
+              = link_to 'delete', admin_supply_list_path(list), method: :delete
+              = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
+              %button.btn-link{ style: 'padding:0;', id: "pop#{list.id}", title: "Add Owner to #{list.name} <button class='close' onclick=$('#pop#{list.id}').popover('hide')>&times;</button>", data: { toggle: 'popover', placement: 'left' } } add
+              %div.popover-content{ style: 'padding:0;' }
+                %div.hidden{ id: "form#{list.id}", style: 'height:0;' }
+                  = form_tag admin_supply_lists_add_owner_path, method: :post do
+                    = hidden_field_tag :id, list.id
+                    %div.addForm
+                :javascript
+                  $("#pop#{list.id}").popover({
+                    html: true,
+                    content: function () {
+                      return $("#form#{list.id}").html();
+                    }
+                  });
+      %div.text-center
+        = paginate @supply_lists, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'
         %br
-        %h4 Upload Csv
-        %p Make sure that your column heading on your spreadsheet (the first row), match the following (id,name,notes). Try downloading by clicking above to see what it should look like. If you download a file and re-upload it, changed records will be updated as long as the ID remains. Don't put an ID for new records. Only ID and name are required.
-        %div#upload
-          - key = SecureRandom.hex
-          = form_for :supply_list, url: admin_imports_supply_lists_path, multipart: true do |f|
-            = f.hidden_field :supply_id, value: supply.id
-            = f.hidden_field :key, value: key
-            = f.file_field :file
-            %br
-            = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
-            %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+        = page_entries_info @supply_lists
+        %br
+        %span Results:
+        = link_to '10', params.merge(per_page: 10)
+        = link_to '20', params.merge(per_page: 20)
+        = link_to '50', params.merge(per_page: 50)
+        = link_to '100', params.merge(per_page: 100)
+        = link_to '200', params.merge(per_page: 200)
 
-  = render 'admin/shared/results'
+  %div.tab-pane.box-content#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
+    %br
+    %h4 Create New Supply Item
+    = form_for :supply_list, url: admin_supply_lists_path, method: :post do |f|
+      = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
+      = f.hidden_field :supply_id, value: supply.id
+      = f.text_field :notes, placeholder: 'notes', class: 'form-control short-form'
+      = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+
+  %div.tab-pane.box-content#load{ role: 'tabpanel', class: params[:tab] == 'load' ? 'active' : '' }
+    %br
+    %div
+      %h4
+        = link_to 'Download', admin_supply_lists_download_path(supply, format: :csv)
+      %br
+      %h4 Upload Csv
+      %p Make sure that your column heading on your spreadsheet (the first row), match the following (id,name,notes). Try downloading by clicking above to see what it should look like. If you download a file and re-upload it, changed records will be updated as long as the ID remains. Don't put an ID for new records. Only ID and name are required.
+      %div#upload
+        - key = SecureRandom.hex
+        = form_for :supply_list, url: admin_imports_supply_lists_path, multipart: true do |f|
+          = f.hidden_field :supply_id, value: supply.id
+          = f.hidden_field :key, value: key
+          = f.file_field :file
+          %br
+          = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
+          %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+
+= render 'admin/shared/results'
