@@ -1,56 +1,49 @@
-%div.row
-  %div.col-md-4
-    %div.box
-      %div.box-head
-        %h4
-          = variable.name ? variable.name : 'New'
-      %div.box-content
-        = form_for variable, url: url, method: method do |f|
-          %div.form-group
-            %label Name
-            = f.text_field :name, placeholder: 'organization name', class: 'form-control'
-          %div.form-group
-            %label Tags (comma separated)
-            %br
-            = f.text_field :tagging, value: variable.tags.join(','), class: 'form-control', id: 'tagsinput'
-          %div.form-group
-            %label
-              Avatar
-              = link_to 'view current avatar', variable.avatar.url, target: '_blank' if variable.avatar.present?
-            = f.file_field :avatar
-            %br
-            = f.label 'Currently Active: '
-            = f.check_box :current, id: 'current'
-            %div#currentShow{ style: variable.current ? 'display:none' : '' }
-              %label Inactive on:&nbsp;
-              = f.date_field :inactive_on, include_blank: true
-            %br
-            = f.label 'Signed Agreement: '
-            = f.check_box :signed_service_agreement
-          %div.form-group
-            %label Address
-            = f.text_field :address, placeholder: 'address', class: 'form-control'
-            %div{ style: 'width:100%' }
-              = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:45%'
-              = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:22%'
-              = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:33%'
-            %br
-            %br
-          %div.form-group
-            %label Description
-            = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 3
-          = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
-
-  - if params[:action] == 'edit'
-    %div.col-md-8
-      = render 'list', variable: variable
-
-
-:javascript
-  $('#current').click(function() {
-      if( $(this).is(':checked')) {
-          $("#currentShow").hide();
-      } else {
-          $("#currentShow").show();
-      }
-  });
+- cache(params) do
+  %div.box
+    %div.box-head
+      %h4
+        = org.name ? org.name : 'New'
+    %div.box-content
+      = form_for org, url: url, method: method do |f|
+        %div.form-group
+          %label Name
+          = f.text_field :name, placeholder: 'organization name', class: 'form-control'
+        %div.form-group
+          %label Tags (comma separated)
+          %br
+          = f.text_field :tagging, value: org.tags.join(','), class: 'form-control', id: 'tagsinput'
+        %div.form-group
+          %label
+            Avatar
+            = link_to 'view current avatar', org.avatar.url, target: '_blank' if org.avatar.present?
+          = f.file_field :avatar
+          %br
+          = f.label 'Currently Active: '
+          = f.check_box :current, id: 'current'
+          %div#currentShow{ style: org.current ? 'display:none' : '' }
+            %label Inactive on:&nbsp;
+            = f.date_field :inactive_on, include_blank: true
+          %br
+          = f.label 'Signed Agreement: '
+          = f.check_box :signed_service_agreement
+        %div.form-group
+          %label Address
+          = f.text_field :address, placeholder: 'address', class: 'form-control'
+          %div{ style: 'width:100%' }
+            = f.text_field :city, placeholder: 'city', class: 'form-control short-form', style: 'width:45%'
+            = f.text_field :province, placeholder: 'prov.', class: 'form-control short-form', style: 'width:22%'
+            = f.text_field :postal, placeholder: 'postal', class: 'form-control short-form', style: 'width:33%'
+          %br
+          %br
+        %div.form-group
+          %label Description
+          = f.text_area :description, placeholder: 'description', class: 'form-control', rows: 3
+        = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+  :javascript
+    $('#current').click(function() {
+        if( $(this).is(':checked')) {
+            $("#currentShow").hide();
+        } else {
+            $("#currentShow").show();
+        }
+    });

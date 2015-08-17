@@ -10,7 +10,7 @@
           %th Administrator
           %th Accountant
           %th Actions
-      - variable.organization_members.includes(:user).each do |member|
+      - org.organization_members.includes(:user).each do |member|
         %tr
           %td
             = link_to member.user.name, edit_admin_user_path(member.user)
@@ -45,7 +45,7 @@
           %th Name
           %th Notes
           %th Action
-      - variable.supply_lists.each do |list|
+      - org.supply_lists.each do |list|
         %tr
           %td
             = link_to list.supply.name, edit_admin_supply_path(list.supply)
@@ -58,7 +58,7 @@
   %div.box-foot
     = form_tag admin_supply_lists_add_owner_path, method: :post do
       = render 'admin/shared/sup_sel'
-      = hidden_field_tag :organization_id, variable.id
+      = hidden_field_tag :organization_id, org.id
       = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
       = submit_tag 'Add', class: 'btn btn-primary'
 %div.box
@@ -72,7 +72,7 @@
           %th Valid Until
           %th Created At
           %th Actions
-      - variable.agreements.each do |item|
+      - org.agreements.each do |item|
         %tr
           %td
             - name = item.name.present? ? item.name : item.agreement.filename
@@ -82,9 +82,9 @@
           %td
             = day item.created_at
           %td
-            = link_to 'delete', admin_organization_agreement_path(variable, item), method: :delete
+            = link_to 'delete', admin_organization_agreement_path(org, item), method: :delete
   %div.box-foot
-    = form_for :agreement, url: admin_organization_agreements_path(variable), method: :post do |f|
+    = form_for :agreement, url: admin_organization_agreements_path(org), method: :post do |f|
       = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
       = f.date_field :valid_until, class: 'form-control short-form'
       = f.file_field :agreement, class: 'short-form form-control'

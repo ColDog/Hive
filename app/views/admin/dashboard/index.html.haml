@@ -1,129 +1,130 @@
-%div.container-fluid
-  %div.col-md-2.sidebar.hidden-sm.hidden-xs
-    = render 'admin/shared/sidebar', active: 'dashboard'
-  %div.col-md-10.col-xs-12.shad-left
-    %h1 Dashboard
+- cache([Note.cache_key(params), Organization.cache_key(params), Supply.cache_key(params), User.cache_key(params)]) do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'dashboard'
+    %div.col-md-10.col-xs-12.shad-left
+      %h1 Dashboard
 
-    %div.row
-      %div.col-md-6
-        - cache(Note.cache_key(params)) do
-          - Note.all.reverse_order.each do |note|
-            - cache(note) do
-              %div.box
-                %div.box-head
-                  %h4
-                    = note.title
-                    = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
-                %div.box-content
-                  = raw note.content.to_html
-        - cache(Supply.cache_key(params)) do
+      %div.row
+        %div.col-md-6
+          - cache(Note.cache_key(params)) do
+            - Note.all.reverse_order.each do |note|
+              - cache(note) do
+                %div.box
+                  %div.box-head
+                    %h4
+                      = note.title
+                      = link_to raw('&times;'), admin_note_path(note), method: :delete, class: 'close'
+                  %div.box-content
+                    = raw note.content.to_html
+          - cache(Supply.cache_key(params)) do
+            %div.box
+              %div.box-head
+                %h4 Supplies
+              %div.box-content
+                %table.table
+                  %thead
+                    %tr
+                      %th Supplies
+                      %th In Use
+                      %th Total
+                  - Supply.all.reverse_order.each do |supply|
+                    - cache(supply) do
+                      %tr
+                        %td
+                          = supply.name
+                        %td
+                          = supply.in_use
+                        %td
+                          = supply.supply_lists.count
           %div.box
             %div.box-head
-              %h4 Supplies
-            %div.box-content
-              %table.table
-                %thead
-                  %tr
-                    %th Supplies
-                    %th In Use
-                    %th Total
-                - Supply.all.reverse_order.each do |supply|
-                  - cache(supply) do
-                    %tr
-                      %td
-                        = supply.name
-                      %td
-                        = supply.in_use
-                      %td
-                        = supply.supply_lists.count
-        %div.box
-          %div.box-head
-            %h4 Supply Report
-          %div#report.box-content
-            = form_tag admin_dashboard_report_path do
-              = text_field_tag :search, 'search term', class: 'form-control short-form'
-              = submit_tag 'Search', class: 'btn btn-default'
-            %div#report-result
+              %h4 Supply Report
+            %div#report.box-content
+              = form_tag admin_dashboard_report_path do
+                = text_field_tag :search, 'search term', class: 'form-control short-form'
+                = submit_tag 'Search', class: 'btn btn-default'
+              %div#report-result
 
-            :javascript
-              $('#report form').submit(function() {
-                var valuesToSubmit = $(this).serialize();
-                $.ajax({
-                  type: "POST",
-                  url: $(this).attr('action'), //sumbits it to the given url of the form
-                  data: valuesToSubmit,
-                  dataType: "HTML",
-                  error: function () {
-                    console.log( "error" );
-                  },
-                  complete: function (html) {
-                    console.log( "complete" );
-                  }
-                }).done(function(data){
-                  $('#report-result').html(data)
+              :javascript
+                $('#report form').submit(function() {
+                  var valuesToSubmit = $(this).serialize();
+                  $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'), //sumbits it to the given url of the form
+                    data: valuesToSubmit,
+                    dataType: "HTML",
+                    error: function () {
+                      console.log( "error" );
+                    },
+                    complete: function (html) {
+                      console.log( "complete" );
+                    }
+                  }).done(function(data){
+                    $('#report-result').html(data)
+                  });
+                  return false; // prevents normal behaviour
                 });
-                return false; // prevents normal behaviour
-              });
 
-      %div.col-md-6
-        - cache(User.cache_key(params)) do
-          %div.box
-            %div.box-head
-              %h4 Users
-            %div.box-content
-              %table.table
-                %thead
-                  %tr
-                    %th Users
-                    %th Total
-                %tr
-                  %td Total
-                  %td
-                    = User.all.count
-                %tr
-                  %td Active
-                  %td
-                    = User.where(current: true).count
-              %table.table
-                %thead
-                  %tr
-                    %th Recently Updated
-                    %th Email
-                - User.all.reverse_order.limit(5).each do |user|
-                  - cache(user) do
+        %div.col-md-6
+          - cache(User.cache_key(params)) do
+            %div.box
+              %div.box-head
+                %h4 Users
+              %div.box-content
+                %table.table
+                  %thead
                     %tr
-                      %td
-                        = link_to user.name, edit_admin_user_path(user)
-                      %td
-                        = user.email
+                      %th Users
+                      %th Total
+                  %tr
+                    %td Total
+                    %td
+                      = User.all.count
+                  %tr
+                    %td Active
+                    %td
+                      = User.where(current: true).count
+                %table.table
+                  %thead
+                    %tr
+                      %th Recently Updated
+                      %th Email
+                  - User.all.reverse_order.limit(5).each do |user|
+                    - cache(user) do
+                      %tr
+                        %td
+                          = link_to user.name, edit_admin_user_path(user)
+                        %td
+                          = user.email
 
-        - cache(Organization.cache_key(params)) do
-          %div.box
-            %div.box-head
-              %h4 Organizations
-            %div.box-content
-              %table.table
-                %thead
-                  %tr
-                    %th All Organizations
-                    %th Total
-                %tr
-                  %td Total
-                  %td
-                    = Organization.all.count
-                %tr
-                  %td Active
-                  %td
-                    = Organization.where(current: true).count
-              %table.table
-                %thead
-                  %tr
-                    %th Recently Updated
-                    %th Employees
-                - Organization.all.reverse_order.limit(5).each do |org|
-                  - cache(org) do
+          - cache(Organization.cache_key(params)) do
+            %div.box
+              %div.box-head
+                %h4 Organizations
+              %div.box-content
+                %table.table
+                  %thead
                     %tr
-                      %td
-                        = link_to org.name, edit_admin_organization_path(org)
-                      %td
-                        = org.organization_members.count
+                      %th All Organizations
+                      %th Total
+                  %tr
+                    %td Total
+                    %td
+                      = Organization.all.count
+                  %tr
+                    %td Active
+                    %td
+                      = Organization.where(current: true).count
+                %table.table
+                  %thead
+                    %tr
+                      %th Recently Updated
+                      %th Employees
+                  - Organization.all.reverse_order.limit(5).each do |org|
+                    - cache(org) do
+                      %tr
+                        %td
+                          = link_to org.name, edit_admin_organization_path(org)
+                        %td
+                          = org.organization_members.count

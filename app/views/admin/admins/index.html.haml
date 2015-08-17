@@ -1,14 +1,15 @@
-%div.container-fluid
-  %div.col-md-2.sidebar.hidden-sm.hidden-xs
-    = render 'admin/shared/sidebar', active: 'administrators'
-  %div.col-md-10.col-xs-12.shad-left
-    %h1 Administrators
-    = form_for :admin, url: admin_admins_path, method: :post do |f|
-      = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control' }
-      = f.submit 'Add User', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+- cache [User.cache_key(params), Admin.cache_key(params)] do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'administrators'
+    %div.col-md-10.col-xs-12.shad-left
+      %h1 Administrators
+      = form_for :admin, url: admin_admins_path, method: :post do |f|
+        = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control' }
+        = f.submit 'Add User', class: 'btn btn-primary', data: { disable_with: 'processing...' }
 
-    = render 'admin/shared/table',  data: @admins,
-                                    header: %w"Name Email Actions",
-                                    methods: [['Double', :user, :name], ['Double', :user, :email]],
-                                    links: [['delete', :admin_admin_path, method: :delete]],
-                                    model: Admin
+      = render 'admin/shared/table',  data: @admins,
+                                      header: %w"Name Email Actions",
+                                      methods: [['Double', :user, :name], ['Double', :user, :email]],
+                                      links: [['delete', :admin_admin_path, method: :delete]],
+                                      model: Admin

@@ -1,64 +1,65 @@
-%div.container-fluid
-  %div.col-md-2.sidebar.hidden-sm.hidden-xs
-    = render 'admin/shared/sidebar', active: 'imports'
+- cache [UploadLog.cache_key(params), Attachment.cache_key(params), params[:key]] do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'imports'
 
-  %div.col-md-10.col-xs-12.shad-left
-    %h1 Imports
+    %div.col-md-10.col-xs-12.shad-left
+      %h1 Imports
 
-    %div.row
-      %div.col-md-6.col-sm-6
-        %div.box
-          %div.box-head
-            %h4 Import Users
-          %div#user.box-content
-            - key1 = SecureRandom.hex
-            = form_for :user, url: admin_imports_users_path, multipart: true do |f|
-              = f.hidden_field :key, value: key1
-              = f.file_field :file
-              %br
-              = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
-              %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
-        %div.box
-          %div.box-head
-            %h4 Import Organization
-          %div#org.box-content
-            - key2 = SecureRandom.hex
-            = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
-              = f.hidden_field :key, value: key2
-              = f.file_field :file
-              %br
-              = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
-              %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
-      %div.col-md-6.col-sm-6
-        %div.box
-          %div.box-head
-            %h4 Downloads
-          %div.box-content
-            %ul.list-unstyled
-              %li
-                = link_to 'Download User Data', admin_users_path(format: :csv), class: 'btn btn-default btn-sm'
-              %li
-                = link_to 'Download Organization Data', admin_organizations_path(format: :csv), class: 'btn btn-default btn-sm'
-              %li
-                = link_to 'Download Supply Data', admin_supplies_path(format: :csv), class: 'btn btn-default btn-sm'
-        %div.box
-          %div.box-head
-            %h4 Attachments
-          %div.box-content
-            %table.table
-              %thead
-                %tr
-                  %th Name
-                  %th Delete
-              - Attachment.all.each do |attachment|
-                %tr
-                  %td
-                    = link_to attachment.filename, attachment.file.url, target: '_blank'
-                  %td
-                    = link_to 'Delete', admin_attachment_path(attachment), method: :delete
-          %div.box-foot
-            = form_tag admin_attachments_path, method: :post, multipart: true do
-              = file_field_tag :file, class: 'short-form'
-              = submit_tag 'Add', class: 'btn-link'
+      %div.row
+        %div.col-md-6.col-sm-6
+          %div.box
+            %div.box-head
+              %h4 Import Users
+            %div#user.box-content
+              - key1 = SecureRandom.hex
+              = form_for :user, url: admin_imports_users_path, multipart: true do |f|
+                = f.hidden_field :key, value: key1
+                = f.file_field :file
+                %br
+                = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
+                %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+          %div.box
+            %div.box-head
+              %h4 Import Organization
+            %div#org.box-content
+              - key2 = SecureRandom.hex
+              = form_for :organization, url: admin_imports_organizations_path, multipart: true do |f|
+                = f.hidden_field :key, value: key2
+                = f.file_field :file
+                %br
+                = f.submit 'Upload', class: 'btn btn-primary btn-sm', 'data-disable-with': 'uploading...'
+                %btn.btn.btn-default.btn-xs{ data: { toggle: 'modal', target: '#results' } } Results
+        %div.col-md-6.col-sm-6
+          %div.box
+            %div.box-head
+              %h4 Downloads
+            %div.box-content
+              %ul.list-unstyled
+                %li
+                  = link_to 'Download User Data', admin_users_path(format: :csv), class: 'btn btn-default btn-sm'
+                %li
+                  = link_to 'Download Organization Data', admin_organizations_path(format: :csv), class: 'btn btn-default btn-sm'
+                %li
+                  = link_to 'Download Supply Data', admin_supplies_path(format: :csv), class: 'btn btn-default btn-sm'
+          %div.box
+            %div.box-head
+              %h4 Attachments
+            %div.box-content
+              %table.table
+                %thead
+                  %tr
+                    %th Name
+                    %th Delete
+                - Attachment.all.each do |attachment|
+                  %tr
+                    %td
+                      = link_to attachment.filename, attachment.file.url, target: '_blank'
+                    %td
+                      = link_to 'Delete', admin_attachment_path(attachment), method: :delete
+            %div.box-foot
+              = form_tag admin_attachments_path, method: :post, multipart: true do
+                = file_field_tag :file, class: 'short-form'
+                = submit_tag 'Add', class: 'btn-link'
 
-= render 'admin/shared/results'
+  = render 'admin/shared/results'

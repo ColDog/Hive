@@ -1,15 +1,15 @@
-= render 'admin/shared/new',  title: 'Organizations',
-                              main: ['Organizations', :admin_organizations_path],
-                              new: ['New Organization', :new_admin_organization_path],
-                              form_location: 'admin/organizations/form',
-                              form_variable: @organization,
-                              form_url: :admin_organizations_path,
-                              form_method: :post
+- cache do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'Organizations'
+    %div.col-md-10.shad-left
+      %h1 Organizations
+      %ul.nav.nav-tabs
+        %li{ role: 'presentation' }
+          = link_to 'Organizations', admin_organizations_path
+        %li.active{ role: 'presentation' }
+          = link_to 'New Organization', new_admin_organization_path
 
--# title = title
--# main = [mainlink, main_link_path]
--# new = ['new', new_path]
--# form_location = render path
--# form_variable = form variable
--# form_url = form_path
--# form_method = ie: :post
+      %br
+      %div.col-md-4
+        = render 'admin/organizations/form', url: admin_organizations_path, method: :post, org: @organization
