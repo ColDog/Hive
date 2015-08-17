@@ -18,48 +18,41 @@ module ToTable
   end
 end
 
-class String
-  def to_html
-    GitHub::Markdown.render_gfm(self) if self
+module CacheKeys
+  module InstanceMethods
+    def cache_key(route)
+      params  = route.slice!(:controller, :id, :action)
+      "#{route.values.join('/')}?#{params.to_param}--T#{self.updated_at.try(:to_s, :number)}U#{self.id}"
+    end
+  end
+  module ClassMethods
+    def cache_key(route)
+      params  = route.slice!(:controller, :id, :action)
+      "#{route.values.join('/')}?#{params.to_param}--T#{self.maximum(:updated_at).try(:utc).try(:to_s, :number)}C#{self.count}"
+    end
   end
 end
 
-class NilClass
-  def to_html
-    nil
-  end
-  def to_table
-    nil
-  end
-end
-
-class Array
-  include ToTable
-end
-
-module Extensions
-  extend ActiveSupport::Concern
-  include ToTable
-
+module CsvExtension
   module ClassMethods
 
-    def cache_key(params, opts = {})
-      route   = "#{params['controller']}/#{params['action']}/#{params['id']}"
-      search  = opts[:search] ? "s=#{params['search']}&c=#{params['category']}&a=#{params['current']}" : 'no-s'
-      pages   = opts[:page] ? "p=#{params['page']}&pp=#{params['per_page']}" : ''
-      count   = self.count
-      updated = 'hello'
-      "#{route}C#{count}U#{updated}?#{search}#{pages}#{opts[:add]}"
+    def build_csv
+      CSV.generate do |csv|
+        names = self.column_names - ['encrypted_password']
+        csv << names
+        self.all.each do |record|
+          hsh = record.attributes
+          hsh['encrypted_password'] = nil if hsh['encrypted_password'].present?
+          csv << hsh.values_at(*names)
+        end
+      end
     end
 
-    # ===> CSV METHODS
     def import_base(csv, opts = {})
       result = {errors: [], successes: { updated: [], new: [] }}
       tot = 0
       CSV.foreach(csv.path, headers: true) do |row|
         attrs = row.to_hash.slice(*opts[:slice], 'id').merge(opts[:merge])
-
-        Rails.logger.debug "    IMPORT DATA: \n    Model: #{self.name}, \n    Attributes: #{attrs}, \n    Password: #{opts[:password]}"
 
         begin
           obj = self.find_by(id: attrs['id'].to_i)
@@ -93,20 +86,35 @@ module Extensions
 
       UploadLog.create(log: result, key: opts[:key])
     end
+  end
+end
 
+class String
+  def to_html
+    GitHub::Markdown.render_gfm(self) if self
+  end
+end
 
-    def build_csv
-      CSV.generate do |csv|
-        names = self.column_names - ['encrypted_password']
-        csv << names
-        self.all.each do |record|
-          hsh = record.attributes
-          hsh['encrypted_password'] = nil if hsh['encrypted_password'].present?
-          csv << hsh.values_at(*names)
-        end
-      end
-    end
+class Array
+  include ToTable
+end
 
+class NilClass
+  def to_html
+    nil
+  end
+  def to_table
+    nil
+  end
+end
+
+module Extensions
+  extend ActiveSupport::Concern
+  include CacheKeys::InstanceMethods
+  include ToTable
+  module ClassMethods
+    include CacheKeys::ClassMethods
+    include CsvExtension::ClassMethods
   end
 end
 
