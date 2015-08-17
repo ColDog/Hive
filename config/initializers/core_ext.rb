@@ -22,13 +22,13 @@ module CacheKeys
   module InstanceMethods
     def cache_key_params(route)
       params = route.slice!(:controller, :id, :action)
-      "#{route.values.join('/')}?#{params.to_param}--T#{self.updated_at.try(:to_s, :number)}U#{self.id}"
+      "#{route.values.join('/')}?#{params.to_param}T#{self.updated_at.try(:to_s, :number)}U#{self.id}--"
     end
   end
   module ClassMethods
     def cache_key_params(route)
       params = route.slice!(:controller, :id, :action)
-      "#{route.values.join('/')}?#{params.to_param}--T#{self.maximum(:updated_at).try(:utc).try(:to_s, :number)}C#{self.count}"
+      "#{route.values.join('/')}?#{params.to_param}T#{self.maximum(:updated_at).try(:utc).try(:to_s, :number)}C#{self.count}--"
     end
   end
 end
