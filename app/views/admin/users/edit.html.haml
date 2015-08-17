@@ -1,13 +1,4 @@
-= render 'admin/shared/edit',  title: 'Users',
-                              main: ['Users', :admin_users_path],
-                              edit: @user.name,
-                              new: ['New User', :new_admin_user_path],
-                              form_location: 'admin/users/form',
-                              form_variable: @user,
-                              form_url: :admin_user_path,
-                              form_method: :put
-
-- cache do
+- cache @user.cache_key(params) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Users'
@@ -16,11 +7,13 @@
       %ul.nav.nav-tabs
         %li{ role: 'presentation' }
           = link_to 'Users', admin_users_path
-        %li.active{ role: 'presentation' }
+        %li{ role: 'presentation' }
           = link_to 'New User', new_admin_user_path
+        %li.active{ role: 'presentation' }
+          = link_to @user.name, '#'
 
       %br
       %div.col-md-4
-        = render 'admin/users/form', url: admin_users_path, method: :post, user: @user
+        = render 'admin/users/form', url: admin_user_path(@user), method: :put, user: @user
       %div.col-md-8
         = render 'admin/users/list', user: @user
