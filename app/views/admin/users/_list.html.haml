@@ -10,7 +10,7 @@
           %th Notes
           %th Organization
           %th Action
-      - @user.supply_lists.each do |list|
+      - user.supply_lists.each do |list|
         %tr
           %td
             = link_to list.supply.name, edit_admin_supply_path(list.supply)
@@ -21,7 +21,7 @@
           %td -
           %td
             = link_to 'remove', admin_supply_lists_remove_owner_path(list), method: :post
-      - @user.organization_supplies.each do |list|
+      - user.organization_supplies.each do |list|
         %tr
           %td
             = list.supply.name
@@ -36,7 +36,7 @@
     %div
       = form_tag admin_supply_lists_add_owner_path, method: :post, id: 'supSelect' do
         = render 'admin/shared/sup_sel'
-        = hidden_field_tag :user_id, variable.id
+        = hidden_field_tag :user_id, user.id
         = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
         = submit_tag 'Add', class: 'btn btn-primary'
 
@@ -51,7 +51,7 @@
           %th Admin Contact
           %th Accountant
           %th Remove
-      - variable.organization_members.each do |list|
+      - user.organization_members.each do |list|
         %tr
           %td
             = link_to list.organization.name, edit_admin_organization_path(list.organization)
@@ -63,7 +63,7 @@
             = link_to 'remove', admin_organization_member_path(list), method: :delete
   %div.box-foot
     = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-      = f.hidden_field :user_id, value: variable.id
+      = f.hidden_field :user_id, value: user.id
       = f.select :organization_id, options_from_collection_for_select(Organization.all, :id, :name), {}, {class: ' short-form form-control'}
       &nbsp;&nbsp;
       = f.check_box :account_contact
@@ -78,7 +78,7 @@
   %div.box-head
     %h4 Send Email
   %div.box-content
-    = form_tag admin_user_mail_path(variable), method: :post do
+    = form_tag admin_user_mail_path(user), method: :post do
       = fields_for :mail do |f|
         %div.form-group
           %label Content

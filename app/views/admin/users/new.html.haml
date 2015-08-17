@@ -1,15 +1,15 @@
-= render 'admin/shared/new',  title: 'Users',
-                              main: ['Users', :admin_users_path],
-                              new: ['New User', :new_admin_user_path],
-                              form_location: 'admin/users/form',
-                              form_variable: @user,
-                              form_url: :admin_users_path,
-                              form_method: :post
+- cache do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'Users'
+    %div.col-md-10.shad-left
+      %h1 Users
+      %ul.nav.nav-tabs
+        %li{ role: 'presentation' }
+          = link_to 'Users', admin_users_path
+        %li.active{ role: 'presentation' }
+          = link_to 'New User', new_admin_user_path
 
--# title = title
--# main = [mainlink, main_link_path]
--# new = ['new', new_path]
--# form_location = render path
--# form_variable = form variable
--# form_url = form_path
--# form_method = ie: :post
+      %br
+      %div.col-md-4
+        = render 'admin/users/form', url: admin_users_path, method: :post, user: @user
