@@ -6,6 +6,10 @@
     = render 'admin/supplies/tabs', all: '', new: ''
 
     %br
-    = render 'admin/supplies/form', variable:  @supply, url: admin_supply_path(@supply), method: :put
+    %div.row
+      %div.col-md-3
+        = render 'admin/supplies/form', supply:  @supply, url: admin_supply_path(@supply), method: :put
+      %div.col-md-9
+        = render '/admin/supplies/list', supply: @supply, url: admin_supply_path(@supply), method: :put
 
 = javascript_include_tag 'supplies'

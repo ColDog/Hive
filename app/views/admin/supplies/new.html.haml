@@ -1,9 +1,11 @@
-%div.container-fluid
-  %div.col-md-2.sidebar.hidden-sm.hidden-xs
-    = render 'admin/shared/sidebar', active: 'Supplies'
-  %div.col-md-10.shad-left
-    %h1 Supplies
-    = render 'admin/supplies/tabs', all: '', new: 'active'
+- cache Supply.cache_key(params) do
+  %div.container-fluid
+    %div.col-md-2.sidebar.hidden-sm.hidden-xs
+      = render 'admin/shared/sidebar', active: 'Supplies'
+    %div.col-md-10.shad-left
+      %h1 Supplies
+      = render 'admin/supplies/tabs', all: '', new: 'active'
 
-    %br
-    = render 'admin/supplies/form', variable: @supply, url: admin_supplies_path, method: :post
+      %div.row
+        %div.col-md-3
+          = render 'admin/supplies/form', variable: @supply, url: admin_supplies_path, method: :post

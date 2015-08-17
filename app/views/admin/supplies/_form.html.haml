@@ -1,39 +1,34 @@
-%div.row
-  %div.col-md-3
-    %div.box
-      %div.box-head
-        %h4
-          = variable.name ? variable.name : 'New'
-      %div.box-content
-        = form_for variable, url: url, method: method do |f|
-          %div.form-group
-            %label Name
-            = f.text_field :name, placeholder: 'name', class: 'form-control'
-          %div.form-group
-            %label Description
-            = f.text_area :notes, placeholder: 'notes', class: 'form-control'
-          %br
-          = f.submit 'Submit', class: 'btn btn-primary'
-          %br
-          %br
-          %div
-            - cache(Supply.cache_key(params)) do
-              %table.table
-                %tr
-                  %td
-                    In Use:
-                  %td
-                    = variable.in_use
-                %tr
-                  %td
-                    Available:
-                  %td
-                    = variable.supply_lists.count - variable.in_use
-                %tr
-                  %td
-                    Total:
-                  %td
-                    = variable.supply_lists.count
-  - if params[:action] == 'edit'
-    %div.col-md-9
-      = render '/admin/supplies/list', variable: variable, url: url, method: method
+%div.box
+  %div.box-head
+    %h4
+      = supply.name ? supply.name : 'New'
+  %div.box-content
+    = form_for supply, url: url, method: method do |f|
+      %div.form-group
+        %label Name
+        = f.text_field :name, placeholder: 'name', class: 'form-control'
+      %div.form-group
+        %label Description
+        = f.text_area :notes, placeholder: 'notes', class: 'form-control'
+      %br
+      = f.submit 'Submit', class: 'btn btn-primary'
+      %br
+      %br
+      %div
+        - cache(Supply.cache_key(params)) do
+          %table.table
+            %tr
+              %td
+                In Use:
+              %td
+                = supply.in_use
+            %tr
+              %td
+                Available:
+              %td
+                = supply.supply_lists.count - variable.in_use
+            %tr
+              %td
+                Total:
+              %td
+                = supply.supply_lists.count
