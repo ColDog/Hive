@@ -1,4 +1,4 @@
-- cache [@user.cache_key_params(params), Organization.cache_key_params(params), Attachment.cache_key_params(params)] do
+- cache set_keys([@user, @user.organization_members, Attachment, SupplyList], params) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Users'
@@ -14,6 +14,8 @@
 
       %br
       %div.col-md-4
-        = render 'admin/users/form', url: admin_user_path(@user), method: :put, user: @user
+        - cache set_keys([@user]) do
+          = render 'admin/users/form', url: admin_user_path(@user), method: :put, user: @user
       %div.col-md-8
-        = render 'admin/users/list', user: @user
+        - cache set_keys([@user, @user.organization_members, Attachment, SupplyList]) do
+          = render 'admin/users/list', user: @user

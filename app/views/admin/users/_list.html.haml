@@ -1,4 +1,4 @@
-- cache user.cache_key_params(params) do
+- cache set_keys([user, SupplyList]) do
   %div.box
     %div.box-head
       %h4 Supplies
@@ -42,7 +42,7 @@
           = hidden_field_tag :user_id, user.id
           = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
           = submit_tag 'Add', class: 'btn btn-primary'
-- cache [user.cache_key_params(params), Organization.cache_key_params(params)] do
+- cache set_keys([user, user.organization_members, Organization]) do
   %div.box
     %div.box-head
       %h4 Organizations
@@ -77,7 +77,7 @@
         = f.label 'Administrator?'
         &nbsp;&nbsp;
         = f.submit 'Add', class: 'btn btn-primary'
-- cache [user.cache_key_params(params), Attachment.cache_key_params(params)] do
+- cache set_keys([user, Attachment]) do
   %div.box
     %div.box-head
       %h4 Send Email
