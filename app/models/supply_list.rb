@@ -12,7 +12,6 @@ class SupplyList < ActiveRecord::Base
   validates_uniqueness_of :organization_id, scope: :supply_id, allow_nil: true, allow_blank: true,
                           message: 'already owns this supply.'
 
-
   validate :user_xor_organization
 
   def user?
