@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style>
-		*{margin:0;padding:0;font-family:"Helvetica Neue",Helvetica,Helvetica,Arial,sans-serif;font-size:100%;line-height:1.6}img{max-width:100%}body{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:none;width:100%!important;height:100%}a{color:#348eda}.btn-primary,.btn-secondary{text-decoration:none;color:#FFF;line-height:2;font-weight:700;margin-right:10px;text-align:center;cursor:pointer;display:inline-block}.btn-primary{background-color:#348eda;border:solid #348eda;border-width:10px 20px;border-radius:25px}.btn-secondary{background-color:#aaa;border:solid #aaa;border-width:10px 20px;border-radius:25px}.last{margin-bottom:0}.first{margin-top:0}.padding{padding:10px 0}table.body-wrap{width:100%;padding:20px}table.body-wrap .container{border:1px solid #f0f0f0}table.footer-wrap{width:100%;clear:both!important}.footer-wrap .container p{font-size:12px;color:#666}table.footer-wrap a{color:#999}h1,h2,h3{font-family:"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;color:#000;margin:40px 0 10px;line-height:1.2;font-weight:200}h1{font-size:36px}h2{font-size:28px}h3{font-size:22px}ol,p,ul{margin-bottom:10px;font-weight:400;font-size:14px}ol li,ul li{margin-left:5px;list-style-position:inside}.container{display:block!important;max-width:600px!important;margin:0 auto!important;clear:both!important}.body-wrap .container{padding:20px}.content{max-width:600px;margin:0 auto;display:block}.content table{width:100%}
+		*{margin:0;padding:0;font-family:"Helvetica Neue",Helvetica,Helvetica,Arial,sans-serif;font-size:100%;line-height:1.6}hr{color: #efefef;margin:15px 0 15px 0;outline:none}img{max-width:100%}body{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:none;width:100%!important;height:100%}a{color:#348eda}.btn-primary,.btn-secondary{text-decoration:none;color:#FFF;line-height:2;font-weight:700;margin-right:10px;text-align:center;cursor:pointer;display:inline-block}.btn-primary{background-color:#348eda;border:solid #348eda;border-width:10px 20px;border-radius:25px}.btn-secondary{background-color:#aaa;border:solid #aaa;border-width:10px 20px;border-radius:25px}.last{margin-bottom:0}.first{margin-top:0}.padding{padding:10px 0}table.body-wrap{width:100%;padding:20px}table.body-wrap .container{border:1px solid #f0f0f0}table.footer-wrap{width:100%;clear:both!important}.footer-wrap .container p{font-size:12px;color:#666}table.footer-wrap a{color:#999}h1,h2,h3{font-family:"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;color:#000;margin:40px 0 10px;line-height:1.2;font-weight:200}h1{font-size:36px}h2{font-size:28px}h3{font-size:22px}ol,p,ul{margin-bottom:10px;font-weight:400;font-size:15px}ol li,ul li{margin-left:5px;list-style-position:inside}.container{display:block!important;max-width:600px!important;margin:0 auto!important;clear:both!important}.body-wrap .container{padding:20px}.content{max-width:600px;margin:0 auto;display:block}.content table{width:100%}
 	</style>
 </head>
 
@@ -23,15 +23,6 @@
 						<td>
 							<%=raw @message.to_html %>
 
-							<% if @include_type %>
-								<h5>Your account type: <%= @type %></h5>
-							<% end %>
-
-							<% if @include_supplies %>
-								<h5>Your Supply Items:</h5>
-								<%= raw @supplies.to_table %>
-							<% end %>
-
 							<% if @include_link %>
 								<table>
 									<tr>
@@ -42,13 +33,25 @@
 								</table>
 							<% end %>
 
+							<hr>
+
+							<% if @include_type %>
+								<h5>Your account type: <%= @type %></h5>
+							<% end %>
+
+							<% if @include_supplies %>
+								<h3>Your Supply Items</h3>
+								<%= raw @supplies.to_table %>
+							<% end %>
+
 							<% if @attach_urls.present? %>
-								<h5>Attachments:</h5>
+								<h3>Attachments</h3>
 								<% @attach_urls.each do |url| %>
 									<p><%= link_to url[:name], url[:url] %></p>
 								<% end %>
 							<% end %>
-
+							<br />
+							<br />
 							<p>
 								Sincerely,
 								<br />
@@ -57,7 +60,7 @@
 								HiVE Vancouver Society <br />
 								#210 - 128 West Hastings <br />
 								Vancouver, BC  V6B 1G8 <br />
-								<a href="mailto:info@hivevancouver.com">info@hivevancouver.com</a>
+								<a href="mailto:info@hivevancouver.com">info@hivevancouver.com</a> <br />
 								(778) 800-1250 <br />
 							</p>
 
