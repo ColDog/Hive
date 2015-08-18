@@ -1,4 +1,4 @@
-- cache(HomeContent.cache_key_params(params)) do
+- cache set_keys([HomeContent]) do
   %h1 Welcome to the HiVE internal site
   %div.content
     - HomeContent.all.reverse_order.each do |post|

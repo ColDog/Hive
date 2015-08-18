@@ -14,7 +14,7 @@ Rails.application.configure do
 
   # caching settings
   config.action_controller.perform_caching  = true
-  config.cache_store                        = :mem_cache_store
+  config.cache_store                        = :memory_store, { size: 64.megabytes }
 
   # Mailer settings
   config.action_mailer.raise_delivery_errors = false
