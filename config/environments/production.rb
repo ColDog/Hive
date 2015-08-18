@@ -2,18 +2,18 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Email settings
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  host = 'hive-colin.herokuapp.com'
-  config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.raise_delivery_errors  = true
+  config.action_mailer.delivery_method        = :smtp
+  config.action_mailer.default_url_options    = { host: 'hive-colin.herokuapp.com' }
+
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
-    :enable_starttls_auto => true
+    address:              'smtp.sendgrid.net',
+    port:                 '587',
+    authentication:       :plain,
+    user_name:            ENV['SENDGRID_USERNAME'],
+    password:             ENV['SENDGRID_PASSWORD'],
+    domain:               'heroku.com',
+    enable_starttls_auto: true
   }
 
   # Code is not reloaded between requests.
@@ -61,7 +61,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
