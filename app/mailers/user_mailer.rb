@@ -32,6 +32,6 @@ class UserMailer < ApplicationMailer
 
     @type = @user.account_type if @include_type
 
-    mail( to: @user.email, subject: 'New Account Created at Hive' )
+    mail( to: @user.email, subject: mail['subject'] )
   end
 end

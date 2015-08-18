@@ -85,18 +85,23 @@
       = form_tag admin_user_mail_path(user), method: :post do
         = fields_for :mail do |f|
           %div.form-group
+            %label Subject
+            = f.text_field :subject, class: 'form-control', value: 'New Account Created with HiVE Vancouver'
+          %div.form-group
             %label Content
-            = f.text_area :content, class: 'form-control', rows: 13, value: "Welcome to the HiVE! \nI've got you all registered and invoiced, and you are officially a member of the HiVE! \nYour contract would have been sent to you via EchoSign for you to sign and return. Please let me know if it did not arrive. \nI have attached a little bit of information about how to be a great member of the HiVE and about our perks program. \nAlso attached are instructions for connecting to the printer. Your user id for the printer is __ and the password is __. Printing is $0.10 per page for black and $0.35 for colour, billed every second month. \nPlease let me know if you have any questions or concerns! Thank you for joining the HiVE."
+            = f.text_area :content, class: 'form-control', rows: 13, value: "Hello #{user.name}, \n\nWelcome to the HiVE! I've got you all registered and invoiced, and you are officially a member of the HiVE! Your contract would have been sent to you via EchoSign for you to sign and return. Please let me know if it did not arrive. \n\nI have attached a little bit of information about how to be a great member of the HiVE and about our perks program. Also attached are instructions for connecting to the printer. Your user id for the printer is __ and the password is __. Printing is $0.10 per page for black and $0.35 for colour, billed every second month. \n\nPlease let me know if you have any questions or concerns! Thank you for joining the HiVE."
           %div.form-group
             %label
-              = f.check_box :supplies, checked: true
-              Include Supplies
+              = f.check_box :supplies, checked: false
+              Include Supplies (gives a user a table of their current supplies).
+              %br
             %label
-              = f.check_box :account_type, checked: true
-              Include Account Type
+              = f.check_box :account_type, checked: false
+              Include Account Type (inserts a line into the message with the users account type).
+              %br
             %label
               = f.check_box :sign_in_link, checked: true
-              Include a Sign In Link
+              Include a Sign In Link (includes a link that allows users to log in and create a password).
           %div.form-group
             %label Attachments
             = f.select :attachments, options_from_collection_for_select(Attachment.all, :id, :filename), {},{multiple: true, class: 'form-control'}
