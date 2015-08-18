@@ -23,10 +23,6 @@ class User < ActiveRecord::Base
     desk.first.name if desk.first
   end
 
-  def printer
-    Supply.find_by(name: 'Printer').supply_lists.where(user_id: self.id).first if Supply.find_by(name: 'Printer')
-  end
-
   def organization_supplies
     ids = self.organizations.pluck(:id)
     SupplyList.where(organization_id: ids)
