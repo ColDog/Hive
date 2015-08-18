@@ -11,7 +11,6 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
-    @password = SecureRandom.hex(10)
   end
 
   def mail
@@ -22,12 +21,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    pass = SecureRandom.hex(10)
+    @user = User.new( user_params.merge(password: pass, password_confirmation: pass) )
     if @user.save
       flash[:success] = 'User created!'
       redirect_to edit_admin_user_path(@user)
     else
-      @password = SecureRandom.hex(10)
       flash.now[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"
       render 'new'
     end
