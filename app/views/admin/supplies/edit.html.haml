@@ -1,18 +1,18 @@
-- cache [Supply.cache_key_params(params), @supply.cache_key_params(params)] do
+- cache set_keys([Supply, @supply], params) do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Supplies'
     %div.col-md-10.shad-left
       %h1 Supplies
-      - cache Supply.cache_key_params(params) do
+      - cache set_keys([Supply], params) do
         = render 'admin/supplies/tabs', all: '', new: ''
 
       %br
       %div.row
         %div.col-md-3
-          - cache @supply.cache_key_params(params) do
+          - cache set_keys([@supply]) do
             = render 'admin/supplies/form', supply:  @supply, url: admin_supply_path(@supply), method: :put
         %div.col-md-9
-          - cache [@supply.cache_key_params(params), 'list'] do
+          - cache [set_keys([@supply], params), 'list'] do
             = render '/admin/supplies/list', supply: @supply, url: admin_supply_path(@supply), method: :put
   = javascript_include_tag 'supplies'

@@ -18,22 +18,9 @@ module ToTable
   end
 end
 
-module CacheKeys
-  module InstanceMethods
-    def cache_key_params(route, opts = {})
-      params = route.slice!(:controller, :id, :action)
-      params.except!('search', 'category') if opts[:no_search]
-      params.except!('per_page', 'page')   if opts[:no_page]
-      "#{route.values.join('/')}?#{params.to_param}T#{self.updated_at.try(:to_s, :number)}U#{self.id}--"
-    end
-  end
-  module ClassMethods
-    def cache_key_params(route, opts = {})
-      params = route.slice!(:controller, :id, :action)
-      params.except!('search', 'category') if opts[:no_search]
-      params.except!('per_page', 'page')   if opts[:no_page]
-      "#{route.values.join('/')}?#{params.to_param}T#{self.maximum(:updated_at).try(:utc).try(:to_s, :number)}C#{self.count}--"
-    end
+module CacheKey
+  def cache_key
+    "#{self.name}/#{self.maximum(:updated_at).to_s}C#{self.count}--"
   end
 end
 
@@ -114,10 +101,9 @@ end
 
 module Extensions
   extend ActiveSupport::Concern
-  include CacheKeys::InstanceMethods
   include ToTable
   module ClassMethods
-    include CacheKeys::ClassMethods
+    include CacheKey
     include CsvExtension::ClassMethods
   end
 end

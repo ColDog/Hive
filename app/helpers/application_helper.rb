@@ -35,4 +35,13 @@ module ApplicationHelper
     end
   end
 
+  def set_keys(models, params = {})
+    key = []
+    key << url_for(params)
+    models.each do |model|
+      key << model.cache_key
+    end
+    key.join('')
+  end
+
 end
