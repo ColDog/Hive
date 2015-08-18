@@ -6,10 +6,11 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  has_many  :supply_lists, dependent: :destroy
-  has_many  :organization_members, dependent: :destroy
-  has_many  :organizations, through: :organization_members
-  has_one   :admin
+  has_many  :supply_lists,          dependent:  :nullify
+  has_many  :supplies,              through:    :supply_lists
+  has_many  :organization_members,  dependent:  :destroy
+  has_many  :organizations,         through:    :organization_members
+  has_one   :admin,                 dependent:  :destroy
 
   validates_with InactiveOnValidator
 
@@ -20,6 +21,10 @@ class User < ActiveRecord::Base
   def desk
     desk = self.supply_lists.find_all { |list| ::DESK_ID.include?(list.supply_id) }
     desk.first.name if desk.first
+  end
+
+  def printer
+    Supply.find_by(name: 'Printer').supply_lists.where(user_id: self.id).first if Supply.find_by(name: 'Printer')
   end
 
   def organization_supplies
