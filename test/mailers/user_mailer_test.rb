@@ -17,7 +17,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['info@hivevancouver.com'],  mail.from
 
     matches = [
-      'mailto:info@hivevancouver.com', '<p>hello there person!</p>',  'Hello Colin Walker,'
+      'mailto:info@hivevancouver.com', '<p>hello there person!</p>',
     ]
     matches.each do |match|
       assert_match match, mail.body.encoded
@@ -34,7 +34,7 @@ class UserMailerTest < ActionMailer::TestCase
 
   test 'everything' do
     pars = {
-      'content' => 'hello there person!', 'sign_in_link' => '1', 'subject' => 'New Account Created at Hive',
+      'content' => 'Hello Colin Walker, hello there person!', 'sign_in_link' => '1', 'subject' => 'New Account Created at Hive',
       'supplies' => '1', 'account_type' => '1', 'attachments' => [1,2]
     }
 
@@ -47,8 +47,8 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['info@hivevancouver.com'],    mail.from
 
     matches = [
-      'mailto:info@hivevancouver.com', '<p>hello there person!</p>', '<a href="/attachments/files">files</a>',
-      'http://localhost:3000/signup/p34zeA5xA7OsANGV8KDrKA/1', '<h5>Your Supply Items:</h5>',
+      'mailto:info@hivevancouver.com', 'hello there person!', '<a href="/attachments/files">files</a>',
+      'http://localhost:3000/signup/p34zeA5xA7OsANGV8KDrKA/1', '<h3>Your Supply Items</h3>',
       '<h5>Your account type: string</h5>', 'Hello Colin Walker,'
     ]
     matches.each do |match|
