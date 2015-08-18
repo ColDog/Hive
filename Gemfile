@@ -19,7 +19,6 @@ gem 'carrierwave',              '~> 0.10.0'
 gem 'kaminari',                 '~> 0.16.3'
 gem 'bootstrap-kaminari-views', '~> 0.0.5'
 gem 'github-markdown',          '~> 0.6.9'
-gem 'dalli',                    '~> 2.7.4'
 gem 'newrelic_rpm'
 
 group :development, :test do
