@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     clear_password(params[:user][:password], params[:user][:password_confirmation])
     @user = User.find(params[:id])
     if @user.update(user_params)
+      sign_in(@user, bypass: true)
       flash[:success] = 'Account updated.'
       redirect_to root_path
     else
