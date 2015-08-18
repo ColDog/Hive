@@ -1,4 +1,4 @@
-- cache [User.cache_key_params(params), org.cache_key_params(params)] do
+- cache set_keys([User, org]) do
   %div.box
     %div.box-head
       %h4 Users
@@ -24,19 +24,18 @@
             %td
               = link_to 'remove', admin_organization_member_path(member), method: :delete
     %div.box-foot
-      - cache User.cache_key_params(params) do
-        = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
-          = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control'}
-          = f.hidden_field :organization_id, value: params[:id]
-          &nbsp;&nbsp;
-          = f.check_box :account_contact
-          = f.label 'Accountant?'
-          &nbsp;&nbsp;
-          = f.check_box :admin_contact
-          = f.label 'Administrator?'
-          &nbsp;
-          = f.submit 'Add User', class: 'btn btn-primary'
-- cache org.cache_key_params(params) do
+      = form_for :organization_member, url: admin_organization_members_path, method: :post do |f|
+        = f.select :user_id, options_from_collection_for_select(User.all.order(:name), :id, :name), {}, {class: 'short-form form-control'}
+        = f.hidden_field :organization_id, value: params[:id]
+        &nbsp;&nbsp;
+        = f.check_box :account_contact
+        = f.label 'Accountant?'
+        &nbsp;&nbsp;
+        = f.check_box :admin_contact
+        = f.label 'Administrator?'
+        &nbsp;
+        = f.submit 'Add User', class: 'btn btn-primary', 'data-disable-with': 'processing...'
+- cache set_keys([org], name: 'org-sup') do
   %div.box
     %div.box-head
       %h4 Organization Wide Supplies
@@ -63,8 +62,8 @@
         = render 'admin/shared/sup_sel'
         = hidden_field_tag :organization_id, org.id
         = text_field_tag :notes, '', placeholder: 'notes', class: 'form-control short-form'
-        = submit_tag 'Add', class: 'btn btn-primary'
-- cache org.cache_key_params(params) do
+        = submit_tag 'Add', class: 'btn btn-primary', 'data-disable-with': 'processing...'
+- cache set_keys([org], name: 'sas') do
   %div.box
     %div.box-head
       %h4 Service Agreements
@@ -92,4 +91,4 @@
         = f.text_field :name, placeholder: 'name', class: 'form-control short-form'
         = f.date_field :valid_until, class: 'form-control short-form'
         = f.file_field :agreement, class: 'short-form form-control'
-        = f.submit 'Add Agreement', class: 'btn btn-primary'
+        = f.submit 'Add Agreement', class: 'btn btn-primary', 'data-disable-with': 'processing...'

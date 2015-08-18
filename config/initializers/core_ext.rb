@@ -20,7 +20,7 @@ end
 
 module CacheKey
   def cache_key
-    "#{self.name}/#{self.maximum(:updated_at).to_s}C#{self.count}--"
+    "#{self.name}/#{self.maximum(:updated_at).to_i}C#{self.count}--"
   end
 end
 

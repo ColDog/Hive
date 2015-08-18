@@ -41,7 +41,7 @@ module ApplicationHelper
     models.each do |model|
       key << model.cache_key
     end
-    key.join('')
+    Digest::SHA1.hexdigest(key.join(''))
   end
 
 end
