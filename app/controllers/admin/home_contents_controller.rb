@@ -6,8 +6,8 @@ class Admin::HomeContentsController < ApplicationController
 
   def create
     HomeContent.create!(
-      title: params[:home_content][:title],
-      content: params[:home_content][:content]
+      title:    params[:home_content][:title],
+      content:  params[:home_content][:content]
     )
     flash[:success] = 'Post created.'
     redirect_to admin_home_contents_path
@@ -15,8 +15,8 @@ class Admin::HomeContentsController < ApplicationController
 
   def update
     HomeContent.find(params[:id]).update!(
-      title: params[:home_content][:title],
-      content: params[:home_content][:content]
+      title:    params[:home_content][:title],
+      content:  params[:home_content][:content]
     )
     flash[:success] = 'Post updated.'
     redirect_to admin_home_contents_path

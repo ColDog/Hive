@@ -27,8 +27,9 @@ class Admin::UsersController < ApplicationController
       flash[:success] = 'User created!'
       redirect_to edit_admin_user_path(@user)
     else
-      flash[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"
-      redirect_to edit_admin_user_path(@user)
+      @password = SecureRandom.hex(10)
+      flash.now[:danger] = "User create failed. #{@user.errors.full_messages.to_sentence}"
+      render 'new'
     end
   end
 
