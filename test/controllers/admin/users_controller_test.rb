@@ -29,6 +29,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
     end
   end
 
+  test 'fail create user' do
+    assert_no_difference 'User.count' do
+      post :create, user: { name: 'name', email: 'cjwalker@sfu.ca',
+                            password: 'password', password_confirmation: 'password' }
+    end
+  end
+
   test 'update user' do
     put :update, id: users(:one), user: { name: 'new name' }
     user = assigns(:user)
