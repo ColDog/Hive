@@ -14,11 +14,10 @@ gem 'sdoc',                     '~> 0.4.0',    group: :doc
 gem 'bootstrap-sass',           '~> 3.3.5'
 gem 'haml-rails',               '~> 0.9.0'
 gem 'devise',                   '~> 3.5.1'
-gem 'fog',                      '~> 1.32.0'
-gem 'carrierwave',              '~> 0.10.0'
 gem 'kaminari',                 '~> 0.16.3'
 gem 'bootstrap-kaminari-views', '~> 0.0.5'
 gem 'github-markdown',          '~> 0.6.9'
+gem 'carrierwave-aws',          '~> 0.7.1'
 gem 'newrelic_rpm'
 
 group :development, :test do

@@ -3,7 +3,7 @@
 class AttachmentsUploader < CarrierWave::Uploader::Base
 
   if Rails.env.production?
-    storage :fog
+    storage :aws
   else
     storage :file
   end
