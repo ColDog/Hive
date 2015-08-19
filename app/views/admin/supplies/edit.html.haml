@@ -15,4 +15,14 @@
         %div.col-md-9
           - cache [set_keys([@supply], params), 'list'] do
             = render '/admin/supplies/list', supply: @supply, url: admin_supply_path(@supply), method: :put
-  = javascript_include_tag 'supplies'
+:javascript
+  $.ajax({
+    url:      "/admin/supplies/list_form.html",
+    method:   'get',
+    dataType: "html",
+    success: function (data) {
+      $(".addForm").each( function(i,obj) {
+        $(obj).html(data)
+      })
+    }
+  });
