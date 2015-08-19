@@ -31,10 +31,7 @@ class Admin::SuppliesController < ApplicationController
   end
 
   def list_form
-    respond_to do |format|
-      format.html { render layout: false }
-      format.js   { render layout: false }
-    end
+    render layout: false
   end
 
   def update
