@@ -1,4 +1,4 @@
-- cache set_keys([@organization, User]) do
+- cache [set_keys([@organization, User]), 'edit'] do
   %div.container-fluid
     %div.col-md-2.sidebar.hidden-sm.hidden-xs
       = render 'admin/shared/sidebar', active: 'Organizations'
@@ -14,8 +14,8 @@
 
       %br
       %div.col-md-4
-        - cache [set_keys([@organization]), 'form'] do
-          = render 'admin/organizations/form', org: @organization, url: admin_organizations_path, method: :post
+        - cache [set_keys([@organization]), 'form edit'] do
+          = render 'admin/organizations/form', org: @organization, url: admin_organization_path(@organization), method: :put
       %div.col-md-8
         - cache [set_keys([@organization, User]), 'list'] do
           = render 'list', org: @organization
