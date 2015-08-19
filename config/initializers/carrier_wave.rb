@@ -10,10 +10,10 @@ CarrierWave.configure do |config|
 
   config.aws_credentials = {
     access_key_id:     ENV['S3_ACCESS_KEY'],
-    secret_access_key: ENV['S3_SECRET_KEY'],
-    region:            ENV['S3_REGION']
+    secret_access_key: ENV['S3_SECRET_KEY']
   }
 
   config.aws_authenticated_url_expiration = 3600
-  # config.aws_signer = -> (unsigned_url, options) { Aws::CF::Signer.sign_url unsigned_url, options }
+
+  @aws_signer = -> (unsigned_url, options) { Aws::CF::Signer.sign_url unsigned_url, options }
 end
