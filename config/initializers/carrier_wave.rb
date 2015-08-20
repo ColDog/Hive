@@ -5,8 +5,8 @@ if Rails.env.production?
     config.aws_acl    = 'authenticated-read'
 
     config.aws_attributes = {
-      expires: 1.week.from_now.httpdate,
-      cache_control: 'max-age=604800'
+      expires: 1.hour.from_now.httpdate,
+      cache_control: 'max-age=3600'
     }
 
     config.aws_credentials = {

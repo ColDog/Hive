@@ -19,7 +19,7 @@
             %th Owner Name
             %th Notes
             %th Actions
-        - @supply_lists.each do |list|
+        - @supply_lists.order(:name).each do |list|
           %tr
             %td
               = list.name
