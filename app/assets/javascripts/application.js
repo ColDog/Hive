@@ -16,5 +16,6 @@
 //= require turbolinks
 //= require tags.js
 
-
-$('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
+$( document ).ready(function() {
+    $('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
+});
