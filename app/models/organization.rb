@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  SECTORS = %w[Sector1 Sector2]
+
   include Validators
   include Tagging::Instance
   extend  Tagging::ClassMethods
