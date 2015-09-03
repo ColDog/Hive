@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :index, :update, :destroy]
 
   def index
-    @organizations = Organization.all.order(:name).page(params[:page]).per(per_page(params[:per_page])).includes(:organization_members)
+    @organizations = Organization.all_active.order(:name).page(params[:page]).per(per_page(params[:per_page])).includes(:organization_members)
     filter_params(params).each do |search, result|
       @organizations = @organizations.public_send(search, result) if result.present?
     end

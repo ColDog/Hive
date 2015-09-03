@@ -13,6 +13,10 @@ class Organization < ActiveRecord::Base
   validates :name, presence: true
   validates_with InactiveOnValidator
 
+  def self.all_active
+    where(active: true)
+  end
+
   def description_short
     self.description.slice(0,10) if description
   end
