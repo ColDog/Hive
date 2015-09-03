@@ -13,10 +13,12 @@
         = f.text_field :tagging, value: org.tags.join(','), class: 'form-control', id: 'tagsinput'
         %div.form-group
           %label Sector
-          = f.select :sector, Organization::SECTORS.collect { |s| [s,s] }, placeholder: 'sector', class: 'form-control'
+          = f.select :sector, Organization::SECTORS.collect { |s| [s,s] }, {include_blank: '', }, {class: 'form-control'}
         %div.form-group
           %label Twitter
-          = f.text_field :twitter, placeholder: '@', class: 'form-control'
+          %div.input-group
+            %div.input-group-addon @
+            = f.text_field :twitter, placeholder: 'my-twitter-handle', class: 'form-control'
       %div.form-group
         %label
           Avatar

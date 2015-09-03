@@ -9,7 +9,27 @@
 %div.tab-content.box{ style: 'margin:0 0 0 0; border-top: none;' }
   %div.tab-pane.box-content#search{ role: 'tabpanel', class: (params[:tab] == 'search' or params[:tab].nil? or params[:tab] == '') ? 'active' : '' }
     %br
-    = render 'admin/supplies/search'
+    %div.col-md-7
+      = form_tag '#', method: :get, enforce_utf8: false do
+        = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
+        = hidden_field_tag :tab, params[:tab]
+        = select_tag :category, options_for_select(%W"User Organization Unused", params[:category] ), include_blank: 'Type?', class: 'form-control short-form', style: 'width:100px;'
+        = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'searching...' }
+    %div.col-md-5
+      %small
+        = page_entries_info @supply_lists
+      %br
+      Results:
+      = link_to '10', params.merge(per_page: 10)
+      = link_to '20', params.merge(per_page: 20)
+      = link_to '50', params.merge(per_page: 50)
+      = link_to '100', params.merge(per_page: 100)
+      = link_to '200', params.merge(per_page: 200)
+      = link_to 'all', params.merge(per_page: 5000)
+    %div.row
+      %div.text-center{ style: 'padding:10px 0 10px 0' }
+        = paginate @supply_lists
+
     %div
       %table.table
         %thead
@@ -45,17 +65,7 @@
                       return $("#form#{list.id}").html();
                     }
                   });
-      %div.text-center
-        = paginate @supply_lists, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-centered'
-        %br
-        = page_entries_info @supply_lists
-        %br
-        %span Results:
-        = link_to '10', params.merge(per_page: 10)
-        = link_to '20', params.merge(per_page: 20)
-        = link_to '50', params.merge(per_page: 50)
-        = link_to '100', params.merge(per_page: 100)
-        = link_to '200', params.merge(per_page: 200)
+      = render 'shared/pagination_bottom', object: @supply_lists
 
   %div.tab-pane.box-content#add{ role: 'tabpanel', class: params[:tab] == 'add' ? 'active' : '' }
     %br

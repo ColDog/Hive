@@ -19,3 +19,18 @@
         = f.password_field :password, placeholder: 'password', class: 'form-control'
         = f.password_field :password_confirmation, placeholder: 'confirm password', class: 'form-control'
       = f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'processing...' }
+%br
+- cache @user.organizations do
+  %div.form
+    %h4 My Organizations
+    %table.table
+      %thead
+        %tr
+          %th Organization
+          %th Actions
+      - @user.organizations.each do |org|
+        %tr
+          %td
+            = org.name
+          %td
+            = link_to 'edit', edit_organization_path(org)

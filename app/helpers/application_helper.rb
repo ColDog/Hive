@@ -27,11 +27,11 @@ module ApplicationHelper
     end
   end
 
-  def per_page(per_page)
+  def per_page(per_page, val = 25)
     if per_page
       per_page.to_i
     else
-      25
+      val
     end
   end
 

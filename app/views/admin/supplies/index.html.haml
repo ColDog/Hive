@@ -7,10 +7,13 @@
       - cache [set_keys([Supply], params), 'tabs'] do
         = render 'admin/supplies/tabs', all: '', new: ''
       %br
-      %div.search
-        = render 'search'
-        %p{ style: 'text-align:right' }
-          = page_entries_info @supplies
+      %div.col-md-4
+        = form_tag '#', method: :get, enforce_utf8: false do
+          = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
+          = hidden_field_tag :tab, params[:tab]
+          = select_tag :category, options_for_select(%W"User Organization Unused", params[:category] ), include_blank: 'Type?', class: 'form-control short-form', style: 'width:100px;'
+          = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'searching...' }
+      = render 'shared/pagination_top', object: @supplies
 
       = render 'admin/shared/table', model: Supply, data: @supplies, header: %w"Name Total In-Use Notes Actions", methods: [['Link', :name, :edit_admin_supply_path], ['Double', :supply_lists, :size], :in_use, :notes], links: [ ['edit', :edit_admin_supply_path], ['delete', :admin_supply_path, method: :delete, data: { confirm: 'This will delete the record in the database permanently.' }] ]
 

@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  paginates_per 24
   SECTORS = %w[Sector1 Sector2]
 
   include Validators
@@ -16,7 +17,7 @@ class Organization < ActiveRecord::Base
   validates_with InactiveOnValidator
 
   def self.all_active
-    where(active: true)
+    where(current: true)
   end
 
   def description_short

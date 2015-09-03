@@ -1,5 +1,5 @@
 = form_tag '#', method: :get, enforce_utf8: false do
   = hidden_field_tag :per_page, params[:per_page]
   = text_field_tag :search, params[:search], class: 'form-control short-form', placeholder: 'search'
-  = select_tag :current, options_for_select(['Active', 'Inactive'], params[:current]), include_blank: 'Active?', class: 'form-control short-form'
+  = select_tag :current, options_for_select(['Active', 'Inactive'], params[:current]), include_blank: 'Active?', class: 'form-control short-form', style: 'width:100px;'
   = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'searching...' }

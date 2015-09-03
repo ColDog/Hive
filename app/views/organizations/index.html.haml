@@ -11,7 +11,7 @@
       %div.row
     - @organizations.each do |org|
       - cache(org) do
-        %div.col-sm-3
+        %div.col-sm-6.col-md-3
           %div.organization
             %div.avatar
               - if org.avatar.file
@@ -20,19 +20,14 @@
                 = image_tag '/default/avatar.jpg', class: 'img-responsive'
             %h3
               = org.name
+              %span{ style: 'font-size:14px !important' }
+                = link_to "(@#{org.twitter})", "https://twitter.com/#{org.twitter}" if org.twitter
+            %h5
+              = org.sector
             %div.org-text
               = raw org.description.to_html
           - if editable?(org, org.organization_members)
             %div{ style: 'position:absolute;right:20px;top:30px;background-color:white;padding:4px;' }
               = link_to 'edit', edit_organization_path(org), class:'edit-button' if editable?(org, org.organization_members)
   %hr
-  %div.text-center.form
-    = paginate @organizations, theme: 'twitter-bootstrap-3'
-    %br
-    %span Results:
-    = link_to '5', params.merge(per_page: 5)
-    = link_to '20', params.merge(per_page: 20)
-    = link_to '50', params.merge(per_page: 50)
-    = link_to '100', params.merge(per_page: 100)
-    = link_to '200', params.merge(per_page: 200)
-  %hr
+  = render 'shared/pagination_bottom', object: @organizations

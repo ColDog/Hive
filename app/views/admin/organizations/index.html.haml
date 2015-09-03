@@ -12,7 +12,10 @@
           = link_to 'New Organization', new_admin_organization_path
       %br
       %div.search
-        = render '/admin/shared/search_active'
+        %div.col-md-4
+          = render '/admin/shared/search_active'
+        = render 'shared/pagination_top', object: @organizations
+
         %p{ style: 'text-align:right' }
 
       = render 'admin/shared/table', model: Organization, data: @organizations,

@@ -1,7 +1,0 @@
-%div
-  = form_tag '#', method: :get, enforce_utf8: false do
-    = text_field_tag :search, params[:search], placeholder: 'search', class: 'form-control short-form'
-    = hidden_field_tag :tab, params[:tab]
-    = select_tag :category, options_for_select(%W"User Organization Unused", params[:category] ), include_blank: 'Type?', class: 'form-control short-form'
-    = submit_tag 'Search', name: nil, class: 'btn btn-default short-form', data: { disable_with: 'searching...' }
-%div.row
