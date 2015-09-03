@@ -11,6 +11,11 @@
         %label Email
         = f.email_field :email, class: 'form-control'
       %div.form-group
+        %label
+          Avatar
+          = link_to 'view current avatar', user.avatar.url, target: '_blank' if user.avatar.present?
+        = f.file_field :avatar
+      %div.form-group
         %label Phone
         = f.phone_field :phone, class: 'form-control'
       %div.form-group

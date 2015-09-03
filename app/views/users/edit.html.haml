@@ -1,10 +1,16 @@
 - cache @user do
   %h1 #{@user.name}
   %div.form
+    - if @user.avatar.present?
+      %div.avatar
+        = image_tag @user.avatar, class: 'img-responsive'
     = form_for @user do |f|
       %div.form-group
         %label Name
         = f.text_field :name, class: 'form-control'
+      %div.form-group
+        %label Avatar
+        = f.file_field :avatar
       %div.form-group
         %label Email
         = f.email_field :email, class: 'form-control'

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!,  only: [:edit, :update]
+  before_action :authenticate_user!,  only: [:edit, :update, :index]
   before_action :correct_user,        only: [:edit, :update]
+
+  def index
+    @users = User.all_active.order(:name).page(params[:page]).per(per_page(params[:per_page], 24))
+  end
 
   def signup
     @user = User.find_by(id: params[:id])
@@ -25,7 +29,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       sign_in(@user, bypass: true)
       flash[:success] = 'Account updated.'
-      redirect_to root_path
+      redirect_to edit_user_path(@user)
     else
       flash[:danger] = "User update failed. #{@user.errors.full_messages.to_sentence}"
       redirect_to edit_user_path(@user)
@@ -35,8 +39,8 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(
-        :name, :email, :phone, :password, :password_confirmation, :tags,
-        :tagging, :notes, :linked_in
+        :name, :email, :phone, :password, :password_confirmation,
+        :linked_in, :avatar
       )
     end
 

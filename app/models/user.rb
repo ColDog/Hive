@@ -12,7 +12,15 @@ class User < ActiveRecord::Base
   has_many  :organizations,         through:    :organization_members
   has_one   :admin,                 dependent:  :destroy
 
+  mount_uploader :avatar, AvatarUploader
+
+  paginates_per 24
+
   validates_with InactiveOnValidator
+
+  def self.all_active
+    all.where(current: true)
+  end
 
   def active
     self.current ? '√' : 'X'

@@ -1,0 +1,26 @@
+- cache set_keys([User], params) do
+  %h1 All Users
+  %div.container-fluid{ style: 'width:95%;margin:auto;'}
+    - cache do
+      %div.form{ style: 'height:70px;width:285px;'}
+        = form_tag '#', method: :get, enforce_utf8: false do
+          = hidden_field_tag :per_page, params[:per_page]
+          = text_field_tag :search, params[:search], class: 'form-control short-form'
+          = submit_tag 'Search', name: nil, class: 'btn btn-default short-form'
+      %div.row
+      %div.row
+    - @users.each do |user|
+      - cache(user) do
+        %div.col-sm-6.col-md-3
+          %div.organization
+            %div.avatar
+              - if user.avatar.file
+                = image_tag user.avatar, class: 'img-responsive'
+              - else
+                = image_tag '/default/user.jpg', class: 'img-responsive'
+            %h3
+              = user.name
+            %h5
+              = link_to('linkedIn', user.linked_in) if user.linked_in
+  %hr
+  = render 'shared/pagination_bottom', object: @users
